@@ -7,7 +7,7 @@
     <meta name="description" content="Darkserver1's github page">
     <meta name="author" content="Darkserver1">
     <link rel="icon" href="">
-	<title>Darkserver1.github.io</title>
+	<title>ManassehPierce.github.io</title>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
 	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -18,13 +18,21 @@
 </style>
   </head>
   <body>
-	<div data-role="page" data-theme="a" id="home">
+	<div data-role="page" id="home">
 	  
 	  <div data-role="panel" data-position="left" data-display="overlay" id="homepanel" data-position="fixed">
 		<a class="ui-btn ui-corner-all ui-shadow" href="#home">Home</a>
 		<a class="ui-btn ui-corner-all ui-shadow" href="#aboutme">About Me</a>
 		<a class="ui-btn ui-corner-all ui-shadow" href="#blog">Blog</a>
-		
+		<form id="theme-select">
+		  <fieldset data-role="controlgroup" data-type="horizontal">
+			<legend>Page Theme:</legend>
+			<input type="radio" name="theme" id="themea" value="on" checked="checked">
+			<label for="themea">A</label>
+			<input type="radio" name="theme" id="themeb" value="off">
+			<label for="themeb">B</label>
+		  </fieldset>
+		</form>
 	  </div> <!-- /panel-->
 	  
 	  <div data-role="header" data-position="fixed" data-tap-toggle="false">
@@ -35,9 +43,9 @@
 	  <div data-role="body" id="content" class="ui-content">
 		
 		<h3 class="ui-bar ui-bar-inherit ui-shadow ui-corner-all">News: May 23, 2015</h3>
-		<div class="ui-body">
+		<div class="ui-body ui-body-inherit ui-corner-all">
 		  <span class="pull-left fa fa-newspaper-o fa-3x fa-border"></span>
-          <p>Darkserver1.github.io is launched!</p>
+          <p>ManassehPierce.github.io is launched!</p>
 		</div>
 		<a href="#aboutme" class="ui-btn ui-btn-inline ui-shadow ui-corner-all">About Me Page</a>
 		<a href="#blog" class="ui-btn ui-btn-inline ui-shadow ui-corner-all">Blogs</a>
@@ -46,7 +54,7 @@
 	  
 	</div> <!-- /page-->
 	
-	<div data-role="page" data-theme="a" id="aboutme">
+	<div data-role="page" id="aboutme">
 	  
 	  <div data-role="panel" data-position="left" data-display="overlay" id="aboutpanel" data-position="fixed">
 		<a class="ui-btn ui-corner-all ui-shadow" href="#home">Home</a>
@@ -65,16 +73,16 @@
 		<h3 class="ui-bar ui-bar-inherit ui-shadow ui-corner-all">
 		  <span class="fa fa-twitter fa-lg"></span> Twitter
 		</h3>
-		<div class="ui-body">
+		<div class="ui-body ui-body-inherit ui-corner-all">
 		  <p>This is my twitter account, where I post minecraft, and other random things.</p>
 		  <a href="https://twitter.com/pierce_manasseh" target="_blank">@pierce_manasseh</a>
 		</div>
 		<h3 class="ui-bar ui-bar-inherit ui-shadow ui-corner-all">
 		  <span class="fa fa-github fa-lg"></span> Github
 		</h3>
-		<div class="ui-body">
+		<div class="ui-body ui-body-inherit ui-corner-all">
 		  <p>This is my Github, where this webpage is hosted from, and where I put my coding.</p>
-		  <a href="https://github.com/darkserver1" target="_blank">Github Darkserver1</a>
+		  <a href="https://github.com/manassehpierce" target="_blank">Github ManassehPierce</a>
 		</div>
 		
 	  </div> <!-- /content-->
@@ -104,5 +112,28 @@
 		</div>
 	  </div>
 	</div> <!-- /page-->
+	
+	<script>
+	  $(document).ready(function(){
+	    $("#theme-select").on("change",function(){
+		  if($("#theme-select input:checked").attr("id")=="themea"){
+		    $("#home").removeClass("ui-page-theme-b");
+			$("#home").addClass("ui-page-theme-a");
+			$("#blog").removeClass("ui-page-theme-b");
+			$("#blog").addClass("ui-page-theme-a");
+			$("#aboutme").removeClass("ui-page-theme-b");
+			$("#aboutme").addClass("ui-page-theme-a");
+		  }
+		  else{
+		    $("#home").removeClass("ui-page-theme-a");
+			$("#home").addClass("ui-page-theme-b");
+			$("#blog").removeClass("ui-page-theme-a");
+			$("#blog").addClass("ui-page-theme-b");
+			$("#aboutme").removeClass("ui-page-theme-a");
+			$("#aboutme").addClass("ui-page-theme-b");
+		  }
+		});
+	  });
+	</script>
   </body>
 </html>
