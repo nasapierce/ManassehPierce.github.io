@@ -38,7 +38,8 @@
 
 addPost("Welcome",tab+"Welcome to my first post here! "
 +"I am Manasseh Pierce, Some know me as Darkserver my Minecraft username. "
-+"I make mods for MCPE (Minecraft PE). I make both ModPE mods (Javascript) and Addons (Native Mods/C++).");
++"I make mods for MCPE (Minecraft PE). I make both ModPE mods (Javascript) and Addons (Native Mods/C++)."
++"If you are here for the Isomer Tessellation Generator, click <a rel='external', data-ajax='false' href='isomer.html'>here</a>");
 
 addPost("Native vs. ModPE",tab+"You will see this argument in the mcpe forums popup a lot. "
 +"I just want to clarify, I like ModPE, and I like Native Mods. "
@@ -50,7 +51,23 @@ addPost("Native vs. ModPE",tab+"You will see this argument in the mcpe forums po
 +"Native, takes a while to learn, Slower to code, more detailed, and way faster than ModPE. "
 +"If you were going to pick between the two I would Say ModPE is a choice for people who want to learn how the game works before going to Native.<br/>"
 +"If you have any more questions contact me on twitter <a href='twitter.com/pierce_manasseh'>@pierce_manasseh</a>");
-		showPost();
+
+addPost("Learn to Mod",
+tab+"To start, learn C++ if you want to make addons. No, knowing a tad bit wont help. You will have to learn it and take your time.<br/>"
++"Learn Javascript if you want to make ModPE mods, same applys here, take your time.<br/>"
++"If you know/started C++ go <a href='zhuoweizhang.net/addongen'>here</a>. this will take you to 500ise's addon generator. Type in your package name (ex. com.darkserver.addon) then the name (ex. My First Addon) then the version to run it on (0.11.0 for 0.11 or 0.12.1.b8 for build 8 ect.) "
++"Next you want to edit the mod, you may want to get rid of all the log stuff, you dont need it. "
++"In the next post I will talk about how to change the game version.");
+
+addPost("Game Version",tab+"To do this first we need to know what function to use. It is Common::getGameVersionString. "
++"First we see if we need to include any headers. You may if you have a header for Common if not, lets just use Symbols (Yay .-.)<br/>"
++tab+'Okay, lets do our MSHookFunction, this when put in JNI will \"overwrite\" the function. Here is the code:<br/> void* handle = dlopen("libminecraftpe.so", RTLD_LAZY);<br/>MSHookFunction(dlsym(handle, "_ZN6Common20getGameVersionStringEv"), (void*) &Common$getGameVersionString);<br/>'
++tab+'Then put this above JNI onload, and below all your includes:<br/>std::string Common$getGameVersionString(void* p){<br/>'
++'return "I made a simple addon!";<br/>'
++'}');
+
+showPost();
+
 	  });
 	</script>
   </body>

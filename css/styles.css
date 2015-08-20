@@ -1,0 +1,14 @@
+body {
+  margin:0px;
+  padding:0px;
+}
+
+#myCanvas {
+  width:720;
+  height:720;
+  background-color:#0C8B55;
+}
+
+#myBoxes {
+  font-size:12px;
+}
