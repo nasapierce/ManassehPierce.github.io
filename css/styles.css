@@ -1,12 +1,11 @@
 body {
-  margin:0px;
-  padding:0px;
+  margin:10px;
 }
 
 #myCanvas {
-  width:720;
-  height:720;
   background-color:#0C8B55;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 #myBoxes {
