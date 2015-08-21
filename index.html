@@ -1,19 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <head>
-	<title>Isomer</title>
+  <head lang="en">
+	<title>Tessellator Renderer</title>
     <link href="css/styles.css" rel="stylesheet" />
 	<link href="css/bootstrap.css" rel="stylesheet" />
-	<link href="css/bootstrap-theme.css" rel="stylesheet"/>
+	
   </head>
   <body>
 	
 	<canvas id="myCanvas" width="720" height="720"></canvas>
 	  <br/><br/>
 	
-	<button onclick="addBox();" class="btn-default btn-lg">Add Box</button>
-	<button onclick="resetBounds();" class="btn-danger btn-lg">Reset</button>
-	<button onclick="exportBounds();" class="btn-success btn-lg">Export</button>
+	<div class="btn-group btn-group-lg" role="group">
+	  <button onclick="addBox();" class="btn btn-default">Add Box</button>
+	  <button onclick="resetBounds();" class="btn btn-danger">Reset</button>
+	  <button onclick="exportBounds();" class="btn btn-success">Export setBounds'</button>
+	  <button onclick="exportBox();" class="btn btn-primary">Export addBox's</button>
+	
+	  <div class="btn-group btn-group-lg" role="group">
+	    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+		  Direction
+		  <span class="caret"></span>
+	    </button>
+	    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+		  <li><a onclick="rotation=2;refreshCanvas();">North</a></li>
+		  <li><a onclick="rotation=3;refreshCanvas();">South</a></li>
+		  <li><a onclick="rotation=4;refreshCanvas();">West</a></li>
+		  <li><a onclick="rotation=5;refreshCanvas();">East</a></li>
+	    </ul>
+	  </div>
+	</div>
+	
 	  <br/><br/>
 	
 	<div class="input-group">
@@ -24,18 +41,31 @@
     </div><!-- /input-group -->
 	<br/>
 	
-	<h3>Examples</h3>
-	<button onclick="tessellateDragonEggInWorld();" class="btn-default btn-lg">Dragon Egg</button>
+	<div class="dropdown">
+	  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+		Example Shapes
+		<span class="caret"></span>
+	  </button>
+	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+		<li><a onclick="tessellateDragonEgg();">Dragon Egg</a></li>
+		<li><a onclick="tessellateFlippedTable();">Flipped Table</a></li>
+		<li><a onclick="tessellateChest();">Chest</a></li>
+	  </ul>
+	</div>
+	
 	  <br/><br/>
 	
 	<div id="myBoxes"></div>
 	  <br/><br/>
 	  
 	<div class="well well-lg" id="export"></div>
+	  <br/>
 	
+	<button class="btn btn-danger btn-lg" onclick="summonHALP();">HELP!</button>
+    
 	<script src="js/isomer.min.js"></script>
 	<script src="js/scripts.js"></script>
-	<script src="js/bootstrap.js"></script>
 	<script src="js/jquery-1.11.3.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
   </body>
 </html>		
