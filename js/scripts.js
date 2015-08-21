@@ -1,4 +1,14 @@
-
+/*
+addBox(0, 0, 0, 16, 16, 16);
+addBox(3, 2, 0, 5, 3, 0);
+addBox(9, 2, 0, 11, 3, 0);
+addBox(8, 3, 0, 14, 4, 0);
+addBox(11, 4, 0, 13, 5, 0);
+addBox(5, 6, 0, 6, 7, 0);
+addBox(8, 7, 0, 12, 8, 0);
+addBox(1, 8, 0, 3, 9, 0);
+addBox(9, 8, 0, 11, 9, 0);
+*/
 var bounds = [];
 
 var canvas = document.getElementById("myCanvas");
@@ -13,7 +23,6 @@ var Color = Isomer.Color;
 var Path = Isomer.Path;
 var Vector = Isomer.Vector;
 var Cube = Shape.Prism(Point.ORIGIN);
-
 
 function hexToR(h) {return parseInt((cutHex(h)).substring(0,2),16)}
 function hexToG(h) {return parseInt((cutHex(h)).substring(2,4),16)}
@@ -47,12 +56,12 @@ east x+ 5
 function addBox(){
 	var coords = prompt("Enter Coordinates [Warning: Input no spaces]","0,0,0,16,16,16");
 	if(coords){
-		var x1 = parseInt(coords.split(",")[0]);
-		var y1 = parseInt(coords.split(",")[1]);
-		var z1 = parseInt(coords.split(",")[2]);
-		var x2 = parseInt(coords.split(",")[3]);
-		var y2 = parseInt(coords.split(",")[4]);
-		var z2 = parseInt(coords.split(",")[5]);
+		var x1 = parseFloat(coords.split(",")[0]);
+		var y1 = parseFloat(coords.split(",")[1]);
+		var z1 = parseFloat(coords.split(",")[2]);
+		var x2 = parseFloat(coords.split(",")[3]);
+		var y2 = parseFloat(coords.split(",")[4]);
+		var z2 = parseFloat(coords.split(",")[5]);
 		
 		var color;
 		if(askForColor.checked)
@@ -66,7 +75,35 @@ function addBox(){
 			new Point(x2/4, z2/4, y1/4),
 			new Point(x1/4, z2/4, y1/4)
 		]), (y2-y1)/4).rotateZ(Point(8/4,8/4,0), getRotationDeg()), color);
-		bounds.push({x1:x1,y1:y1,z1:z1,x2:x2,y2:y2,z2:z2,color:color,name:"box"+bounds.length,hidden:false});
+		bounds.push({type:"box",x1:x1,y1:y1,z1:z1,x2:x2,y2:y2,z2:z2,color:color,name:"box"+bounds.length,hidden:false});
+	}
+	refreshList();
+}
+
+
+function addBound(){
+	var coords = prompt("Enter Coordinates [Warning: Input no spaces]","0,0,0,1,1,1");
+	if(coords){
+		var x1 = parseFloat(coords.split(",")[0]);
+		var y1 = parseFloat(coords.split(",")[1]);
+		var z1 = parseFloat(coords.split(",")[2]);
+		var x2 = parseFloat(coords.split(",")[3]);
+		var y2 = parseFloat(coords.split(",")[4]);
+		var z2 = parseFloat(coords.split(",")[5]);
+		
+		var color;
+		if(askForColor.checked)
+			color = new Color(hexToR(colorPick.value), hexToG(colorPick.value), hexToB(colorPick.value));
+		else
+			color = new Color(Math.round(Math.random()*255), Math.round(Math.random()*255), Math.round(Math.random()*255));
+		
+		iso.add(Shape.extrude(new Path([
+			new Point(x1*4, z1*4, y1*4), //devide by 4, our "default block size is 4^3"
+			new Point(x2*4, z1*4, y1*4),
+			new Point(x2*4, z2*4, y1*4),
+			new Point(x1*4, z2*4, y1*4)
+		]), (y2-y1)*4).rotateZ(Point(8/4,8/4,0), getRotationDeg()), color);
+		bounds.push({type:"bound",x1:x1,y1:y1,z1:z1,x2:x2,y2:y2,z2:z2,color:color,name:"box"+bounds.length,hidden:false});
 	}
 	refreshList();
 }
@@ -85,8 +122,26 @@ function addBoxC(x1, y1, z1, x2, y2, z2) {
 		new Point(x2/4, z2/4, y1/4),
 		new Point(x1/4, z2/4, y1/4)
 	]), (y2-y1)/4).rotateZ(Point(8/4,8/4,0), getRotationDeg()), color);
-	bounds.push({x1:x1,y1:y1,z1:z1,x2:x2,y2:y2,z2:z2,color:color,name:"box"+bounds.length,hidden:false});
+	bounds.push({type:"box",x1:x1,y1:y1,z1:z1,x2:x2,y2:y2,z2:z2,color:color,name:"box"+bounds.length,hidden:false});
 	
+	refreshList();
+}
+
+
+function addBoundC(x1, y1, z1, x2, y2, z2){
+	var color;
+	if(askForColor.checked)
+		color = new Color(hexToR(colorPick.value), hexToG(colorPick.value), hexToB(colorPick.value));
+	else
+		color = new Color(Math.round(Math.random()*255), Math.round(Math.random()*255), Math.round(Math.random()*255));
+	
+	iso.add(Shape.extrude(new Path([
+		new Point(x1*4, z1*4, y1*4), //devide by 4, our "default block size is 4^3"
+		new Point(x2*4, z1*4, y1*4),
+		new Point(x2*4, z2*4, y1*4),
+		new Point(x1*4, z2*4, y1*4)
+	]), (y2-y1)*4).rotateZ(Point(8/4,8/4,0), getRotationDeg()), color);
+	bounds.push({type:"bound",x1:x1,y1:y1,z1:z1,x2:x2,y2:y2,z2:z2,color:color,name:"box"+bounds.length,hidden:false});
 	refreshList();
 }
 
@@ -114,12 +169,12 @@ function resetBounds(){
 function changeCoords(i){
 	var original = bounds[i].x1+","+bounds[i].y1+","+bounds[i].z1+","+bounds[i].x2+","+bounds[i].y2+","+bounds[i].z2 ;
 	var coords = prompt("Change Coords of Box "+i+"?",original);
-	bounds[i].x1 = parseInt(coords.split(",")[0]);
-	bounds[i].y1 = parseInt(coords.split(",")[1]);
-	bounds[i].z1 = parseInt(coords.split(",")[2]);
-	bounds[i].x2 = parseInt(coords.split(",")[3]);
-	bounds[i].y2 = parseInt(coords.split(",")[4]);
-	bounds[i].z2 = parseInt(coords.split(",")[5]);
+	bounds[i].x1 = parseFloat(coords.split(",")[0]);
+	bounds[i].y1 = parseFloat(coords.split(",")[1]);
+	bounds[i].z1 = parseFloat(coords.split(",")[2]);
+	bounds[i].x2 = parseFloat(coords.split(",")[3]);
+	bounds[i].y2 = parseFloat(coords.split(",")[4]);
+	bounds[i].z2 = parseFloat(coords.split(",")[5]);
 	refreshCanvas();
 	refreshList();
 }
@@ -136,7 +191,11 @@ var ok = confirm("Set Color of box to selected color?");
 
 
 function duplicate(i){
-	addBoxC(bounds[i].x1, bounds[i].y1, bounds[i].z1, bounds[i].x2, bounds[i].y2, bounds[i].z2);
+	if(bounds[i].type=="box")
+		addBoxC(bounds[i].x1, bounds[i].y1, bounds[i].z1, bounds[i].x2, bounds[i].y2, bounds[i].z2);
+	else{
+		addBoundC(bounds[i].x1, bounds[i].y1, bounds[i].z1, bounds[i].x2, bounds[i].y2, bounds[i].z2);
+	}
 }
 
 
@@ -175,8 +234,11 @@ function exportBounds(){
 	var e = document.getElementById("export");
 	e.innerText = "";
 	for(var i=0;i<bounds.length;i++){
-		var e = document.getElementById("export");
-		e.innerText = e.innerText + "setRenderBounds("+bounds[i].x1/16+", "+bounds[i].y1/16+", "+bounds[i].z1/16+", "+bounds[i].x2/16+", "+bounds[i].y2/16+", "+bounds[i].z2/16+");\n";
+		if(bounds[i].type=="box")
+			e.innerText = e.innerText + "setRenderBounds("+bounds[i].x1/16+", "+bounds[i].y1/16+", "+bounds[i].z1/16+", "+bounds[i].x2/16+", "+bounds[i].y2/16+", "+bounds[i].z2/16+");\n";
+		else{
+			e.innerText = e.innerText + "setRenderBounds("+bounds[i].x1+", "+bounds[i].y1+", "+bounds[i].z1+", "+bounds[i].x2+", "+bounds[i].y2+", "+bounds[i].z2+");\n";
+		}
 	}
 }
 
@@ -193,15 +255,12 @@ function exportBox(){
 		y2 = bounds[i].y2;
 		z2 = bounds[i].z2;
 		
-		if(rotation == 3){ //south
-			var x1t = 16-x1; //if x1 = 0 then x1t should = 16
-			var x2t = 16-x2; //if x2 = 1 then x2t should = 15
-			x1 = x2t;
-			x2 = x1t;
+		if(bounds[i].type=="box"){
+			e.innerText = e.innerText + "addBox("+x1+", "+y1+", "+z1+", "+x2+", "+y2+", "+z2+");\n";
 		}
-		
-		var e = document.getElementById("export");
-		e.innerText = e.innerText + "addBox("+x1+", "+y1+", "+z1+", "+x2+", "+y2+", "+z2+");\n";
+		else{
+			e.innerText = e.innerText + "addBox("+bounds[i].x1*16+", "+bounds[i].y1*16+", "+bounds[i].z1*16+", "+bounds[i].x2*16+", "+bounds[i].y2*16+", "+bounds[i].z2*16+");\n";
+		}
 	}
 }
 
@@ -209,7 +268,7 @@ function exportBox(){
 function refreshCanvas(){
 	context.clearRect(0, 0, canvas.width, canvas.height);
 	for(var i=0;i<bounds.length;i++){
-		if(!bounds[i].hidden){
+		if(!bounds[i].hidden && bounds[i].type == "box"){
 			iso.add(Shape.extrude(new Path([
 				new Point(bounds[i].x1/4, bounds[i].z1/4, bounds[i].y1/4),
 				new Point(bounds[i].x2/4, bounds[i].z1/4, bounds[i].y1/4),
@@ -217,8 +276,17 @@ function refreshCanvas(){
 				new Point(bounds[i].x1/4, bounds[i].z2/4, bounds[i].y1/4)
 			]).rotateZ(Point(8/4,8/4,0), getRotationDeg()), (bounds[i].y2-bounds[i].y1)/4), bounds[i].color);
 		}
+		if(!bounds[i].hidden && bounds[i].type == "bound"){
+			iso.add(Shape.extrude(new Path([
+				new Point(bounds[i].x1*4, bounds[i].z1*4, bounds[i].y1*4),
+				new Point(bounds[i].x2*4, bounds[i].z1*4, bounds[i].y1*4),
+				new Point(bounds[i].x2*4, bounds[i].z2*4, bounds[i].y1*4),
+				new Point(bounds[i].x1*4, bounds[i].z2*4, bounds[i].y1*4)
+			]).rotateZ(Point(8/4,8/4,0), getRotationDeg()), (bounds[i].y2-bounds[i].y1)*4), bounds[i].color);
+		}
 	}
 }
+
 
 function summonHALP(){
 	var msg = 
@@ -234,6 +302,7 @@ function summonHALP(){
 	alert(msg);
 }
 
+
 function hide(i){
 	if(bounds[i].hidden){
 		bounds[i].hidden = false;
@@ -244,6 +313,15 @@ function hide(i){
 	refreshList();
 	refreshCanvas();
 }
+
+
+/*function importCode(){
+	var im = document.getElementById("importCode");
+	var im1=im.value.split(";");
+	alert(im1.length);
+	
+}*/
+
 
 /* Tessellations */
 function tessellateDragonEgg(){
@@ -271,4 +349,12 @@ function tessellateChest(){
 	addBoxC(0, 11, 0, 16, 12, 16);
 	addBoxC(0, 12, 0, 16, 16, 16);
 	addBoxC(7, 9, 0, 9, 13, 1);
+}
+
+
+function tessellateDoubleFence(){
+	addBoxC(6, 0, 12, 10, 16, 16);
+	addBoxC(7, 4, 0, 9, 6, 12);
+	addBoxC(7, 10, 0, 9, 12, 12);
+	addBoxC(6, 0, 0, 10, 16, 4);
 }

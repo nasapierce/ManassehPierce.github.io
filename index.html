@@ -13,6 +13,7 @@
 	
 	<div class="btn-group btn-group-lg" role="group">
 	  <button onclick="addBox();" class="btn btn-default">Add Box</button>
+	  <button onclick="addBound();" class="btn btn-default">Add Bound</button>
 	  <button onclick="resetBounds();" class="btn btn-danger">Reset</button>
 	  <button onclick="exportBounds();" class="btn btn-success">Export setBounds'</button>
 	  <button onclick="exportBox();" class="btn btn-primary">Export addBox's</button>
@@ -60,7 +61,21 @@
 	  
 	<div class="well well-lg" id="export"></div>
 	  <br/>
-	
+		<!--
+	<textarea id="importCode">
+	  addBox(0, 0, 0, 16, 16, 16);
+	  addBox(3, 2, 0, 5, 3, 0);
+	  addBox(9, 2, 0, 11, 3, 0);
+	  addBox(8, 3, 0, 14, 4, 0);
+	  addBox(11, 4, 0, 13, 5, 0);
+	  addBox(5, 6, 0, 6, 7, 0);
+	  addBox(8, 7, 0, 12, 8, 0);
+	  addBox(1, 8, 0, 3, 9, 0);
+	  addBox(9, 8, 0, 11, 9, 0);
+	</textarea>
+	<button class="btn btn-info btn-lg" onclick="importCode();">Import</button>
+	<br/>
+	-->
 	<button class="btn btn-danger btn-lg" onclick="summonHALP();">HELP!</button>
     
 	<script src="js/isomer.min.js"></script>
