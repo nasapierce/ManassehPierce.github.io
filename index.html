@@ -1,86 +1,63 @@
 <!DOCTYPE html>
-<html>
-  <head lang="en">
-	<title>Tessellator Renderer</title>
-    <link href="css/styles.css" rel="stylesheet" />
-	<link href="css/bootstrap.css" rel="stylesheet" />
+<html lang="en">
+  <head>
+	<!-- Meta -->
+	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
 	
+	<!-- Bootstrap 4 -->
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	
+	<!-- Custom CSS -->
+	<link href="css/styles.css" rel="stylesheet" />
   </head>
-  <body>
+  <body class="bg-info">
 	
-	<canvas id="myCanvas" width="720" height="720"></canvas>
-	  <br/><br/>
-	
-	<div class="btn-group btn-group-lg" role="group">
-	  <button onclick="addBox();" class="btn btn-default">Add Box</button>
-	  <button onclick="addBound();" class="btn btn-default">Add Bound</button>
-	  <button onclick="resetBounds();" class="btn btn-danger">Reset</button>
-	  <button onclick="exportBounds();" class="btn btn-success">Export setBounds'</button>
-	  <button onclick="exportBox();" class="btn btn-primary">Export addBox's</button>
-	
-	  <div class="btn-group btn-group-lg" role="group">
-	    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-		  Direction
-		  <span class="caret"></span>
-	    </button>
-	    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-		  <li><a onclick="rotation=2;refreshCanvas();">North</a></li>
-		  <li><a onclick="rotation=3;refreshCanvas();">South</a></li>
-		  <li><a onclick="rotation=4;refreshCanvas();">West</a></li>
-		  <li><a onclick="rotation=5;refreshCanvas();">East</a></li>
-	    </ul>
+	<div class="collapse" id="exCollapsingNavbar">
+	  <div class="bg-inverse p-a">
+		<h4>Tessellation Renderer</h4>
+		<span class="text-muted">Making Rendering Easy</span>
+		
+		<ul class="nav nav-pills nav-stacked">
+		  <li class="nav-item">
+			<a href="#" class="nav-link active">Home</a>
+		  </li>
+		  <li class="nav-item">
+			<a href="learnhow.html" class="nav-link">Learn How</a>
+		  </li>
+		  <li class="nav-item">
+			<a href="renderer.html" class="nav-link">Renderer</a>
+		  </li>
+		</ul>
+		
 	  </div>
 	</div>
+	<nav class="navbar navbar-dark bg-info">
+	  <span class="navbar-brand" data-toggle="collapse" data-target="#exCollapsingNavbar">Tessellation</span>
+	  <div class="pull-right navbar-toggler" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">&#9776;</div>
+	</nav>
 	
-	  <br/><br/>
-	
-	<div class="input-group">
-      <span class="input-group-addon">
-        <input type="checkbox" id="askForColor">
-      </span>
-      <input type="color" class="form-control" id="colorPick">
-    </div><!-- /input-group -->
-	<br/>
-	
-	<div class="dropdown">
-	  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-		Example Shapes
-		<span class="caret"></span>
-	  </button>
-	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-		<li><a onclick="tessellateDragonEgg();">Dragon Egg</a></li>
-		<li><a onclick="tessellateFlippedTable();">Flipped Table</a></li>
-		<li><a onclick="tessellateChest();">Chest</a></li>
-	  </ul>
+	<div class="container">
+	  
+	  <div class="jumbotron bg-inverse">
+	    <h1 class="display-1">Learn How</h1>
+	    <p class="lead">Learn How to use Tessellation to Make MCPE Block Models</p>
+	    <hr class="m-y-md bg-info">
+	    <p>Make block models for Tessellation Mod, Your own mod, or just for fun!</p>
+	    <p class="lead">
+	      <a class="btn btn-info-outline" href="learnhow.html" role="button">Learn more</a>
+		  <a class="btn btn-info-outline" href="renderer.html" role="button">Start Rendering</a>
+	    </p>
+	  </div>
+	  
 	</div>
 	
-	  <br/><br/>
-	
-	<div id="myBoxes"></div>
-	  <br/><br/>
-	  
-	<div class="well well-lg" id="export"></div>
-	  <br/>
-		<!--
-	<textarea id="importCode">
-	  addBox(0, 0, 0, 16, 16, 16);
-	  addBox(3, 2, 0, 5, 3, 0);
-	  addBox(9, 2, 0, 11, 3, 0);
-	  addBox(8, 3, 0, 14, 4, 0);
-	  addBox(11, 4, 0, 13, 5, 0);
-	  addBox(5, 6, 0, 6, 7, 0);
-	  addBox(8, 7, 0, 12, 8, 0);
-	  addBox(1, 8, 0, 3, 9, 0);
-	  addBox(9, 8, 0, 11, 9, 0);
-	</textarea>
-	<button class="btn btn-info btn-lg" onclick="importCode();">Import</button>
-	<br/>
-	-->
-	<button class="btn btn-danger btn-lg" onclick="summonHALP();">HELP!</button>
-    
-	<script src="js/isomer.min.js"></script>
-	<script src="js/scripts.js"></script>
+	<!-- jQuery first, then Bootstrap JS. -->
 	<script src="js/jquery-1.11.3.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+	<script>
+	  
+	</script>
   </body>
 </html>		

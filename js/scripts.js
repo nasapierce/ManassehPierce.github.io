@@ -1,4 +1,10 @@
 /*
+todo:
+	Import code
+	Rotations
+	Zooming
+	Textures?
+
 addBox(0, 0, 0, 16, 16, 16);
 addBox(3, 2, 0, 5, 3, 0);
 addBox(9, 2, 0, 11, 3, 0);
@@ -15,7 +21,7 @@ var canvas = document.getElementById("myCanvas");
 var iso = new Isomer(canvas);
 var context = canvas.getContext("2d");
 var askForColor = document.getElementById('askForColor');
-var colorPick = document.getElementById("colorPick");
+var colorPick = document.getElementById("inputColor");
 
 var Shape = Isomer.Shape;
 var Point = Isomer.Point;
@@ -24,6 +30,14 @@ var Path = Isomer.Path;
 var Vector = Isomer.Vector;
 var Cube = Shape.Prism(Point.ORIGIN);
 
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
 function hexToR(h) {return parseInt((cutHex(h)).substring(0,2),16)}
 function hexToG(h) {return parseInt((cutHex(h)).substring(2,4),16)}
 function hexToB(h) {return parseInt((cutHex(h)).substring(4,6),16)}
@@ -123,7 +137,6 @@ function addBoxC(x1, y1, z1, x2, y2, z2) {
 		new Point(x1/4, z2/4, y1/4)
 	]), (y2-y1)/4).rotateZ(Point(8/4,8/4,0), getRotationDeg()), color);
 	bounds.push({type:"box",x1:x1,y1:y1,z1:z1,x2:x2,y2:y2,z2:z2,color:color,name:"box"+bounds.length,hidden:false});
-	
 	refreshList();
 }
 
@@ -160,8 +173,8 @@ function resetBounds(){
 	var ok = confirm("Reset all canvas? All boxes will be lost!");
 	if(ok){
 		bounds.splice(0, bounds.length);
-		refreshList();
 		refreshCanvas();
+		refreshList();
 	}
 }
 
@@ -209,35 +222,45 @@ function rename(i){
 
 
 function refreshList(){
-	var myBoxes = document.getElementById("myBoxes");
-	myBoxes.innerHTML = "";
+	var boundHolder = document.getElementById("boundHolder");
+	boundHolder.innerHTML = "";
 	for(var i=0;i<bounds.length;i++){
 		var hidden;
 		if(!bounds[i].hidden){hidden="Hide";}
 		if(bounds[i].hidden){hidden="Show";}
-		myBoxes.innerHTML = myBoxes.innerHTML +
-'<label for="box'+i+'">'+bounds[i].name+':</label><br/>'+
-'<div class="btn-group" role="group" id="box'+i+'">'+
-'<button type="button" class="btn btn-lg btn-primary" onclick="changeCoords('+i+');">Coords</button>'+
-'<button type="button" class="btn btn-lg btn-success" onclick="changeColor('+i+')">Color</button>'+
-'<button type="button" class="btn btn-lg btn-warning" onclick="duplicate('+i+');">Duplicate</button>'+
-'<button type="button" class="btn btn-lg btn-info" onclick="rename('+i+');">Rename</button>'+
-'<button type="button" class="btn btn-lg btn-default" onclick="hide('+i+');">'+hidden+'</button>'+
-'<button type="button" class="btn btn-lg btn-danger" onclick="removeBox('+i+');">Delete</button>'+
-'</div><br/>';
+		boundHolder.innerHTML = boundHolder.innerHTML +
+		'<div class="row">'+
+		'<div class="dropdown">'+
+		'<a class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'+
+		bounds[i].name+
+		'</a>'+
+	    '<div class="dropdown-menu">'+
+		'<a class="dropdown-item" onclick="changeCoords('+i+');">Change Coordinates</a>'+
+		'<a class="dropdown-item" onclick="changeColor('+i+')">Change Color</a>'+
+		'<a class="dropdown-item" onclick="duplicate('+i+');">Duplicate</a>'+
+		'<a class="dropdown-item" onclick="rename('+i+');">Rename Box</a>'+
+		'<a class="dropdown-item" onclick="hide('+i+');">'+hidden+' Box</a>'+
+		'<a class="dropdown-item" onclick="removeBox('+i+');">Delete</a>'+
+		'</div>'+
+		'</div>'+
+		'</div>';
 	}
 	var e = document.getElementById("export").innerText = "";
 }
 
-
+var rgb = document.getElementById("rgb");
+var colorType=0;
 function exportBounds(){
 	var e = document.getElementById("export");
 	e.innerText = "";
 	for(var i=0;i<bounds.length;i++){
+		var colorText = "";
+		if(rgb.checked && colorType==0){colorText="//color: ("+hexToR(bounds[i].color.toHex())+", "+hexToG(bounds[i].color.toHex())+", "+hexToB(bounds[i].color.toHex())+")";}
+		if(rgb.checked && colorType==1){colorText="//color: "+bounds[i].color.toHex();}
 		if(bounds[i].type=="box")
-			e.innerText = e.innerText + "setRenderBounds("+bounds[i].x1/16+", "+bounds[i].y1/16+", "+bounds[i].z1/16+", "+bounds[i].x2/16+", "+bounds[i].y2/16+", "+bounds[i].z2/16+");\n";
-		else{
-			e.innerText = e.innerText + "setRenderBounds("+bounds[i].x1+", "+bounds[i].y1+", "+bounds[i].z1+", "+bounds[i].x2+", "+bounds[i].y2+", "+bounds[i].z2+");\n";
+			e.innerText = e.innerText + "setRenderBounds("+bounds[i].x1/16+", "+bounds[i].y1/16+", "+bounds[i].z1/16+", "+bounds[i].x2/16+", "+bounds[i].y2/16+", "+bounds[i].z2/16+"); "+colorText+"\n";
+		if(bounds[i].type=="bound"){
+			e.innerText = e.innerText + "setRenderBounds("+bounds[i].x1+", "+bounds[i].y1+", "+bounds[i].z1+", "+bounds[i].x2+", "+bounds[i].y2+", "+bounds[i].z2+"); "+colorText+"\n";
 		}
 	}
 }
@@ -254,12 +277,14 @@ function exportBox(){
 		x2 = bounds[i].x2;
 		y2 = bounds[i].y2;
 		z2 = bounds[i].z2;
-		
+		var colorText = "";
+		if(rgb.checked && colorType==0){colorText="//color: ("+hexToR(bounds[i].color.toHex())+", "+hexToG(bounds[i].color.toHex())+", "+hexToB(bounds[i].color.toHex())+")";}
+		if(rgb.checked && colorType==1){colorText="//color: "+bounds[i].color.toHex();}
 		if(bounds[i].type=="box"){
-			e.innerText = e.innerText + "addBox("+x1+", "+y1+", "+z1+", "+x2+", "+y2+", "+z2+");\n";
+			e.innerText = e.innerText + "addBox("+x1+", "+y1+", "+z1+", "+x2+", "+y2+", "+z2+"); "+colorText+"\n";
 		}
 		else{
-			e.innerText = e.innerText + "addBox("+bounds[i].x1*16+", "+bounds[i].y1*16+", "+bounds[i].z1*16+", "+bounds[i].x2*16+", "+bounds[i].y2*16+", "+bounds[i].z2*16+");\n";
+			e.innerText = e.innerText + "addBox("+bounds[i].x1*16+", "+bounds[i].y1*16+", "+bounds[i].z1*16+", "+bounds[i].x2*16+", "+bounds[i].y2*16+", "+bounds[i].z2*16+"); "+colorText+"\n";
 		}
 	}
 }
