@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<translations>
+	
+	<!--
+	Add another language by taking the tags, copy
+	and paste them, the put the language tag name as
+	the tag, example:
+	<es-ES>Español de España</es-ES>
+	<es-MX>Español de Mexico</es-MX>
+	<es-CO>Español de Columbia</es-CO>
+	<pt-PT>Portugues de Portugal</pt-PT>
+	
+	Language, then country is in the next section:
+	http://www.w3schools.com/tags/ref_language_codes.asp
+	-->
+	
+	<!-- All pages -->
+    <translation id="navbar-title">
+		<en-US>Tessellation Renderer</en-US>
+	</translation>
+	
+	<translation id="navbar-subtitle">
+		<en-US>Making PE Rendering Easy</en-US>
+	</translation>
+	
+	<translation id="navbar-toggle">
+		<en-US>Tessellation</en-US>
+	</translation>
+	
+	<translation id="nav-link-home">
+		<en-US>Home</en-US>
+	</translation>
+	
+	<translation id="nav-link-learn">
+		<en-US>Learn How</en-US>
+	</translation>
+	
+	<translation id="nav-link-renderer">
+		<en-US>Renderer</en-US>
+	</translation>
+	
+	<!-- index.html -->
+	<translation id="index-jumbotron-title">
+		<en-US>Learn How</en-US>
+	</translation>
+	
+	<translation id="index-jumbotron-subtitle">
+		<en-US>Learn How to use Tessellation to Make MCPE Block Models</en-US>
+	</translation>
+	
+	<translation id="index-jumbotron-text">
+		<en-US>Make block models for Tessellation Mod, Your own mod, or just for fun!</en-US>
+	</translation>
+	
+	<translation id="index-jumbotron-learn">
+		<en-US>Learn How</en-US>
+	</translation>
+	
+	<translation id="index-jumbotron-renderer">
+		<en-US>Renderer</en-US>
+	</translation>
+	
+	<!-- learnhow.html -->
+	<translation id="learn-title">
+		<en-US>Beggining</en-US>
+	</translation>
+
+	<translation id="learn-subtitle">
+		<en-US>Learn basics of Tessellations</en-US>
+	</translation>
+
+	<translation id="learn-renderer">
+		<en-US>Renderer</en-US>
+	</translation>
+
+	<translation id="learn-home">
+		<en-US>Home</en-US>
+	</translation>
+
+	<translation id="learn-text">
+		<en-US>
+			Tessellation starts at the bottom North-West corner of a block, These coordinates are represented by 0, 0, 0, The Minimum X, Y, and Z. 
+			Tessellation ends at the top South-East corner of a block, These coordinates are represented by 1, 1, 1, The Maximum X, Y and Z. 
+			Just to Clarify, yes you can go past 0 in the negitives, as well as farther than 1 in the positives. Now, in the renderer there are two 
+			box options, Add Box, whose base coordinates are 0,0,0,16,16,16 and Add Bound, whose base coordinates are 0,0,0,1,1,1 There is no difference, they work the same, 
+			Add Box is simplified so you wont have think about decimals, its divided up so you can say, 0 - 1 is 1 minecraft pixel (Pixel on a 16x Texture). 
+			Add Bound is for those who for some reason loke doings the hard way, I added it because of a complaint. 1 minecraft pixel in this is 0.0625 (1/16).
+
+			<br/>Now that we went over Add Box and Add Bounds, lets talk about a simple render, like a slab.
+			A Slab in Minecraft is half a block, so 1 block is 16 Minecraft Pixels tall (Y), Wide (Z), and Long (X). So, a slab is 8 Minecraft Pixels Tall, 16 Wide, and 16 Long.
+			To make this lets start with the minimum values, of a default block is 0,0,0 - which is what we will use here.
+			To make the maximum values, the default block is 16,16,16, we need it to be half of this height (Y) which will look like this 16,8,16. 
+			Lets put it together and add a box with these coords 0,0,0,16,8,16. 
+
+			<br/>Now that basics are down just experiment around and you will be making some amazing renders in no time!
+		</en-US>
+	</translation>
+	
+	<!-- renderer.html -->
+	<translation id="importPrompt">
+		<en-US>Paste functions here [setRenderBounds, addBox, whole class... whatever "floats" your boat]</en-US>
+	</translation>
+	
+	<translation id="clearScene">
+		<en-US>Do you want to clear the scene? Bounds will be lost forever.</en-US>
+	</translation>
+	
+	<translation id="addBoxMin">
+		<en-US>Enter Min X, Y, Z</en-US>
+	</translation>
+	
+	<translation id="addBoxMax">
+		<en-US>Enter Max X, Y, Z</en-US>
+	</translation>
+	
+	<translation id="addBoxTexture">
+		<en-US>Enter Texture Name</en-US>
+	</translation>
+	
+	<translation id="addBoxName">
+		<en-US>Enter Box Name</en-US>
+	</translation>
+	
+	<translation id="nameTessellation">
+		<en-US>Enter Tessellation Name</en-US>
+	</translation>
+	
+	<translation id="cppFile">
+		<en-US>Download cpp file of</en-US>
+	</translation>
+	
+</translations>

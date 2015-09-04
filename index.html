@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-  	<!-- For home: http://www.cyren.com/csam-downloads.html -->
-  	<!-- for me... studentCACC myfuture -->
-	<!-- Meta -->
+  	<!-- Meta -->
 	<meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
@@ -18,42 +16,39 @@
 	
 	<div class="collapse" id="exCollapsingNavbar">
 	  <div class="bg-inverse p-a">
-		<h4>Tessellation Renderer</h4>
-		<span class="text-muted">Making Rendering Easy</span>
+		
+		<h4 id="navbar-title">Tessellation</h4>
+		<span id="navbar-subtitle" class="text-muted">Making PE Rendering Easy</span>
 		
 		<ul class="nav nav-pills nav-stacked">
 		  <li class="nav-item">
-			<a href="#" class="nav-link active">Home</a>
+			<a id="nav-link-home" href="index.html" class="nav-link active">Home</a>
 		  </li>
 		  <li class="nav-item">
-			<a href="learnhow.html" class="nav-link">Learn How</a>
+			<a id="nav-link-learn" href="learnhow.html" class="nav-link">Learn How</a>
 		  </li>
 		  <li class="nav-item">
-			<a href="renderer.html" class="nav-link">Renderer</a>
-		  </li>
-		  <li class="nav-item">
-			<a href="threejs.html" class="nav-link">W.I.P. Renderer</a>
+			<a id="nav-link-renderer" href="renderer.html" class="nav-link">Renderer</a>
 		  </li>
 		</ul>
 		
 	  </div>
 	</div>
 	<nav class="navbar navbar-dark bg-info">
-	  <span class="navbar-brand" data-toggle="collapse" data-target="#exCollapsingNavbar">Tessellation</span>
+	  <span id="navbar-toggle" class="navbar-brand" data-toggle="collapse" data-target="#exCollapsingNavbar">Tessellation</span>
 	  <div class="pull-right navbar-toggler" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">&#9776;</div>
 	</nav>
 	
 	<div class="container">
 	  
 	  <div class="jumbotron bg-inverse">
-	    <h1 class="display-1">Learn How</h1>
-	    <p class="lead">Learn How to use Tessellation to Make MCPE Block Models</p>
+	    <h1 id="index-jumbotron-title" class="display-1">Learn How</h1>
+		  <p id="index-jumbotron-subtitle" class="lead">Learn How to use Tessellation to Make MCPE Block Models</p>
 	    <hr class="m-y-md bg-info">
-	    <p>Make block models for Tessellation Mod, Your own mod, or just for fun!</p>
+		  <p id="index-jumbotron-text">Make block models for Tessellation Mod, Your own mod, or just for fun!</p>
 	    <p class="lead">
-	      <a class="btn btn-info-outline" href="learnhow.html" role="button">Learn more</a>
-		  <a class="btn btn-info-outline" href="renderer.html" role="button">Start Rendering</a>
-		  <a class="btn btn-info-outline" href="threejs.html" role="button">W.I.P. Renderer</a>
+	      <a id="index-jumbotron-learn" class="btn btn-info-outline" href="learnhow.html" role="button">Learn How</a>
+		  <a id="index-jumbotron-renderer" class="btn btn-info-outline" href="renderer.html" role="button">Renderer</a>
 	    </p>
 	  </div>
 	  
@@ -62,8 +57,25 @@
 	<!-- jQuery first, then Bootstrap JS. -->
 	<script src="js/jquery-1.11.3.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script>
-	  
+	<script type="text/javascript">
+	  	$(function() {
+			var addedLanguages = ["en-US"];
+			var language = navigator.language;
+			for(var i in addedLanguages) {
+				if(addedLanguages[i] == language) {
+					$.ajax({
+						url: 'language.xml',
+						success: function(xml) {
+							$(xml).find('translation').each(function(){
+								var id = $(this).attr('id');
+								var text = $(this).find(language).text();
+								$("#" + id).html(text);
+							});
+						}
+					});
+				}
+			}
+		});
 	</script>
   </body>
 </html>		
