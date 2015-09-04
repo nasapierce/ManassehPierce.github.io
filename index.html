@@ -57,25 +57,6 @@
 	<!-- jQuery first, then Bootstrap JS. -->
 	<script src="js/jquery-1.11.3.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-	  	$(function() {
-			var addedLanguages = ["en-US"];
-			var language = navigator.language;
-			for(var i in addedLanguages) {
-				if(addedLanguages[i] == language) {
-					$.ajax({
-						url: 'language.xml',
-						success: function(xml) {
-							$(xml).find('translation').each(function(){
-								var id = $(this).attr('id');
-								var text = $(this).find(language).text();
-								$("#" + id).html(text);
-							});
-						}
-					});
-				}
-			}
-		});
-	</script>
+	<script type="text/javascript" src="js/scripts.js"></script>
   </body>
 </html>		

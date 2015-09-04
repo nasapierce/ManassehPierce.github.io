@@ -7,7 +7,6 @@ $(document).ready(function() {
     if(!Detector.webgl) {
         Detector.addGetWebGLMessage();
     } else {
-		loadLang();
         Tessellation.init();
         Tessellation.render();
     }
@@ -15,7 +14,20 @@ $(document).ready(function() {
 
 
 var Tessellation = {
-	lang: {},
+	language: navigator.language.split("-")[0],
+	lang: {
+		"en": {
+			importPrompt: 'Paste addBox, setRenderBounds, whole class... Whatever "floats" your boat ;)',
+			clearScene: "Do you want to clear the scene? All bounds will be lost",
+			addBoxMin: "Enter Min X, Y, Z",
+			addBoxMax: "Enter Max X, Y, Z",
+			addBoxName: "Enter Box Name",
+			addBoxTexture: "Enter Box Texture",
+			cppFile: "Download cpp file of Tessellation",
+			nameTessellation: "Name the Tessellation, also name of the class",
+			
+		}, 
+	},
 	
 	bounds: [],
     container: null,
@@ -219,7 +231,7 @@ function download(filename, text) {
  
  
 Tessellation.importBounds = function(){
-    var im = prompt(Tessellation.lang.importPrompt);
+    var im = prompt(Tessellation.lang[Tessellation.language].importPrompt);
 	if(im){
         var lines = im.split(";");
         for(var i=0;i<lines.length;i++){
@@ -259,9 +271,9 @@ Tessellation.gui = function() {
         Tessellation.controls.gui.domElement.style.right = '0px';
         Tessellation.controls.gui.domElement.style.zIndex = 100;
          
-        var actions = controls.gui.addFolder('Acrions');
-		var settings = controls.gui.addFolder('Settings');
-		var scene = controls.gui.addFolder('Scene');
+        var actions = controls.gui.addFolder("Actions");
+		var settings = controls.gui.addFolder("Settings");
+		var scene = controls.gui.addFolder("Scene");
 		//var boundFolder = controls.gui.addFolder('Bounds');
         
         actions.add(controls, "Export Bounds");
@@ -349,7 +361,7 @@ Tessellation.gui = function() {
 
 
 Tessellation.onClearScene = function(){
-	var c = confirm(Tessellation.lang.clearScene);
+	var c = confirm(Tessellation.lang[Tessellation.language].clearScene);
 	if(c) for(var i=0;i<Tessellation.bounds.length;i++){
 		Tessellation.scene.remove(Tessellation.bounds[i].obj);
 	}
@@ -365,33 +377,33 @@ Tessellation.onWindowResize = function() {
 
 
 Tessellation.onAddBox = function(){
-    var c = prompt(Tessellation.lang.addBoxMin,"0, 0, 0");
-    if(c) var s = prompt(Tessellation.lang.addBoxMax,"16, 16, 16");
-    if(s) var t = prompt(Tessellation.lang.addBoxTexture,"stone");
-    if(t) var n = prompt(Tessellation.lang.addBoxName,"Box "+Tessellation.bounds.length);
+    var c = prompt(Tessellation.lang[Tessellation.language].addBoxMin,"0, 0, 0");
+    if(c) var s = prompt(Tessellation.lang[Tessellation.language].addBoxMax,"16, 16, 16");
+    if(s) var t = prompt(Tessellation.lang[Tessellation.language].addBoxTexture,"stone");
+    if(t) var n = prompt(Tessellation.lang[Tessellation.language].addBoxName,"Box "+Tessellation.bounds.length);
     if(n) Tessellation.renderBound(toVec3(parseFloat(c.split(",")[0]),parseFloat(c.split(",")[1]),parseFloat(c.split(",")[2])), toVec3(parseFloat(s.split(",")[0]),parseFloat(s.split(",")[1]),parseFloat(s.split(",")[2])),t,n,true);
 };
  
  
 Tessellation.onAddBound = function(){
-    var c = prompt(Tessellation.lang.addBoxMin,"0, 0, 0");
-    if(c) var s = prompt(Tessellation.lang.addBoxMax,"1, 1, 1");
-    if(s) var t = prompt(Tessellation.lang.addBoxTexture,"stone");
-    if(t) var n = prompt(Tessellation.lang.addBoxName,"Box "+Tessellation.bounds.length);
+    var c = prompt(Tessellation.lang[Tessellation.language].addBoxMin,"0, 0, 0");
+    if(c) var s = prompt(Tessellation.lang[Tessellation.language].addBoxMax,"1, 1, 1");
+    if(s) var t = prompt(Tessellation.lang[Tessellation.language].addBoxTexture,"stone");
+    if(t) var n = prompt(Tessellation.lang[Tessellation.language].addBoxName,"Box "+Tessellation.bounds.length);
     if(n) Tessellation.renderBound(toVec3(parseFloat(c.split(",")[0]),parseFloat(c.split(",")[1]),parseFloat(c.split(",")[2])), toVec3(parseFloat(s.split(",")[0]),parseFloat(s.split(",")[1]),parseFloat(s.split(",")[2])),t,n,false);
 };
  
  
 Tessellation.onExportBounds = function(){
-    var n = prompt(Tessellation.lang.nameTessellation,"MyTessellation");
-    if(n) var c = confirm(Tessellation.lang.cppFile+n);
+    var n = prompt(Tessellation.lang[Tessellation.language].nameTessellation,"MyTessellation");
+    if(n) var c = confirm(Tessellation.lang[Tessellation.language].cppFile+n);
    	if(c) download(n+".cpp",getBoundString(n));
 };
 
 
 Tessellation.onExportBox = function(){
-    var n = prompt(Tessellation.lang.nameTessellation,"MyTessellation");
-    if(n) var c = confirm(Tessellation.lang.cppFile+n);
+    var n = prompt(Tessellation.lang[Tessellation.language].nameTessellation,"MyTessellation");
+    if(n) var c = confirm(Tessellation.lang[Tessellation.language].cppFile+n);
     if(c) download(n+".cpp",getBoxString(n));
 };
 
@@ -436,24 +448,3 @@ Tessellation.onBaseToggle = function(e) {
 	}
 };
 
-/* Language */
-
-function loadLang(){
-	var addedLanguages = ["en-US"];
-	var language = navigator.language;
-	for(var i in addedLanguages) {
-		if(addedLanguages[i] == language) {
-			$.ajax({
-				url: 'language.xml',
-				success: function(xml) {
-					$(xml).find('translation').each(function(){
-						var id = $(this).attr('id');
-						var text = $(this).find(language).text();
-						//alert(id+": "+text);
-						Tessellation.lang[id] = text;
-					});
-				}
-			});
-		}
-	}
-}

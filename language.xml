@@ -5,81 +5,79 @@
 	Add another language by taking the tags, copy
 	and paste them, the put the language tag name as
 	the tag, example:
-	<es-ES>Español de España</es-ES>
-	<es-MX>Español de Mexico</es-MX>
-	<es-CO>Español de Columbia</es-CO>
-	<pt-PT>Portugues de Portugal</pt-PT>
+	<es>Español</es>
+	<pt>Portugues</pt>
 	
-	Language, then country is in the next section:
+	Language tags: 
 	http://www.w3schools.com/tags/ref_language_codes.asp
 	-->
 	
 	<!-- All pages -->
     <translation id="navbar-title">
-		<en-US>Tessellation Renderer</en-US>
+		<en>Tessellation Renderer</en>
 	</translation>
 	
 	<translation id="navbar-subtitle">
-		<en-US>Making PE Rendering Easy</en-US>
+		<en>Making PE Rendering Easy</en>
 	</translation>
 	
 	<translation id="navbar-toggle">
-		<en-US>Tessellation</en-US>
+		<en>Tessellation</en>
 	</translation>
 	
 	<translation id="nav-link-home">
-		<en-US>Home</en-US>
+		<en>Home</en>
 	</translation>
 	
 	<translation id="nav-link-learn">
-		<en-US>Learn How</en-US>
+		<en>Learn How</en>
 	</translation>
 	
 	<translation id="nav-link-renderer">
-		<en-US>Renderer</en-US>
+		<en>Renderer</en>
 	</translation>
 	
 	<!-- index.html -->
 	<translation id="index-jumbotron-title">
-		<en-US>Learn How</en-US>
+		<en>Learn How</en>
 	</translation>
 	
 	<translation id="index-jumbotron-subtitle">
-		<en-US>Learn How to use Tessellation to Make MCPE Block Models</en-US>
+		<en>Learn How to use Tessellation to Make MCPE Block Models</en>
 	</translation>
 	
 	<translation id="index-jumbotron-text">
-		<en-US>Make block models for Tessellation Mod, Your own mod, or just for fun!</en-US>
+		<en>Make block models for Tessellation Mod, Your own mod, or just for fun!</en>
 	</translation>
 	
 	<translation id="index-jumbotron-learn">
-		<en-US>Learn How</en-US>
+		<en>Learn How</en>
 	</translation>
 	
 	<translation id="index-jumbotron-renderer">
-		<en-US>Renderer</en-US>
+		<en>Renderer</en>
 	</translation>
 	
 	<!-- learnhow.html -->
 	<translation id="learn-title">
-		<en-US>Beggining</en-US>
+		<en>Beggining</en>
 	</translation>
 
 	<translation id="learn-subtitle">
-		<en-US>Learn basics of Tessellations</en-US>
+		<en>Learn basics of Tessellations</en>
 	</translation>
 
 	<translation id="learn-renderer">
-		<en-US>Renderer</en-US>
+		<en>Renderer</en>
 	</translation>
 
 	<translation id="learn-home">
-		<en-US>Home</en-US>
+		<en>Home</en>
 	</translation>
 
 	<translation id="learn-text">
-		<en-US>
-			Tessellation starts at the bottom North-West corner of a block, These coordinates are represented by 0, 0, 0, The Minimum X, Y, and Z. 
+		<en>
+			<tab/>Tessellation starts at the bottom North-West corner of a block, These coordinates are represented by 0, 0, 0, The Minimum X, Y, and Z. 
 			Tessellation ends at the top South-East corner of a block, These coordinates are represented by 1, 1, 1, The Maximum X, Y and Z. 
 			Just to Clarify, yes you can go past 0 in the negitives, as well as farther than 1 in the positives. Now, in the renderer there are two 
 			box options, Add Box, whose base coordinates are 0,0,0,16,16,16 and Add Bound, whose base coordinates are 0,0,0,1,1,1 There is no difference, they work the same, 
@@ -93,40 +91,14 @@
 			Lets put it together and add a box with these coords 0,0,0,16,8,16. 
 
 			<br/>Now that basics are down just experiment around and you will be making some amazing renders in no time!
-		</en-US>
+		</en>
 	</translation>
 	
-	<!-- renderer.html -->
-	<translation id="importPrompt">
-		<en-US>Paste functions here [setRenderBounds, addBox, whole class... whatever "floats" your boat]</en-US>
-	</translation>
-	
-	<translation id="clearScene">
-		<en-US>Do you want to clear the scene? Bounds will be lost forever.</en-US>
-	</translation>
-	
-	<translation id="addBoxMin">
-		<en-US>Enter Min X, Y, Z</en-US>
-	</translation>
-	
-	<translation id="addBoxMax">
-		<en-US>Enter Max X, Y, Z</en-US>
-	</translation>
-	
-	<translation id="addBoxTexture">
-		<en-US>Enter Texture Name</en-US>
-	</translation>
-	
-	<translation id="addBoxName">
-		<en-US>Enter Box Name</en-US>
-	</translation>
-	
-	<translation id="nameTessellation">
-		<en-US>Enter Tessellation Name</en-US>
-	</translation>
-	
-	<translation id="cppFile">
-		<en-US>Download cpp file of</en-US>
+	<!-- All this wont be read, but This is the renderer text -->
+	<translation id="renderer">
+		<en>
+			
+		</en>
 	</translation>
 	
 </translations>
