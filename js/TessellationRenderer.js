@@ -1,7 +1,5 @@
-/*
-	You may not use this code without my permission, I dont care if you look to learn,
-	But any straight/obvious copy/pasting will result obstructed files in the future.
-*/
+/* 	You may not use this code without my permission, I dont care if you look to learn,
+	But any straight/obvious copy/pasting will result obstructed files in the future. */
 
 $(document).ready(function() {
     if(!Detector.webgl) {
@@ -14,27 +12,20 @@ $(document).ready(function() {
 
 
 var Tessellation = {
-	language: navigator.language.split("-")[0],
-	lang: {
-		"en": {
-			importPrompt: 'Paste addBox, setRenderBounds, whole class... Whatever "floats" your boat ;)',
-			clearScene: "Do you want to clear the scene? All bounds will be lost",
-			addBoxMin: "Enter Min X, Y, Z",
-			addBoxMax: "Enter Max X, Y, Z",
-			addBoxName: "Enter Box Name",
-			addBoxTexture: "Enter Box Texture",
-			cppFile: "Download cpp file of Tessellation",
-			nameTessellation: "Name the Tessellation, also name of the class",
-			
-		}, 
-	},
-	
 	bounds: [],
+	boundFolder: null,
     container: null,
     stats: null,
     realGui: null,
-	terrain: new THREE.TGALoader().load("assets/terrain-atlas.tga"),
-     
+	terrain: new THREE.TGALoader().load(
+		'assets/terrain-atlas.tga',
+		function(tex){
+			tex.magFilter = THREE.NearestFilter;
+			tex.minFilter = THREE.LinearMipMapLinearFilter;
+		},
+		function(prog){},
+		function(err){}
+	),
     camera: null,
     orbit: null,
     scene: null,
@@ -54,6 +45,8 @@ var Tessellation = {
 
 
 Tessellation.init = function() {
+	Tessellation.mapMeta();
+	
     Tessellation.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
     Tessellation.camera.position.x = 10;
     Tessellation.camera.position.y = 10;
@@ -66,47 +59,26 @@ Tessellation.init = function() {
     Tessellation.scene = new THREE.Scene();
     Tessellation.scene.fog = new THREE.Fog(0xcccccc, 0.008);
     
-    var light = new THREE.DirectionalLight(0xffffff, 2, 80);
-    light.position.set(32, 32, 32);
+	var light = new THREE.DirectionalLight(0xffffff, 1);
+    light.position.set(1, 1, 1).normalize();
     Tessellation.scene.add(light);
-      
-    var light = new THREE.DirectionalLight(0xffffff, 1, 80);
-    light.position.set(-32, -24, -32);
-    Tessellation.scene.add(light);
-    
+	
+	var ambientLight = new THREE.AmbientLight(0xcccccc);
+	Tessellation.scene.add(ambientLight);
+	
     Tessellation.grid = new THREE.GridHelper(17, 1);
     Tessellation.grid.setColors(0xffffff, 0xffffff);
     Tessellation.grid.translateX(Tessellation.sceneOffset);
     Tessellation.grid.translateZ(Tessellation.sceneOffset);
 	if(Tessellation.showGrid) Tessellation.scene.add(Tessellation.grid);
 	
-	var tex = THREE.ImageUtils.loadTexture('assets/blocks/planks_oak.png');
-	tex.magFilter = THREE.NearestFilter;
-	tex.minFilter = THREE.LinearMipMapLinearFilter;
-	var baseBlock = new THREE.CubeGeometry(1, 1, 1, 1, 1, 1 );
-    var baseMaterial = new THREE.MeshLambertMaterial({map: tex});
-    Tessellation.baseMesh = new THREE.Mesh(baseBlock, baseMaterial);
+	var baseBlock = new THREE.CubeGeometry(1, 1, 1);
+	var baseMaterial = new THREE.MeshLambertMaterial({map: Tessellation.terrain});
+	Tessellation.setBoundFaces(baseBlock, ["planks", 0]);
+	Tessellation.baseMesh = new THREE.Mesh(baseBlock, baseMaterial);
     Tessellation.baseMesh.position.set(0.5-Tessellation.sceneOffset, -0.5, 0.5-Tessellation.sceneOffset);
     if(Tessellation.showBase) Tessellation.scene.add(Tessellation.baseMesh);
-	/*
-	var tex1 = THREE.ImageUtils.loadTexture('assets/blocks/glass.png');
-	tex1.magFilter = THREE.NearestFilter;
-	tex1.minFilter = THREE.LinearMipMapLinearFilter;
-	var glassBlock = new THREE.CubeGeometry(1, 1, 1, 1, 1, 1 );
-    var glassMaterial = new THREE.MeshLambertMaterial({map: tex1, transparent: true});
-    var glassMesh = new THREE.Mesh(glassBlock, glassMaterial);
-    glassMesh.position.set(0.5-Tessellation.sceneOffset, 0.5, 0.5-Tessellation.sceneOffset);
-    Tessellation.scene.add(glassMesh);
 	
-	var tex2 = THREE.ImageUtils.loadTexture('assets/blocks/obsidian.png');
-	tex2.magFilter = THREE.NearestFilter;
-	tex2.minFilter = THREE.LinearMipMapLinearFilter;
-	var testBlock = new THREE.CubeGeometry(0.5, 0.5, 0.5, 1, 1, 1 );
-    var testMaterial = new THREE.MeshLambertMaterial({map: tex2, transparent: true});
-    var testMesh = new THREE.Mesh(testBlock, testMaterial);
-	testMesh.position.set(0.5-Tessellation.sceneOffset, 0.5, 0.5-Tessellation.sceneOffset);
-    Tessellation.scene.add(testMesh);
-	*/
     Tessellation.axes = new THREE.AxisHelper(2);
     Tessellation.axes.translateY(0.01);
     if(Tessellation.showAxes) Tessellation.scene.add(Tessellation.axes);
@@ -149,7 +121,10 @@ Tessellation.update = function() {
     Tessellation.stats.update();
     Tessellation.orbit.update();
     Tessellation.render();
-	//Tessellation.controls.gui.updateDisplay();
+	
+	for (var i in Tessellation.controls.gui.__controllers) {
+		Tessellation.controls.gui.__controllers[i].updateDisplay();
+	}
 };
 
 
@@ -163,13 +138,17 @@ var toVec3 = function(x, y, z){
     return r;
 };
 
+var noSp = function(str){
+	return str.replace(/\s+/g, '');
+};
+
  
-Tessellation.renderBound = function(min, max, textureName, name, isBox){
-    var tex = THREE.ImageUtils.loadTexture('assets/blocks/'+textureName+'.png');
-    tex.magFilter = THREE.NearestFilter;
-    tex.minFilter = THREE.LinearMipMapLinearFilter;
-    
-    if(isBox){
+Tessellation.renderBound = function(min, max, texture, name, isBox){
+	var t = texture.split(",");
+	if(t.length === 1) texture = [noSp(t[0])];
+	if(t.length === 2) texture = [noSp(t[0]), parseInt(t[1])];
+	if(t.length === 12) texture = [noSp(t[0]), parseInt(t[1]), noSp(t[0]), parseInt(t[3]), noSp(t[0]), parseInt(t[5]), noSp(t[0]), parseInt(t[7]), noSp(t[0]), parseInt(t[9]), noSp(t[0]), parseInt(t[11])];
+	if(isBox){
         min = {x:min.x/16, y:min.y/16, z:min.z/16};
         max = {x:max.x/16, y:max.y/16, z:max.z/16};
     } else {
@@ -180,22 +159,28 @@ Tessellation.renderBound = function(min, max, textureName, name, isBox){
     var width = max.x-min.x, height = max.y-min.y, depth = max.z-min.z;
      
     var bound = new THREE.CubeGeometry(max.x-min.x, max.y-min.y, max.z-min.z, 1, 1, 1 );
-    var material = new THREE.MeshLambertMaterial({map: tex, transparent: true, side: THREE.FrontSide});
-    var mesh = new THREE.Mesh(bound, material);
+    var material = new THREE.MeshLambertMaterial({map: Tessellation.terrain, transparent: true, side: THREE.FrontSide});
+    
+	Tessellation.setBoundFaces(bound, texture);
+	
+	var mesh = new THREE.Mesh(bound, material);
     mesh.position.set((width/2)+min.x-Tessellation.sceneOffset, (height/2)+min.y, (depth/2)+min.z-Tessellation.sceneOffset);
     Tessellation.scene.add(mesh);
 	
 	Tessellation.bounds.push({obj: mesh, min: {x:min.x,y:min.y, z:min.z}, max: {x:max.x,y:max.y, z:max.z}, texture: textureName});
 	
-	/*Tessellation.controls[name] = function(){
+	//Tessellation.boundFolder.add(Tessellation.controls, ":"+name);
+	
+	/*
+	Tessellation.controls[name] = function(){
 		var data = {
             detail: {
                 number: Tessellation.bounds.length
             }
         };
         window.dispatchEvent(new CustomEvent('editBound', data));
-	};*/
-	Tessellation.controls.gui.updateDisplay();
+	};
+	*/
 };
 
 
@@ -274,7 +259,7 @@ Tessellation.gui = function() {
         var actions = controls.gui.addFolder("Actions");
 		var settings = controls.gui.addFolder("Settings");
 		var scene = controls.gui.addFolder("Scene");
-		//var boundFolder = controls.gui.addFolder('Bounds');
+		Tessellation.boundFolder = controls.gui.addFolder('Bounds');
         
         actions.add(controls, "Export Bounds");
         actions.add(controls, "Export Add Box");
@@ -379,7 +364,7 @@ Tessellation.onWindowResize = function() {
 Tessellation.onAddBox = function(){
     var c = prompt(Tessellation.lang[Tessellation.language].addBoxMin,"0, 0, 0");
     if(c) var s = prompt(Tessellation.lang[Tessellation.language].addBoxMax,"16, 16, 16");
-    if(s) var t = prompt(Tessellation.lang[Tessellation.language].addBoxTexture,"stone");
+    if(s) var t = prompt(Tessellation.lang[Tessellation.language].addBoxTexture,"stone, 0");
     if(t) var n = prompt(Tessellation.lang[Tessellation.language].addBoxName,"Box "+Tessellation.bounds.length);
     if(n) Tessellation.renderBound(toVec3(parseFloat(c.split(",")[0]),parseFloat(c.split(",")[1]),parseFloat(c.split(",")[2])), toVec3(parseFloat(s.split(",")[0]),parseFloat(s.split(",")[1]),parseFloat(s.split(",")[2])),t,n,true);
 };
@@ -388,7 +373,7 @@ Tessellation.onAddBox = function(){
 Tessellation.onAddBound = function(){
     var c = prompt(Tessellation.lang[Tessellation.language].addBoxMin,"0, 0, 0");
     if(c) var s = prompt(Tessellation.lang[Tessellation.language].addBoxMax,"1, 1, 1");
-    if(s) var t = prompt(Tessellation.lang[Tessellation.language].addBoxTexture,"stone");
+    if(s) var t = prompt(Tessellation.lang[Tessellation.language].addBoxTexture,"stone, 0");
     if(t) var n = prompt(Tessellation.lang[Tessellation.language].addBoxName,"Box "+Tessellation.bounds.length);
     if(n) Tessellation.renderBound(toVec3(parseFloat(c.split(",")[0]),parseFloat(c.split(",")[1]),parseFloat(c.split(",")[2])), toVec3(parseFloat(s.split(",")[0]),parseFloat(s.split(",")[1]),parseFloat(s.split(",")[2])),t,n,false);
 };
@@ -409,7 +394,6 @@ Tessellation.onExportBox = function(){
 
 
 Tessellation.onStatsToggle = function(e) {
-	//alert("toggle stats");
 	var toggle = e.detail.toggle;
 	if(toggle){
 		Tessellation.container.appendChild(Tessellation.stats.domElement);
@@ -446,5 +430,111 @@ Tessellation.onBaseToggle = function(e) {
     } else {
         Tessellation.scene.remove(Tessellation.baseMesh);
 	}
+};
+
+
+/* Language */
+Tessellation.language = navigator.language.split("-")[0];
+
+
+Tessellation.lang = {
+	"en": {
+		importPrompt: 'Paste addBox, setRenderBounds, whole class... Whatever "floats" your boat ;)',
+		clearScene: "Do you want to clear the scene? All bounds will be lost",
+		addBoxMin: "Enter Min X, Y, Z",
+		addBoxMax: "Enter Max X, Y, Z",
+		addBoxName: "Enter Box Name",
+		addBoxTexture: "Enter Box Texture, [stone], [stone, 0], or 6 of [stone, 0] ordered like so: bottom, top, south, north, west, east",
+		cppFile: "Download cpp file of Tessellation",
+		nameTessellation: "Name the Tessellation, also name of the class"
+	}
+};
+
+
+/* Textures */
+Tessellation.texture = function(tname, data){
+	for(var i in Tessellation.metaMapped){
+		if(tname == Tessellation.metaMapped[i].name){
+			if(Tessellation.metaMapped[i].uvs[data] !== null){
+				return Tessellation.textureUV(Tessellation.metaMapped[i].uvs[data][0], Tessellation.metaMapped[i].uvs[data][1], Tessellation.metaMapped[i].uvs[data][2], Tessellation.metaMapped[i].uvs[data][3]);
+				break;
+			} else {
+				return Tessellation.textureUV(Tessellation.metaMapped[i].uvs[0][0], Tessellation.metaMapped[i].uvs[0][1], Tessellation.metaMapped[i].uvs[0][2], Tessellation.metaMapped[i].uvs[0][3]);
+				break;
+			}
+		}
+	}
+};
+
+
+Tessellation.textureUV = function(minU, minV, maxU, maxV){
+	minU = minU*16/256;
+	minV = minV*16/512;
+	maxU = maxU*16/256;
+	maxV = maxV*16/512;
+	var t = [
+		//lower left 0, 0
+		new THREE.Vector2(minV, maxU), 
+		//lower right 1, 0
+		new THREE.Vector2(minV, minU), 
+		//upper right 1, 1
+		new THREE.Vector2(maxV, minU), 
+		//upper left 0, 1
+		new THREE.Vector2(maxV, maxU)
+	];
+	return t;
+};
+
+
+Tessellation.setBoundFaces = function(bound, tex){
+	//bottom, top, south, north, west, east
+	if(tex.length === 1) tex = [tex[0], 0, tex[0], 0, tex[0], 0, tex[0], 0, tex[0], 0, tex[0], 0];
+	if(tex.length === 2) tex = [tex[0], tex[1], tex[0], tex[1], tex[0], tex[1], tex[0], tex[1], tex[0], tex[1], tex[0], tex[1]];
+	if(tex.length === 12) tex = [tex[0], tex[1], tex[2], tex[3], tex[4], tex[5], tex[6], tex[7], tex[8], tex[9], tex[10], tex[11]];
+	
+	bound.faceVertexUvs[0] = [];
+	//east
+	bound.faceVertexUvs[0][0] = [Tessellation.texture(tex[10],tex[11])[0], Tessellation.texture(tex[10],tex[11])[1], Tessellation.texture(tex[10],tex[11])[3] ];
+	bound.faceVertexUvs[0][1] = [Tessellation.texture(tex[10],tex[11])[1], Tessellation.texture(tex[10],tex[11])[2], Tessellation.texture(tex[10],tex[11])[3] ];
+	//west
+	bound.faceVertexUvs[0][2] = [ Tessellation.texture(tex[8],tex[9])[0], Tessellation.texture(tex[8],tex[9])[1], Tessellation.texture(tex[8],tex[9])[3] ];
+	bound.faceVertexUvs[0][3] = [ Tessellation.texture(tex[8],tex[9])[1], Tessellation.texture(tex[8],tex[9])[2], Tessellation.texture(tex[8],tex[9])[3] ];
+	//top
+	bound.faceVertexUvs[0][4] = [ Tessellation.texture(tex[2],tex[3])[0], Tessellation.texture(tex[2],tex[3])[1], Tessellation.texture(tex[2],tex[3])[3] ];
+	bound.faceVertexUvs[0][5] = [ Tessellation.texture(tex[2],tex[3])[1], Tessellation.texture(tex[2],tex[3])[2], Tessellation.texture(tex[2],tex[3])[3] ];
+	//bottom
+	bound.faceVertexUvs[0][6] = [ Tessellation.texture(tex[0],tex[1])[0], Tessellation.texture(tex[0],tex[1])[1], Tessellation.texture(tex[0],tex[1])[3] ];
+	bound.faceVertexUvs[0][7] = [ Tessellation.texture(tex[0],tex[1])[1], Tessellation.texture(tex[0],tex[1])[2], Tessellation.texture(tex[0],tex[1])[3] ];
+	//south
+	bound.faceVertexUvs[0][8] = [ Tessellation.texture(tex[4],tex[5])[0], Tessellation.texture(tex[4],tex[5])[1], Tessellation.texture(tex[4],tex[5])[3] ];
+	bound.faceVertexUvs[0][9] = [ Tessellation.texture(tex[4],tex[5])[1], Tessellation.texture(tex[4],tex[5])[2], Tessellation.texture(tex[4],tex[5])[3] ];
+	//north
+	bound.faceVertexUvs[0][10] = [ Tessellation.texture(tex[6],tex[7])[0], Tessellation.texture(tex[6],tex[7])[1], Tessellation.texture(tex[6],tex[7])[3] ];
+	bound.faceVertexUvs[0][11] = [ Tessellation.texture(tex[6],tex[7])[1], Tessellation.texture(tex[6],tex[7])[2], Tessellation.texture(tex[6],tex[7])[3] ];
+};
+
+Tessellation.metaMapped = [];
+
+Tessellation.mapMeta = function(){
+	for(var i=0;i<META.length;i++){ //152
+		Tessellation.metaMapped.push({
+			uvs: Tessellation.newUV(META[i].uvs),
+			name: META[i].name
+		});
+	}
+};
+
+
+var opp = function(num, max){
+	return max - num;
+};
+
+
+Tessellation.newUV = function(uvs){
+	var arr = [];
+	for(var i=0;i<uvs.length;i++){
+		arr.push([opp(uvs[i][3]*256/16, 16), uvs[i][0]*512/16, opp(uvs[i][1]*256/16, 16), uvs[i][2]*512/16]);
+	}
+	return arr;
 };
 
