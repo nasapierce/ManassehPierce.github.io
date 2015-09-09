@@ -13,6 +13,7 @@ $(document).ready(function() {
 
 var Tessellation = {
 	bounds: [],
+	vertex: [],
 	boundFolder: null,
     container: null,
     stats: null,
@@ -142,7 +143,7 @@ var noSp = function(str){
 	return str.replace(/\s+/g, '');
 };
 
- 
+
 Tessellation.renderBound = function(min, max, texture, name, isBox){
 	var t = texture.split(",");
 	if(t.length === 1) texture = [noSp(t[0])];
