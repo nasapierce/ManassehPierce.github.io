@@ -23,6 +23,7 @@ var TileTessellatorGui = function(){
 				var b = new _this.button(TileTessellator.voxelBounds[i].name, 5, 5 + (30 * i));
 				$(b.domElement).click(function(){
 					$('#editScreen').attr("hidden","true");
+					$('#editModal').html("");
 					$('#editScreen2').removeAttr('hidden');
 					$('#EboundToggle').click(function(){
 						Ebound = !Ebound;
@@ -67,6 +68,7 @@ var TileTessellatorGui = function(){
 				$(d.domElement).css('color','Red').click(function(){
 					deleteBound(index);
 					$('#editScreen').attr("hidden","true");
+					$('#editModal').html("");
 				});
 				$("#editModal").append(d.domElement);
 			}
@@ -136,6 +138,7 @@ var TileTessellatorGui = function(){
 		$('#editScreen').load('js/TileTessellator/editScreen.xml', function(){
 			$('#closeEdit').click(function(){
 				$('#editScreen').attr("hidden","true");
+				$('#editModal').html("");
 			});
 		});
 	};
