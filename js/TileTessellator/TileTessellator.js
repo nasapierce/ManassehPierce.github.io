@@ -91,6 +91,13 @@ var texture = function(tname, data){
 	}
 };
 
+var exportBounds = function(){
+	str = "";
+	for(var i=0;i<TileTessellator.voxelBounds.length;i++){
+		str += "// "+TileTessellator.voxelBounds[i].name+" \nsetRenderBound("+TileTessellator.voxelBounds[i].coords[0]+", "+TileTessellator.voxelBounds[i].coords[1]+", "+TileTessellator.voxelBounds[i].coords[2]+", "+TileTessellator.voxelBounds[i].coords[3]+", "+TileTessellator.voxelBounds[i].coords[4]+", "+TileTessellator.voxelBounds[i].coords[5]+");\n\n";
+	}
+	download("render.cpp", str);
+};
 
 var textureUV = function(minU, minV, maxU, maxV){
 	minU = minU*16/256;
@@ -105,7 +112,6 @@ var textureUV = function(minU, minV, maxU, maxV){
 	];
 	return t;
 };
-
 
 var setBoundFaces = function(bound, tex){
 	if(tex.length === 1) tex = [tex[0], 0, tex[0], 0, tex[0], 0, tex[0], 0, tex[0], 0, tex[0], 0];
@@ -146,4 +152,14 @@ var newUV = function(uvs){
 	}
 	return arr;
 };
+
+function download(filename, text) {
+	var element = document.createElement('a');
+	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+	element.setAttribute('download', filename);
+	element.style.display = 'none';
+	document.body.appendChild(element);
+	element.click();
+	document.body.removeChild(element);
+}
 

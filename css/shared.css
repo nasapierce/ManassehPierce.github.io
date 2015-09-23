@@ -34,7 +34,8 @@ body {
 	position: absolute;
 	background-color: #958681;
 	border: outset #bbb0aa 2px;
-	min-height: 16px;
+	border-top-width: 3px;
+	min-height: 14px;
 	min-width: 16px;
 	color: #DDDDDD;
 	padding: 6px;
@@ -49,6 +50,7 @@ body {
 .minecraft-close[active] {
 	color:#FBFF97;
 	border: inset #bbb0aa 2px;
+	border-top-width: 3px;
 }
 
 .minecraft-text {

@@ -8,13 +8,17 @@ var TileTessellatorGui = function(){
 		$("#container").append(openSettings.domElement);
 		$(openSettings.domElement).click(function(){$('#settingScreen').removeAttr('hidden');});
 		
-		var openRender = new _this.button("Render", $(openSettings.domElement).width()*2, 0);
+		var openRender = new _this.button("Render", 76, 0);
 		$("#container").append(openRender.domElement);
 		$(openRender.domElement).click(function(){$('#renderScreen').removeAttr('hidden');});
 		
+		var exportBtn = new _this.button("Export", 189, 0);
+		$("#container").append(exportBtn.domElement);
+		$(exportBtn.domElement).click(function(){exportBounds();});
+		
 		var Ebound = true;
 		
-		var openEdit = new _this.button("Edit", $(openSettings.domElement).width()*4, 0);
+		var openEdit = new _this.button("Edit", 146, 0);
 		$("#container").append(openEdit.domElement);
 		$(openEdit.domElement).click(function(){
 			$('#editScreen').removeAttr('hidden');
