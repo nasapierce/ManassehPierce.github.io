@@ -1,0 +1,33 @@
+	<div class="minecraft-bg"></div>
+	<div class="minecraft-modal">
+		
+		<div id="boundToggle" class="minecraft-btn">Bound [0-1]</div>
+		<br/><br/><br/>
+		
+		<span class="minecraft-text">Min X: </span>
+		<input id="minX" type="number" class="minecraft-textInput" placeholder="0"/><br/>
+		
+		<span class="minecraft-text">Min Y: </span>
+		<input id="minY" type="number" class="minecraft-textInput" placeholder="0"/><br/>
+		
+		<span class="minecraft-text">Min Z: </span>
+		<input id="minZ" type="number" class="minecraft-textInput" placeholder="0"/><br/>
+		
+		<span class="minecraft-text">Max X: </span>
+		<input id="maxX" type="number" class="minecraft-textInput" placeholder="1"/><br/>
+		
+		<span class="minecraft-text">Max Y: </span>
+		<input id="maxY" type="number" class="minecraft-textInput" placeholder="1"/><br/>
+		
+		<span class="minecraft-text">Max Z: </span>
+		<input id="maxZ" type="number" class="minecraft-textInput" placeholder="1"/><br/>
+		
+		<span class="minecraft-text">Texture: </span>
+		<input id="texture" class="minecraft-textInput" type="text" placeholder="stone, 0"/>
+		
+		<span class="minecraft-text">Name: </span>
+		<input id="name" class="minecraft-textInput" type="text" placeholder="box"/>
+		
+		<div id="addBound" class="minecraft-btn">Add</div>
+	</div>
+	<div id="closeRender" class="minecraft-close"></div>

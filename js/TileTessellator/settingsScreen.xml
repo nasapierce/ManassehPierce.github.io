@@ -1,0 +1,18 @@
+
+	<div class="minecraft-bg"></div>
+	<div class="minecraft-modal">
+		<br/>
+		<span class="minecraft-text">Toggle Base:</span>
+		<input id="toggleBase" class="minecraft-toggle" type="checkbox"/>
+		<label for="toggleBase"><span></span></label><br/>
+		
+		<span class="minecraft-text">Toggle Grid:</span>
+		<input id="toggleGrid" class="minecraft-toggle" type="checkbox"/>
+		<label for="toggleGrid"><span></span></label><br/>
+		
+		<span class="minecraft-text">Toggle Axes:</span>
+		<input id="toggleAxes" class="minecraft-toggle" type="checkbox"/>
+		<label for="toggleAxes"><span></span></label><br/>
+		
+	</div>
+	<div id="closeSettings" class="minecraft-close"></div>

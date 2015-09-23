@@ -1,79 +1,99 @@
 <!DOCTYPE html>
 <html>
-  <head>
-  	<!-- Meta -->
-	<meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-	
-	<!-- Bootstrap 4 -->
-	<link rel="stylesheet" href="css/bootstrap.min.css" />
-	
-	<!-- Custom CSS -->
-	<link href="css/styles.css" rel="stylesheet" />
-  </head>
-  <body class="bg-secondary">
-	
-	</br>
-	
-	<ul class="nav nav-tabs">
-		<li class="nav-item">
-			<a href="#" class="nav-link active">Home</a>
-		</li>
-  		<li class="nav-item">
-    			<a href="learnhow.html" class="nav-link">Learn How</a>
-  		</li>
-  		<li class="nav-item">
-    			<a href="renderer.html" class="nav-link">Renderer</a>
-  		</li>
-  	</ul>
-	
-	<!--<div class="collapse" id="exCollapsingNavbar">
-	  <div class="bg-inverse p-a">
+
+	<head>
+		<title>ManassehPierce.github.io</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+		<link rel="stylesheet" href="css/bootstrap.css"/>
 		
-		<h4 id="navbar-title">Tessellation</h4>
-		<span id="navbar-subtitle" class="text-muted">Making PE Rendering Easy</span>
+		<script type="text/javascript" src="src/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="src/bootstrap.min.js"></script>
 		
-		<ul class="nav nav-pills nav-stacked">
-		  <li class="nav-item">
-			<a id="nav-link-home" href="index.html" class="nav-link active">Home</a>
-		  </li>
-		  <li class="nav-item">
-			<a id="nav-link-learn" href="learnhow.html" class="nav-link">Learn How</a>
-		  </li>
-		  <li class="nav-item">
-			<a id="nav-link-renderer" href="renderer.html" class="nav-link">Renderer</a>
-		  </li>
-		</ul>
+		<script type="text/javascript" src="js/language.js"></script>
+	</head>
+	<body class="bg-inverse">
 		
-	  </div>
-	</div>
-	<nav class="navbar navbar-light bg-faded">
-	  <span id="navbar-toggle" class="navbar-brand" data-toggle="collapse" data-target="#exCollapsingNavbar">Tessellation</span>
-	  <div class="pull-right navbar-toggler" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">&#9776;</div>
-	</nav>
-	-->
-	
-	</br>
-	
-	<div class="container">
-	  
-	  <div class="jumbotron bg-inverse">
-	    <h1 id="index-jumbotron-title" class="display-1">Learn How</h1>
-		  <p id="index-jumbotron-subtitle" class="lead">Learn How to use Tessellation to Make MCPE Block Models</p>
-	    <hr class="m-y-md bg-info">
-		  <p id="index-jumbotron-text">Make block models for Tessellation Mod, Your own mod, or just for fun!</p>
-	    <p class="lead">
-	      <a id="index-jumbotron-learn" class="btn btn-info-outline" href="learnhow.html" role="button">Learn How</a>
-		  <a id="index-jumbotron-renderer" class="btn btn-info-outline" href="renderer.html" role="button">Renderer</a>
-	    </p>
-	  </div>
-	  
-	</div>
-	
-	<!-- jQuery first, then Bootstrap JS. -->
-	<script src="js/jquery-1.11.3.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/scripts.js"></script>
-  </body>
-</html>		
+		<nav class="navbar navbar-light bg-faded">
+			<div class="navbar-toggler pull-right" data-toggle="collapse" data-target="#collapseNavbar">&#9776;</div>
+			<span l="collapseTitle" class="navbar-brand" data-toggle="collapse" data-target="#collapseNavbar"></span>
+		</nav>
+		
+		<div class="collapse" id="collapseNavbar">
+			<div class="bg-faded p-a">
+				<span l="collapseMuted" class="text-muted">MCPE, ModPE, Addons, Three.js, Web Dev</span>
+				<ul class="nav nav-pills nav-stacked">
+					<li class="nav-item">
+						<a l="home" href="index.html" class="nav-link active">Home</a>
+					</li>
+					<li class="nav-item">
+						<a l="wiki" href="#" class="nav-link disabled">Wiki</a>
+					</li>
+					<li class="nav-item">
+						<a l="tiletessellator" href="tiletessellator.html" class="nav-link">Tile Tessellator</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+			<ol class="carousel-indicators">
+				<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+				<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+			</ol>
+			<div class="carousel-inner" role="listbox">
+				<div class="carousel-item active">
+					<img src="assets/tessellation.png" data-src="assets/tessellation.png" alt="Tessellation">
+					<div class="carousel-caption">
+						<h3 l="car-tess">Tessellation</h3>
+						<p l="car-tess-desc">3D Blocks in your MCPE World</p>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<img src="assets/threejs_0.png" data-src="assets/Threejs.png" alt="Three.js">
+					<div class="carousel-caption">
+						<h3 l="car-ttess">Tile Tessellator</h3>
+						<p l="car-ttess-desc">Create amazing Tile Renders in the Browser</p>
+					</div>
+				</div>
+			</div>
+			<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+				<span class="icon-prev" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			</a>
+			<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+				<span class="icon-next" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			</a>
+		</div>
+		
+		<br/>
+		
+		<div class="card">
+			<div class="card-block">
+				<h4 l="car-tess" class="card-title">Tessellation</h4>
+				<h6 class="card-subtitle text-muted">Download B4</h6>
+			</div>
+			<div class="card-block">
+				<p class="card-text">B4 Adds 3D rails, improved Furnace, and 0.12.1 Support!</p>
+				<a href="https://dl-web.dropbox.com/get/Tessellation%20B4%200.12.1.apk?_subject_uid=219506693&w=AABlkS1IOnwSK1S64GdVXAri8P4RQKscaCHWKwzOa9dDLA" class="card-link">Dropbox</a>
+				<a href="http://download1497.mediafire.com/stdefud2b5ug/tzqa64dishn4f6a/Tessellation+B4+0.12.1.apk" class="card-link">Mediafire</a>
+				<a href="#" class="card-link disabled">Wiki</a>
+			</div>
+		</div>
+		
+		<div class="card">
+			<div class="card-block">
+				<h4 class="card-title">Tile Tessellator</h4>
+				<h6 class="card-subtitle text-muted">Renderer</h6>
+			</div>
+			<div class="card-block">
+				<p class="card-text">Tile Tesseellator is the code MCPE uses to render blocks shapes, with this, render then export!</p>
+				<a href="tiletessellator.html" class="card-link">Tile Tessellator</a>
+				<a href="#" class="card-link disabled">Wiki</a>
+			</div>
+		</div>
+		
+	</body>
+</html>

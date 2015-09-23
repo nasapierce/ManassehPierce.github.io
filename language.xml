@@ -1,104 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <translations>
 	
-	<!--
-	Add another language by taking the tags, copy
-	and paste them, the put the language tag name as
-	the tag, example:
-	<es>Español</es>
-	<pt>Portugues</pt>
-	
-	Language tags: 
-	http://www.w3schools.com/tags/ref_language_codes.asp
-	-->
-	
-	<!-- All pages -->
-    <translation id="navbar-title">
-		<en>Tessellation Renderer</en>
+	<translation id="home">
+		<en>Home</en>
 	</translation>
 	
-	<translation id="navbar-subtitle">
-		<en>Making PE Rendering Easy</en>
+	<translation id="wiki">
+		<en>Wiki</en>
 	</translation>
 	
-	<translation id="navbar-toggle">
+	<translation id="tiletessellator">
+		<en>Tile Tessellator</en>
+	</translation>
+	
+	
+	<translation id="collapseTitle">
+		<en>ManassehPierce.github.io</en>
+	</translation>
+	
+	<translation id="collapseMuted">
+		<en>MCPE, ModPE, Addons, Three.js, Web Dev</en>
+	</translation>
+	
+	<translation id="car-tess">
 		<en>Tessellation</en>
 	</translation>
 	
-	<translation id="nav-link-home">
-		<en>Home</en>
+	<translation id="car-tess-desc">
+		<en>3D Blocks in your MCPE World</en>
 	</translation>
 	
-	<translation id="nav-link-learn">
-		<en>Learn How</en>
+	<translation id="car-ttess">
+		<en>Tile Tessellator</en>
 	</translation>
 	
-	<translation id="nav-link-renderer">
-		<en>Renderer</en>
+	<translation id="car-ttess-desc">
+		<en>Create amazing Tile Renders in the Browser</en>
 	</translation>
 	
-	<!-- index.html -->
-	<translation id="index-jumbotron-title">
-		<en>Learn How</en>
-	</translation>
-	
-	<translation id="index-jumbotron-subtitle">
-		<en>Learn How to use Tessellation to Make MCPE Block Models</en>
-	</translation>
-	
-	<translation id="index-jumbotron-text">
-		<en>Make block models for Tessellation Mod, Your own mod, or just for fun!</en>
-	</translation>
-	
-	<translation id="index-jumbotron-learn">
-		<en>Learn How</en>
-	</translation>
-	
-	<translation id="index-jumbotron-renderer">
-		<en>Renderer</en>
-	</translation>
-	
-	<!-- learnhow.html -->
-	<translation id="learn-title">
-		<en>Beggining</en>
-	</translation>
-
-	<translation id="learn-subtitle">
-		<en>Learn basics of Tessellations</en>
-	</translation>
-
-	<translation id="learn-renderer">
-		<en>Renderer</en>
-	</translation>
-
-	<translation id="learn-home">
-		<en>Home</en>
-	</translation>
-
-	<translation id="learn-text">
-		<en>
-			<tab/>Tessellation starts at the bottom North-West corner of a block, These coordinates are represented by 0, 0, 0, The Minimum X, Y, and Z. 
-			Tessellation ends at the top South-East corner of a block, These coordinates are represented by 1, 1, 1, The Maximum X, Y and Z. 
-			Just to Clarify, yes you can go past 0 in the negitives, as well as farther than 1 in the positives. Now, in the renderer there are two 
-			box options, Add Box, whose base coordinates are 0,0,0,16,16,16 and Add Bound, whose base coordinates are 0,0,0,1,1,1 There is no difference, they work the same, 
-			Add Box is simplified so you wont have think about decimals, its divided up so you can say, 0 - 1 is 1 minecraft pixel (Pixel on a 16x Texture). 
-			Add Bound is for those who for some reason loke doings the hard way, I added it because of a complaint. 1 minecraft pixel in this is 0.0625 (1/16).
-
-			<br/>Now that we went over Add Box and Add Bounds, lets talk about a simple render, like a slab.
-			A Slab in Minecraft is half a block, so 1 block is 16 Minecraft Pixels tall (Y), Wide (Z), and Long (X). So, a slab is 8 Minecraft Pixels Tall, 16 Wide, and 16 Long.
-			To make this lets start with the minimum values, of a default block is 0,0,0 - which is what we will use here.
-			To make the maximum values, the default block is 16,16,16, we need it to be half of this height (Y) which will look like this 16,8,16. 
-			Lets put it together and add a box with these coords 0,0,0,16,8,16. 
-
-			<br/>Now that basics are down just experiment around and you will be making some amazing renders in no time!
-		</en>
-	</translation>
-	
-	<!-- All this wont be read, but This is the renderer text -->
-	<translation id="renderer">
-		<en>
-			
-		</en>
+	<translation>
+		
 	</translation>
 	
 </translations>

@@ -1,0 +1,2 @@
+var THREE = THREE;
+
