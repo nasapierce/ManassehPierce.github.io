@@ -3,6 +3,12 @@ var TileTessellatorGui = function(){
 	
 	var _this = this;
 	
+	$('input[type="number"]').click(function(){
+		$(this).focus();
+	});
+	$('input[type="text"]').click(function(){
+		$(this).focus();
+	});
 	_this.init = function () {
 		var openSettings = new _this.button("Settings", 0, 0);
 		$("#container").append(openSettings.domElement);

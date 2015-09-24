@@ -26,7 +26,7 @@ var EngineRenderer = function (container, showGrid, showAxes, showBase) {
 		_this.camera.position.y = 5;
 		_this.camera.position.z = 10;
 		
-		_this.controls = new THREE.OrbitControls(_this.camera);
+		_this.controls = new THREE.OrbitControls(_this.camera, _this.container);
 		_this.controls.damping = 0.2;
 		_this.controls.addEventListener('change', _this.render);
 		
