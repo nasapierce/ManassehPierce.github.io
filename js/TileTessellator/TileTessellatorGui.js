@@ -3,12 +3,6 @@ var TileTessellatorGui = function(){
 	
 	var _this = this;
 	
-	$('input[type="number"]').click(function(){
-		$(this).focus();
-	});
-	$('input[type="text"]').click(function(){
-		$(this).focus();
-	});
 	_this.init = function () {
 		var openSettings = new _this.button("Settings", 0, 0);
 		$("#container").append(openSettings.domElement);
@@ -20,7 +14,7 @@ var TileTessellatorGui = function(){
 		
 		var exportBtn = new _this.button("Export", 189, 0);
 		$("#container").append(exportBtn.domElement);
-		$(exportBtn.domElement).click(function(){exportBounds();});
+		$(exportBtn.domElement).click(function(){$('#exportScreen').removeAttr('hidden');});
 		
 		var Ebound = true;
 		
@@ -30,7 +24,7 @@ var TileTessellatorGui = function(){
 			$('#editScreen').removeAttr('hidden');
 			for(var i=0;i<TileTessellator.voxelBounds.length;i++){
 				var index = i;
-				var b = new _this.button(TileTessellator.voxelBounds[i].name, 5, 5 + (30 * i));
+				var b = new _this.button(TileTessellator.voxelBounds[i].name, 5, 5 + (45 * i));
 				$(b.domElement).click(function(){
 					$('#editScreen').attr("hidden","true");
 					$('#editModal').html("");
@@ -74,7 +68,7 @@ var TileTessellatorGui = function(){
 					});
 				});
 				$("#editModal").append(b.domElement);
-				var d = new _this.button('Delete', 5 + $(b.domElement).width() * 2, 5 + (30 * i));
+				var d = new _this.button('Delete', 5 + $(b.domElement).width() * 2, 5 + (45 * i));
 				$(d.domElement).css('color','Red').click(function(){
 					deleteBound(index);
 					$('#editScreen').attr("hidden","true");
@@ -88,16 +82,40 @@ var TileTessellatorGui = function(){
 		_this.renderScreen();
 		_this.editScreen();
 		_this.editScreen2();
+		_this.exportScreen();
+	};
+	
+	_this.exportScreen = function(){
+		$('#exportScreen').load('js/TileTessellator/exportScreen.xml', function(){
+			$('#exportBound').click(function(){
+				$('#exportScreen').attr("hidden","true");
+				exportBounds($('#exportName').val());
+			});
+			$('#importBound').click(function(){
+				var file = document.getElementById('importFile').files[0];
+				if(file){
+					var r = new FileReader();
+					r.onload = function(e){
+						var contents = e.target.result;
+						alert(contents);
+						importBounds(contents);
+					};
+					r.readAsText(file);
+					$('#exportScreen').attr("hidden","true");
+				}
+			});
+			$('#closeExport').click(function(){
+				$('#exportScreen').attr("hidden","true");
+			});
+		});
 	};
 	
 	_this.settingsScreen = function(){
 		$('#settingScreen').load('js/TileTessellator/settingsScreen.xml', function(){
-			if(TileTessellator.showAxes) $('#toggleAxes').attr('checked', 'true');
-			if(TileTessellator.showGrid) $('#toggleGrid').attr('checked', 'true');
-			if(showBaseMesh) $('#toggleBase').attr('checked', 'true');
 			$('#toggleAxes').change(function(){TileTessellator.toggleHelperAxes();});
 			$('#toggleGrid').change(function(){TileTessellator.toggleHelperGrid();});
 			$('#toggleBase').change(function(){toggleBaseMesh();});
+			$('#toggleCompass').change(function(){toggleCompass();});
 			$('#closeSettings').click(function(){
 				$('#settingScreen').attr("hidden","true");
 			});

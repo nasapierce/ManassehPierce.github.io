@@ -6,20 +6,30 @@
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		
 		<link rel="stylesheet" href="css/shared.css"/>
-		<link rel="stylesheet" href="css/bootstrap.css"/>
-		
 		<script type="text/javascript" src="src/jquery-1.11.3.min.js"></script>
-		<script type="text/javascript" src="src/bootstrap.min.js"></script>
-		
 		<script type="text/javascript" src="js/language.js"></script>
 	</head>
 	<body>
-		<div id="container"></div>
+		
+		
+		<input type="file" id="importFile"/>
 		
 		<script>
-			$(document).ready(function(){
-				$('#container').load('settings.ajax');
-			});
+		function readSingleFile(evt) {
+			//Retrieve the first (and only!) File from the FileList object
+			var f = evt.target.files[0];
+			if(f){
+				var r = new FileReader();
+				r.onload = function(e){
+					var contents = e.target.result;
+					
+				};
+				r.readAsText(f);
+			} else {
+				alert("Failed to load file");
+			}
+		}
+		document.getElementById('importFile').addEventListener('change', readSingleFile, false);
 		</script>
 	</body>
 </html>

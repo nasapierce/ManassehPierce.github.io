@@ -1,0 +1,14 @@
+<div class="minecraft-bg"></div>
+<div class="minecraft-modal">
+	
+	<span class="minecraft-text">Name: </span>
+	<input id="exportName" type="text" class="minecraft-textInput" placeholder="Render" value="Render"/><br/>
+	<div id="exportBound" class="minecraft-btn">Export</div><br/><br/><br/>
+	
+	<span class="minecraft-text">Import: </span>
+	<input id="importFile" type="file" class=""/><br/>
+	<div id="importBound" class="minecraft-btn">Import</div><br/>
+	
+</div>
+<div id="closeExport" class="minecraft-close"></div>
+

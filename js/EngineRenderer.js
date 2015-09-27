@@ -56,7 +56,13 @@ var EngineRenderer = function (container, showGrid, showAxes, showBase) {
 		_this.helperBase.position.set(0.5, -0.5, 0.5);
 		if(_this.showBase) _this.scene.add(_this.helperBase);
 		
-		_this.renderer = new THREE.WebGLRenderer({antialias: true});
+		if(Detector.webgl){
+			_this.renderer = new THREE.WebGLRenderer({antialias: true});
+		}
+		if(!Detector.webgl){
+			_this.renderer = new THREE.CanvasRenderer();
+		}
+		
 		_this.renderer.setClearColor(_this.scene.fog.color);
 		_this.renderer.setPixelRatio(window.devicePixelRatio);
 		_this.renderer.setSize(window.innerWidth, window.innerHeight);

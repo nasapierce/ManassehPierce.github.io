@@ -1,15 +1,11 @@
 var TileTessellator, terrain, container;
-var baseMesh, baseGeometry, baseMaterial;
+var baseMesh, baseGeometry, baseMaterial, northPlane, southPlane, eastPlane, westPlane;
 var metaMapped = [];
 
 $(document).ready(function(){
-	if(Detector.webgl){
-		init();
-		var gui = new TileTessellatorGui();
-		gui.init();
-	} else {
-		Detector.addGetWebGLMessage();
-	}
+	var gui = new TileTessellatorGui();
+	gui.init();
+	init();
 });
 
 function init() {
@@ -24,6 +20,45 @@ function init() {
 		tex.magFilter = THREE.NearestFilter;
 		tex.minFilter = THREE.LinearMipMapLinearFilter;
 	});
+	
+	var planeGeometry = new THREE.PlaneGeometry(1, 1);
+	
+	var nTex = THREE.ImageUtils.loadTexture("assets/north.png");
+	nTex.magFilter = THREE.NearestFilter;
+	nTex.minFilter = THREE.LinearMipMapLinearFilter;
+	var sTex = THREE.ImageUtils.loadTexture("assets/south.png");
+	sTex.magFilter = THREE.NearestFilter;
+	sTex.minFilter = THREE.LinearMipMapLinearFilter;
+	var eTex = THREE.ImageUtils.loadTexture("assets/east.png");
+	eTex.magFilter = THREE.NearestFilter;
+	eTex.minFilter = THREE.LinearMipMapLinearFilter;
+	var wTex = THREE.ImageUtils.loadTexture("assets/west.png");
+	wTex.magFilter = THREE.NearestFilter;
+	wTex.minFilter = THREE.LinearMipMapLinearFilter;
+	
+	northPlane = new THREE.Mesh(planeGeometry, new THREE.MeshLambertMaterial({map: nTex, side: THREE.DoubleSide, transparent: true}));
+	northPlane.position.z = -0.501;
+	northPlane.position.y = -0.5;
+	northPlane.rotation.y = Math.PI / - 1;
+	TileTessellator.scene.add(northPlane);
+	
+	southPlane = new THREE.Mesh(planeGeometry, new THREE.MeshLambertMaterial({map: sTex, side: THREE.DoubleSide, transparent: true}));
+	southPlane.position.z = +0.501;
+	southPlane.position.y = -0.5;
+	southPlane.rotation.z = Math.PI / - 1;
+	TileTessellator.scene.add(southPlane);
+	
+	eastPlane = new THREE.Mesh(planeGeometry, new THREE.MeshLambertMaterial({map: eTex, side: THREE.DoubleSide, transparent: true}));
+	eastPlane.position.x = +0.501;
+	eastPlane.position.y = -0.5;
+	eastPlane.rotation.y = Math.PI / 2;
+	TileTessellator.scene.add(eastPlane);
+	
+	westPlane = new THREE.Mesh(planeGeometry, new THREE.MeshLambertMaterial({map: wTex, side: THREE.DoubleSide, transparent: true}));
+	westPlane.position.x = -0.501;
+	westPlane.position.y = -0.5;
+	westPlane.rotation.y = Math.PI / 2;
+	TileTessellator.scene.add(westPlane);
 	
 	baseMaterial = new THREE.MeshLambertMaterial({map: terrain, side: THREE.FrontSide});
 	baseGeometry = new THREE.CubeGeometry(1, 1, 1, 1, 1, 1);
@@ -43,6 +78,36 @@ function toggleBaseMesh() {
 	}
 	showBaseMesh = !showBaseMesh;
 }
+
+var showCompass = true;
+function toggleCompass() {
+	if(showCompass){
+		TileTessellator.scene.remove(northPlane);
+		TileTessellator.scene.remove(southPlane);
+		TileTessellator.scene.remove(eastPlane);
+		TileTessellator.scene.remove(westPlane);
+	}
+	else if(!showCompass){
+		TileTessellator.scene.add(northPlane);
+		TileTessellator.scene.add(southPlane);
+		TileTessellator.scene.add(eastPlane);
+		TileTessellator.scene.add(westPlane);
+	}
+	showCompass = !showCompass;
+}
+
+var importBounds = function(content){
+	alert(content);
+	var splitByLines = content.split('\n');
+	alert(splitByLines.length);
+	for(var i=0;i<splitByLines.length;i++) {
+		alert(splitByLines[i]);
+		if(splitByLines[i].split('(')[0] == 'setRenderBound') {
+			var par = splitByLines[i].split('(')[1].split(')')[0].split(',');
+			renderBound(parseFloat(par[0]), parseFloat(par[1]), parseFloat(par[2]), parseFloat(par[3]), parseFloat(par[4]), parseFloat(par[5]), ['stone', 0], true, 'importBound '+i);
+		}
+	}
+};
 
 var renderBound = function(x1, y1, z1, x2, y2, z2, textureArray, isBound, name){
 	if(!isBound){
@@ -91,12 +156,12 @@ var texture = function(tname, data){
 	}
 };
 
-var exportBounds = function(){
+var exportBounds = function(name){
 	str = "";
 	for(var i=0;i<TileTessellator.voxelBounds.length;i++){
 		str += "// "+TileTessellator.voxelBounds[i].name+" \nsetRenderBound("+TileTessellator.voxelBounds[i].coords[0]+", "+TileTessellator.voxelBounds[i].coords[1]+", "+TileTessellator.voxelBounds[i].coords[2]+", "+TileTessellator.voxelBounds[i].coords[3]+", "+TileTessellator.voxelBounds[i].coords[4]+", "+TileTessellator.voxelBounds[i].coords[5]+");\n\n";
 	}
-	download("render.cpp", str);
+	download(name+".cpp", str);
 };
 
 var textureUV = function(minU, minV, maxU, maxV){
