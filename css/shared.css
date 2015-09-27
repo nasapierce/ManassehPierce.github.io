@@ -7,6 +7,10 @@ body {
 	display: none;
 }
 
+*{
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
 @font-face {
     font-family: 'minecraftiaregular';
     src: url('../fonts/minecraftia.eot');
@@ -28,29 +32,39 @@ body {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-	display: block;
+	display: inline-block;
 	text-align: center;
 	vertical-align: middle;
-	position: absolute;
-	background-color: #958681;
-	border: outset #bbb0aa 2px;
-	border-top-width: 3px;
+	background: -webkit-linear-gradient(top, #958681, #7f716d);
+	border-style: outset;
+	border-width: 2px;
+	border-top-color: #dbd5d0;
+	border-left-color: #c4b9b3;
+	border-bottom-color: #222122;
+	border-right-color: #222122;
 	min-height: 14px;
-	min-width: 16px;
+	min-width: 14px;
 	color: #DDDDDD;
 	padding: 6px;
 	font-size: 12px;
 	text-shadow: 1px 1px 1px #292929;
 	font-family: 'minecraftiaregular';
+	margin: 3px;
 }
 
 .minecraft-btn:active,
 .minecraft-close:active,
+.minecraft-file + label span:active,
 .minecraft-btn[active],
-.minecraft-close[active] {
+.minecraft-close[active],
+.minecraft-file + label span[active] {
 	color:#FBFF97;
-	border: inset #bbb0aa 2px;
-	border-top-width: 3px;
+	background: -webkit-linear-gradient(bottom, #958681, #7f716d);
+	border-style: inset;
+	border-bottom-color: #dbd5d0;
+	border-right-color: #c4b9b3;
+	border-top-color: #222122;
+	border-left-color: #222122;
 }
 
 .minecraft-text {
@@ -122,6 +136,7 @@ body {
 }
 
 .minecraft-close {
+	position: absolute;
 	z-index: 103;
 	width: 20%;
 	bottom: 2.5%;
@@ -132,18 +147,10 @@ body {
 	content: "Close";
 }
 
-.test {
-	margin-top: 6px;
-	margin-left: 6px;
-	display: inline-block;
-	text-align: center;
-	vertical-align: middle;
-	padding-top: 2px;
-	padding-left: 4px;
-	padding-right: 4px;
-	background-color: #B3B3B3;
-    box-shadow:
-        0px 0px 2px #292929,
-        0px 0px 0px 4px #B3B3B3;
+.minecraft-file {
+	display: none;
 }
 
+.minecraft-file + label span::after {
+	content: 'Select File';
+}

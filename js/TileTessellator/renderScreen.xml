@@ -2,7 +2,7 @@
 	<div class="minecraft-modal">
 		
 		<div id="boundToggle" class="minecraft-btn">Bound [0-1]</div>
-		<br/><br/><br/>
+		<br/>
 		
 		<span class="minecraft-text">Min X: </span>
 		<input id="minX" type="number" class="minecraft-textInput" placeholder="0"/><br/>
@@ -23,10 +23,10 @@
 		<input id="maxZ" type="number" class="minecraft-textInput" placeholder="1"/><br/>
 		
 		<span class="minecraft-text">Texture: </span>
-		<input id="texture" class="minecraft-textInput" type="text" placeholder="stone, 0"/>
+		<input id="texture" class="minecraft-textInput" type="text" placeholder="stone, 0"/><br/>
 		
 		<span class="minecraft-text">Name: </span>
-		<input id="name" class="minecraft-textInput" type="text" placeholder="box"/>
+		<input id="name" class="minecraft-textInput" type="text" placeholder="box"/><br/>
 		
 		<div id="addBound" class="minecraft-btn">Add</div>
 	</div>

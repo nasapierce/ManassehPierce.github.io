@@ -181,7 +181,7 @@ var TileTessellatorGui = function(){
 	
 	_this.button = function(text, x, y) {
 		this.domElement = document.createElement('div');
-		$(this.domElement).addClass('minecraft-btn').css('z-index', '100').css('position', 'absolute').css('left', x + 'px').css('top', y + 'px').html(text);
+		$(this.domElement).addClass('minecraft-btn').css('z-index', '100').css('position', 'absolute').css('opacity', '0.7').css('left', x + 'px').css('top', y + 'px').html(text);
 	};
 };
 

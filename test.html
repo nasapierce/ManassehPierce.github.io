@@ -10,26 +10,6 @@
 		<script type="text/javascript" src="js/language.js"></script>
 	</head>
 	<body>
-		
-		
-		<input type="file" id="importFile"/>
-		
-		<script>
-		function readSingleFile(evt) {
-			//Retrieve the first (and only!) File from the FileList object
-			var f = evt.target.files[0];
-			if(f){
-				var r = new FileReader();
-				r.onload = function(e){
-					var contents = e.target.result;
-					
-				};
-				r.readAsText(f);
-			} else {
-				alert("Failed to load file");
-			}
-		}
-		document.getElementById('importFile').addEventListener('change', readSingleFile, false);
-		</script>
+		<div class="minecraft-btn">Button</div>
 	</body>
 </html>
