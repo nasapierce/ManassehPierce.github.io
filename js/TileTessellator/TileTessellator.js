@@ -16,6 +16,12 @@ function init() {
 	TileTessellator.init();
 	TileTessellator.render();
 	
+	TileTessellator.light.castShadow = true;
+	TileTessellator.light.shadowDarkness = 0.5;
+	TileTessellator.light.needsUpdate = true;
+	
+	TileTessellator.scene.remove(TileTessellator.ambeintLight);
+	
 	terrain = TileTessellator.tgaLoader.load('assets/terrain-atlas.tga', function(tex){
 		tex.magFilter = THREE.NearestFilter;
 		tex.minFilter = THREE.LinearMipMapLinearFilter;
@@ -64,6 +70,8 @@ function init() {
 	baseGeometry = new THREE.CubeGeometry(1, 1, 1, 1, 1, 1);
 	setBoundFaces(baseGeometry, ['planks']);
 	baseMesh = new THREE.Mesh(baseGeometry, baseMaterial);
+	baseMesh.castShadow = true;
+	baseMesh.recieveShadow = true;
 	baseMesh.position.set(0, -0.5, 0);
 	TileTessellator.scene.add(baseMesh);
 }
@@ -127,9 +135,11 @@ var renderBound = function(x1, y1, z1, x2, y2, z2, textureArray, isBound, name){
 	this.material = new THREE.MeshLambertMaterial({map: terrain, transparent: true});
 	this.mesh = new THREE.Mesh(this.bound, this.material);
 	this.mesh.position.set((this.width/2) + x1 - 0.5, (this.height/2) + y1, (this.depth/2) + z1 - 0.5);
+	this.mesh.castShadow = true;
+	this.mesh.recieveShadow = true;
 	TileTessellator.scene.add(this.mesh);
 	
-	TileTessellator.voxelBounds.push({mesh: this.mesh, coords: [x1, y1, z1, x2, y2, z2], name: name});
+	TileTessellator.voxelBounds.push({mesh: this.mesh, coords: [x1, y1, z1, x2, y2, z2], name: name, texture: textureArray});
 };
 
 var deleteBound = function(index){

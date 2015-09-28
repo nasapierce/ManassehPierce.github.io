@@ -4,18 +4,7 @@ var EngineRenderer = function (container, showGrid, showAxes, showBase) {
 	this.showAxes = showAxes || false;
 	this.showBase = showBase || false;
 	this.voxelBounds = [];
-	this.scene;
-	this.renderer;
-	this.controls;
 	this.container = container || document;
-	this.camera;
-	this.helperAxes;
-	this.helperGrid;
-	this.helperBase;
-	this.helperBaseMaterial;
-	this.helperBaseGeometry;
-	this.light;
-	this.ambeintLight;
 	this.objLoader = new THREE.OBJLoader();
 	this.tgaLoader = new THREE.TGALoader();
 	this.imgLoader = new THREE.ImageLoader();
@@ -34,7 +23,7 @@ var EngineRenderer = function (container, showGrid, showAxes, showBase) {
 		_this.scene.fog = new THREE.Fog(0xcccccc, 0.008);
 		
 		_this.light = new THREE.DirectionalLight(0xdddddd, 1);
-		_this.light.position.set(1, 1, 1).normalize();
+		_this.light.position.set(2, 2, 2).normalize();
 		_this.scene.add(_this.light);
 		
 		_this.ambientLight = new THREE.AmbientLight(0xcccccc);

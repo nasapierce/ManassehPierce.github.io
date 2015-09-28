@@ -44,13 +44,19 @@ var TileTessellatorGui = function(){
 							$('#EmaxZ').attr('placeholder', '1');
 						}
 					});
-					//$('#EminX').val(TileTessellator[index].coords[0]);
-					//$('#EminY').val(TileTessellator[index].coords[1]);
-					//$('#EminZ').val(TileTessellator[index].coords[2]);
-					//$('#EmaxX').val(TileTessellator[index].coords[3]);
-					//$('#EmaxY').val(TileTessellator[index].coords[4]);
-					//$('#EmaxZ').val(TileTessellator[index].coords[5]);
-					//$('#Ename').val(TileTessellator[index].name);
+					$('#EminX').val(TileTessellator.voxelBounds[index].coords[0]);
+					$('#EminY').val(TileTessellator.voxelBounds[index].coords[1]);
+					$('#EminZ').val(TileTessellator.voxelBounds[index].coords[2]);
+					$('#EmaxX').val(TileTessellator.voxelBounds[index].coords[3]);
+					$('#EmaxY').val(TileTessellator.voxelBounds[index].coords[4]);
+					$('#EmaxZ').val(TileTessellator.voxelBounds[index].coords[5]);
+					var tex = "";
+					for(var t=0;t<TileTessellator.voxelBounds[index].texture.length;t++){
+						if(t !== TileTessellator.voxelBounds[index].texture.length - 1) tex += TileTessellator.voxelBounds[index].texture[t] + ",";
+						else tex += TileTessellator.voxelBounds[index].texture[t];
+					}
+					$('#Etexture').val(tex);
+					$('#Ename').val(TileTessellator.voxelBounds[index].name);
 					$('#editBound').click(function(){
 						var textureArr = $('#Etexture').val().split(',');
 						var textureReal;
@@ -181,7 +187,7 @@ var TileTessellatorGui = function(){
 	
 	_this.button = function(text, x, y) {
 		this.domElement = document.createElement('div');
-		$(this.domElement).addClass('minecraft-btn').css('z-index', '100').css('position', 'absolute').css('opacity', '0.7').css('left', x + 'px').css('top', y + 'px').html(text);
+		$(this.domElement).addClass('minecraft-btn').css('z-index', '100').css('position', 'absolute').css('opacity', '0.7').css('left', x + 'px').css('top', y + 'px').css('margin','0').html(text);
 	};
 };
 
