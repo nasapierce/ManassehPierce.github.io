@@ -36,20 +36,49 @@ var TileTessellatorGui = function(){
 							$('#EmaxX').attr('placeholder', '16');
 							$('#EmaxY').attr('placeholder', '16');
 							$('#EmaxZ').attr('placeholder', '16');
+							
+							var x1 = $('#EminX').val() * 16;
+							var y1 = $('#EminY').val() * 16;
+							var z1 = $('#EminZ').val() * 16;
+							var x2 = $('#EmaxX').val() * 16;
+							var y2 = $('#EmaxY').val() * 16;
+							var z2 = $('#EmaxZ').val() * 16;
+							$('#EminX').val( x1 );
+							$('#EminY').val( y1 );
+							$('#EminZ').val( z1 );
+							$('#EmaxX').val( x2 );
+							$('#EmaxY').val( y2 );
+							$('#EmaxZ').val( z2 );
 						}
 						else if(Ebound) {
 							$('#EboundToggle').removeAttr('active').html('Bound [0-1]');
 							$('#EmaxX').attr('placeholder', '1');
 							$('#EmaxY').attr('placeholder', '1');
 							$('#EmaxZ').attr('placeholder', '1');
+							
+							var x1 = $('#EminX').val() / 16;
+							var y1 = $('#EminY').val() / 16;
+							var z1 = $('#EminZ').val() / 16;
+							var x2 = $('#EmaxX').val() / 16;
+							var y2 = $('#EmaxY').val() / 16;
+							var z2 = $('#EmaxZ').val() / 16;
+							$('#EminX').val( x1 );
+							$('#EminY').val( y1 );
+							$('#EminZ').val( z1 );
+							$('#EmaxX').val( x2 );
+							$('#EmaxY').val( y2 );
+							$('#EmaxZ').val( z2 );
 						}
 					});
-					$('#EminX').val(TileTessellator.voxelBounds[index].coords[0]);
-					$('#EminY').val(TileTessellator.voxelBounds[index].coords[1]);
-					$('#EminZ').val(TileTessellator.voxelBounds[index].coords[2]);
-					$('#EmaxX').val(TileTessellator.voxelBounds[index].coords[3]);
-					$('#EmaxY').val(TileTessellator.voxelBounds[index].coords[4]);
-					$('#EmaxZ').val(TileTessellator.voxelBounds[index].coords[5]);
+					var div = 1;
+					if(Ebound) div = 1;
+					if(!Ebound) div = 16;
+					$('#EminX').val(TileTessellator.voxelBounds[index].coords[0] * div);
+					$('#EminY').val(TileTessellator.voxelBounds[index].coords[1] * div);
+					$('#EminZ').val(TileTessellator.voxelBounds[index].coords[2] * div);
+					$('#EmaxX').val(TileTessellator.voxelBounds[index].coords[3] * div);
+					$('#EmaxY').val(TileTessellator.voxelBounds[index].coords[4] * div);
+					$('#EmaxZ').val(TileTessellator.voxelBounds[index].coords[5] * div);
 					var tex = "";
 					for(var t=0;t<TileTessellator.voxelBounds[index].texture.length;t++){
 						if(t !== TileTessellator.voxelBounds[index].texture.length - 1) tex += TileTessellator.voxelBounds[index].texture[t] + ",";

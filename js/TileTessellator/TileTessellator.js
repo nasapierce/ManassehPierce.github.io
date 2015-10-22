@@ -175,10 +175,10 @@ var exportBounds = function(name){
 };
 
 var textureUV = function(minU, minV, maxU, maxV){
-	minU = minU*16/256;
-	minV = minV*16/512;
-	maxU = maxU*16/256;
-	maxV = maxV*16/512;
+	minU = minU * 16 / 256;
+	minV = minV * 16 / 512;
+	maxU = maxU * 16 / 256;
+	maxV = maxV * 16 / 512;
 	var t = [
 		new THREE.Vector2(minV, maxU), 
 		new THREE.Vector2(minV, minU), 
