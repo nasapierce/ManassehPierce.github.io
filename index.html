@@ -1,101 +1,163 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<title>ManassehPierce.github.io</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
-		<link rel="stylesheet" href="css/bootstrap.css"/>
+		<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css"/>
 		
 		<script type="text/javascript" src="src/jquery-1.11.3.min.js"></script>
-		<script type="text/javascript" src="src/bootstrap.min.js"></script>
-		
-		<script type="text/javascript" src="js/language.js"></script>
+		<script type="text/javascript" src="src/jquery.mobile-1.4.5.min.js"></script>
 	</head>
-	<body class="bg-inverse">
+	<body>
 		
-		<nav class="navbar navbar-light bg-faded">
-			<div class="navbar-toggler pull-right" data-toggle="collapse" data-target="#collapseNavbar">&#9776;</div>
-			<span l="collapseTitle" class="navbar-brand" data-toggle="collapse" data-target="#collapseNavbar"></span>
-		</nav>
-		
-		<div class="collapse" id="collapseNavbar">
-			<div class="bg-faded p-a">
-				<span l="collapseMuted" class="text-muted">MCPE, ModPE, Addons, Three.js, Web Dev</span>
-				<ul class="nav nav-pills nav-stacked">
-					<li class="nav-item">
-						<a l="home" href="index.html" class="nav-link active">Home</a>
-					</li>
-					<li class="nav-item">
-						<a l="wiki" href="#" class="nav-link disabled">Wiki</a>
-					</li>
-					<li class="nav-item">
-						<a l="tiletessellator" href="tiletessellator.html" class="nav-link">Tile Tessellator</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-		
-		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-			<ol class="carousel-indicators">
-				<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-				<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-			</ol>
-			<div class="carousel-inner" role="listbox">
-				<div class="carousel-item active">
-					<img src="assets/tessellation.png" data-src="assets/tessellation.png" alt="Tessellation">
-					<div class="carousel-caption">
-						<h3 l="car-tess">Tessellation</h3>
-						<p l="car-tess-desc">3D Blocks in your MCPE World</p>
-					</div>
+		<div id="home" data-role="page">
+			
+			<div data-role="header" class="ui-header-fixed" style="overflow:hidden;">
+				
+				<h1>Home Page</h1>
+				
+			</div><!-- /header -->
+			
+			<br/>
+			
+			<div data-role="main" class="ui-content">
+				
+				<h3 class="ui-bar ui-bar-a ui-corner-all">Welcome To My Github.io</h3>
+				<div class="ui-body ui-body-a ui-corner-all">
+					<p>Welcome to my Github, here you can find a range of things, my mods, three.js projects, and web development things.</p>
 				</div>
-				<div class="carousel-item">
-					<img src="assets/threejs_0.png" data-src="assets/Threejs.png" alt="Three.js">
-					<div class="carousel-caption">
-						<h3 l="car-ttess">Tile Tessellator</h3>
-						<p l="car-ttess-desc">Create amazing Tile Renders in the Browser</p>
+				
+				<h3 class="ui-bar ui-bar-a ui-corner-all">Tessellation</h3>
+				<div class="ui-body ui-body-a ui-corner-all">
+					<p>Tessellation is a Native Mod which adds 3D models and some new blocks into your MCPE worlds!</p>
+					
+					<div data-role="collapsible">
+						<h4>Screenshots</h4>
+						
+						<a href="#popupScreenshot0" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="images/tessellation-screenshots/0.png" alt="Screenshot 0" style="width:30%"></a>
+						<a href="#popupScreenshot1" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="images/tessellation-screenshots/1.png" alt="Screenshot 1" style="width:30%"></a>
+						<a href="#popupScreenshot2" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="images/tessellation-screenshots/2.png" alt="Screenshot 2" style="width:30%"></a>
+						<a href="#popupScreenshot3" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="images/tessellation-screenshots/3.png" alt="Screenshot 3" style="width:30%"></a>
+						<a href="#popupScreenshot4" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="images/tessellation-screenshots/4.png" alt="Screenshot 4" style="width:30%"></a>
+						<a href="#popupScreenshot5" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="images/tessellation-screenshots/5.png" alt="Screenshot 5" style="width:30%"></a>
+						<a href="#popupScreenshot6" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="images/tessellation-screenshots/6.png" alt="Screenshot 6" style="width:30%"></a>
+						<a href="#popupScreenshot7" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="images/tessellation-screenshots/7.png" alt="Screenshot 7" style="width:30%"></a>
+						<a href="#popupScreenshot8" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="images/tessellation-screenshots/8.png" alt="Screenshot 8" style="width:30%"></a>
+						
+						
+						<div data-role="popup" id="popupScreenshot0" data-overlay-theme="b" data-theme="b" data-corners="false">
+							<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="images/tessellation-screenshots/0.png" style="max-height:512px;" alt="Screenshot 0">
+						</div>
+						<div data-role="popup" id="popupScreenshot1" data-overlay-theme="b" data-theme="b" data-corners="false">
+							<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="images/tessellation-screenshots/1.png" style="max-height:512px;" alt="Screenshot 1">
+						</div>
+						<div data-role="popup" id="popupScreenshot2" data-overlay-theme="b" data-theme="b" data-corners="false">
+							<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="images/tessellation-screenshots/2.png" style="max-height:512px;" alt="Screenshot 2">
+						</div>
+						
+						<div data-role="popup" id="popupScreenshot3" data-overlay-theme="b" data-theme="b" data-corners="false">
+							<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="images/tessellation-screenshots/3.png" style="max-height:512px;" alt="Screenshot 3">
+						</div>
+						<div data-role="popup" id="popupScreenshot4" data-overlay-theme="b" data-theme="b" data-corners="false">
+							<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="images/tessellation-screenshots/4.png" style="max-height:512px;" alt="Screenshot 4">
+						</div>
+						<div data-role="popup" id="popupScreenshot5" data-overlay-theme="b" data-theme="b" data-corners="false">
+							<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="images/tessellation-screenshots/5.png" style="max-height:512px;" alt="Screenshot 5">
+						</div>
+						
+						<div data-role="popup" id="popupScreenshot6" data-overlay-theme="b" data-theme="b" data-corners="false">
+							<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="images/tessellation-screenshots/6.png" style="max-height:512px;" alt="Screenshot 6">
+						</div>
+						<div data-role="popup" id="popupScreenshot7" data-overlay-theme="b" data-theme="b" data-corners="false">
+							<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="images/tessellation-screenshots/7.png" style="max-height:512px;" alt="Screenshot 7">
+						</div>
+						<div data-role="popup" id="popupScreenshot8" data-overlay-theme="b" data-theme="b" data-corners="false">
+							<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="images/tessellation-screenshots/8.png" style="max-height:512px;" alt="Screenshot 8">
+						</div>
+						
 					</div>
+					
+					<a href="#downloads">Download Page</a>
 				</div>
-			</div>
-			<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-				<span class="icon-prev" aria-hidden="true"></span>
-				<span class="sr-only">Previous</span>
-			</a>
-			<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-				<span class="icon-next" aria-hidden="true"></span>
-				<span class="sr-only">Next</span>
-			</a>
-		</div>
+				
+				<h3 class="ui-bar ui-bar-a ui-corner-all">Tessellation - Web Renderer</h3>
+				<div class="ui-body ui-body-a ui-corner-all">
+					<p>Render some TileTessellator things here, and download the c++ file</p>
+					<a data-ajax="false" href="tiletessellator.html">TileTessellator</a>
+				</div>
+				
+			</div> <!-- main -->
+			
+			<div data-role="footer" class="ui-footer-fullscreen">
+				
+				<h1>Darkserver - ManassehPierce.github.io</h1>
+				
+			</div> <!-- footer -->
+			
+		</div> <!-- home -->
 		
-		<br/>
-		
-		<div class="card">
-			<div class="card-block">
-				<h4 l="car-tess" class="card-title">Tessellation</h4>
-				<h6 class="card-subtitle text-muted">Download B6</h6>
-			</div>
-			<div class="card-block">
-				<p class="card-text">B6 adds new and improved renders, and 0.12.2 Support!</p>
-				<a href="http://adf.ly/1QLyj1" class="card-link">Dropbox (adf.ly)</a>
-				<a href="http://adf.ly/1QM5tY" class="card-link">Mediafire (adf.ly)</a>
-				<a href="https://www.dropbox.com/s/eqso5z8afsjz7go/Tessellation%20B6%20Fix.apk?dl=0" class="card-link">Dropbox (Direct)</a>
-				<a href="http://www.mediafire.com/download/w88x1ci5r3li970/Tessellation_B6_Fix.apk" class="card-link">Mediafire (Direct)</a>
-				<a href="#" class="card-link disabled">Wiki</a>
-			</div>
-		</div>
-		
-		<div class="card">
-			<div class="card-block">
-				<h4 class="card-title">Tile Tessellator</h4>
-				<h6 class="card-subtitle text-muted">Renderer</h6>
-			</div>
-			<div class="card-block">
-				<p class="card-text">Tile Tesseellator is the code MCPE uses to render blocks shapes, with this, render then export!</p>
-				<a href="tiletessellator.html" class="card-link">Tile Tessellator</a>
-				<a href="#" class="card-link disabled">Wiki</a>
-			</div>
-		</div>
+		<div id="downloads" data-role="page">
+			
+			<div data-role="header" class="ui-header-fixed" style="overflow:hidden;">
+
+				<h1>Downloads Page</h1>
+				<a href="#home" data-icon="home" class="ui-btn-icon ui-btn-icon-left">Home</a>
+
+			</div><!-- /header -->
+			
+			<br/>
+			
+			<div data-role="main" class="ui-content">
+				
+				<h3 class="ui-bar ui-bar-a ui-corner-all">Tessellation Downloads</h3>
+				<div id="tessellationDownloads" class="ui-body ui-body-a ui-corner-all">
+					<a target="blank" class="ui-btn ui-corner-all ui-btn-inline" href="http://adf.ly/1QLyj1" class="card-link">Dropbox (adf.ly)</a>
+					<a target="blank" class="ui-btn ui-corner-all ui-btn-inline" href="http://adf.ly/1QM5tY" class="card-link">Mediafire (adf.ly)</a><br/>
+					<a target="blank" class="ui-btn ui-corner-all ui-btn-inline" href="https://www.dropbox.com/s/eqso5z8afsjz7go/Tessellation%20B6%20Fix.apk?dl=0" class="card-link">Dropbox (Direct)</a>
+					<a target="blank" class="ui-btn ui-corner-all ui-btn-inline" href="http://www.mediafire.com/download/w88x1ci5r3li970/Tessellation_B6_Fix.apk" class="card-link">Mediafire (Direct)</a>
+				</div>
+				
+				<h3 class="ui-bar ui-bar-a ui-corner-all">Blocklauncher Texture Fix</h3>
+				<div class="ui-body ui-body-a ui-corner-all">
+					<p>When BL came out in 0.11, it had a new Texture API which let modders easily add Textures to the game, here is a terrain-atlas.tga and .meta which fixes some bugs with that API</p>
+					<a target="blank" class="ui-btn ui-corner-all ui-btn-inline" href="https://www.dropbox.com/s/jreu7sly7rv244y/BL%20Texture%20-%20Fix.zip?dl=0" class="card-link">Dropbox</a>
+				</div>
+				
+				<h3 class="ui-bar ui-bar-a ui-corner-all">Crafting Return</h3>
+				<div class="ui-body ui-body-a ui-corner-all">
+					<p>Here is a small script which allows you to have an item return back to your inventory after crafting, it is still buggy</p>
+					<a target="blank" class="ui-btn ui-corner-all ui-btn-inline" href="https://www.dropbox.com/s/jwwo9tt50jfrqwn/craftingReturn.js?dl=0" class="card-link">Dropbox</a>
+				</div>
+				
+				<h3 class="ui-bar ui-bar-a ui-corner-all">Dyed Glowstone</h3>
+				<div class="ui-body ui-body-a ui-corner-all">
+					<p>Here is a small script which makes Glowstone Dyable, it fits all under 1 ID (89) - the origanal Glowstone ID, so if you dont have the mod on you wont get update game blocks everywhere.</p>
+					<a target="blank" class="ui-btn ui-corner-all ui-btn-inline" href="https://www.dropbox.com/s/9z3omm7wovgm5sl/Dyed%20Glowstone.js?dl=0" class="card-link">Dropbox</a>
+				</div>
+				
+				<h3 class="ui-bar ui-bar-a ui-corner-all">Enderman Support Class</h3>
+				<div class="ui-body ui-body-a ui-corner-all">
+					<p>This script makes it so when a certain mob is 10 blocks away from an Enderman, they get a special effect. Enderman are now a priority to kill.</p>
+					<a target="blank" class="ui-btn ui-corner-all ui-btn-inline" href="https://www.dropbox.com/s/x0x3mczs30qblsz/Enderman%20Support%20Class%20module.js?dl=0" class="card-link">Dropbox</a>
+				</div>
+				
+				<h3 class="ui-bar ui-bar-a ui-corner-all">Undead Player</h3>
+				<div class="ui-body ui-body-a ui-corner-all">
+					<p>When the Player dies a zombie named "Undead Player" will spawn where you died. Makes the game a slight more challange</p>
+					<a target="blank" class="ui-btn ui-corner-all ui-btn-inline" href="https://www.dropbox.com/s/q0jsnllk2b0rpnh/gm4.Undead.Player.js?dl=0" class="card-link">Dropbox</a>
+				</div>
+				
+			</div> <!-- main -->
+			
+			<div data-role="footer" class="ui-footer-fullscreen">
+
+				<h1>Darkserver - ManassehPierce.github.io</h1>
+
+			</div> <!-- footer -->
+			
+		</div> <!-- downloads -->
 		
 	</body>
 </html>
