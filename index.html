@@ -88,6 +88,12 @@
 					<a data-ajax="false" href="tiletessellator.html">TileTessellator</a>
 				</div>
 				
+				<h3 class="ui-bar ui-bar-a ui-corner-all">Data-Based Mods: Items</h3>
+				<div class="ui-body ui-body-a ui-corner-all">
+					<p>Create Items in 0.13 with texture packs</p>
+					<a href="#items">Learn Here</a>
+				</div>
+				
 			</div> <!-- main -->
 			
 			<div data-role="footer" class="ui-footer-fullscreen">
@@ -115,7 +121,7 @@
 				<div id="tessellationDownloads" class="ui-body ui-body-a ui-corner-all">
 					<a target="blank" class="ui-btn ui-corner-all ui-btn-inline" href="http://adf.ly/6427710/tessellationhappyhalloween">Filecred (adf.ly)</a>
 					<a target="blank" class="ui-btn ui-corner-all ui-btn-inline" href="http://filecred.com/A2E6G563" class="card-link">Filecred (Direct)</a>
-					<p>Tweet me <a target="blank" href="twitter.com/pierce_manasseh">here</a> to tell me if you cant access the links</p>
+					<p>Tweet me <a target="blank" data-ajax="false" href="twitter.com/pierce_manasseh">here</a> to tell me if you cant access the links</p>
 				</div>
 				
 				<h3 class="ui-bar ui-bar-a ui-corner-all">Blocklauncher Texture Fix</h3>
@@ -157,6 +163,148 @@
 			</div> <!-- footer -->
 			
 		</div> <!-- downloads -->
+		
+		<div id="items" data-role="page">
+
+			<div data-role="header" class="ui-header-fixed" style="overflow:hidden;">
+
+				<h1>Data-Based Items</h1>
+				<a href="#home" data-icon="home" class="ui-btn-icon ui-btn-icon-left">Home</a>
+
+			</div><!-- /header -->
+
+			<br/>
+
+			<div data-role="main" class="ui-content">
+
+				<h3 class="ui-bar ui-bar-a ui-corner-all">Introduction</h3>
+				<div class="ui-body ui-body-a ui-corner-all">
+					<p>
+						In 0.13.0, Tommaso introduced Data-Based Modding. 
+						This type of modding happens in the textures and will be compatiple
+						between Android and iOS
+					</p>
+					<p>
+						To install this without blocklauncher, you have to patch the texture yourself, which can be tedious.<br/>
+						Note: Do NOT hand out anything you get from the com.mojang.minecraft.apk except the assets folder.
+						Do NOT hand out the modified .apk.
+					</p><br/>
+					<span>A video tutorial can be found </span><a href="https://youtu.be/E1V6x9dIY1Y" data-ajax="false">Here</a>
+				</div>
+
+
+				<h3 class="ui-bar ui-bar-a ui-corner-all">Normal Item</h3>
+				<div class="ui-body ui-body-a ui-corner-all" style="overflow: scroll;">
+					<p>This is a basic item</p>	
+					<pre><code>
+	{
+		"name": "customItem",
+		"id": 254, // 256 + 254 = 510
+		"icon": "stick", // image of item
+		"category": "Miscellaneous", // creative tab thingy
+		"foil": true, // show enchant glint
+		"stacked_by_data": true, // 
+		"hand_equipped": false, // does it look like a tool in hand
+		"hover_text_color": "aqua", // if not defined, will be white
+		"max_stack_size": 1 // 
+	},
+						</code></pre>
+				</div>
+
+				<h3 class="ui-bar ui-bar-a ui-corner-all">Food Item</h3>
+				<div class="ui-body ui-body-a ui-corner-all" style="overflow: scroll;">
+					<p>This is a basic food item</p>	
+					<pre><code>
+	{
+		"name": "customItem",
+		"id": 254, // 256 + 254 = 510
+		"icon": "stick", // image of item
+		"category": "Miscellaneous", // creative tab thingy
+		"use_animation": "eat"
+		"use_duration": 32,
+		
+		"food": {
+			"nutrition": 6,
+			"saturation_modifier": "normal",
+			"using_converts_to": "bowl",
+			"is_meat": false,
+			"eat_sound": "random.burp",
+			"effects": [
+				{
+					"name": "poison",
+					"chance": 1.0,
+					"duration": 5,
+					"amplifier": 0
+				},
+				{
+					"name": "nausea",
+					"chance": 1.0,
+					"duration": 5,
+					"amplifier": 0
+				}
+			]
+		}
+	},
+						</code></pre>
+					<p>
+						The "saturation_modifier" tag can be one of:<br/>
+						<ul>
+							<li>poor</li>
+							<li>low</li>
+							<li>normal</li>
+							<li>good</li>
+							<li>supernatrual</li>
+						</ul><br/>
+						The "using_converts_to" tag converts the item to the said item after eating it<br/>
+						The "is_meat" tag is used for stuff like wolf and such, I believe.<br/>
+						The "eat_sound" tag defines which sound to play, find them in the assets<br/>
+						The "effects" tag is an array which defines which effects are used when you eat it.<br/>
+						The "use_animation" tag defines which animation to use, can be one of:
+						<ul>
+							<li>none</li>
+							<li>eat</li>
+							<li>drink</li>
+							<li>block</li>
+							<li>bow</li>
+						</ul>
+					</p>
+				</div>
+
+				<h3 class="ui-bar ui-bar-a ui-corner-all">Seed Item</h3>
+				<div class="ui-body ui-body-a ui-corner-all" style="overflow: scroll;">
+					<p>This is a basic seed item</p>	
+					<pre><code>
+	{
+		"name": "customItem",
+		"id": 254, // 256 + 254 = 510
+		"icon": "stick", // image of item
+		"category": "Miscellaneous", // creative tab thingy
+		
+		"seed": {
+			"crop_result" : "carrots",
+			"plant_at": "farmland"
+		}
+	},
+						</code></pre>
+					<p>The "seed" tag can be used a setTile alternative, which can look like this<br/>
+						<pre><code>
+		"seed": {
+			"crop_result" : "stone",
+			"plant_at": "grass"
+		}
+							</code></pre>
+					</p>
+				</div>
+
+			</div> <!-- main -->
+
+			<div data-role="footer" class="ui-footer-fullscreen">
+
+				<h1>Darkserver - ManassehPierce.github.io</h1>
+
+			</div> <!-- footer -->
+
+		</div> <!-- items -->
 		
 	</body>
 </html>
