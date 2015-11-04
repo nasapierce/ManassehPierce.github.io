@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>Tile Tessellator</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+		<link rel="stylesheet" href="css/shared.css"/>
+
+		<script type="text/javascript" src="src/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="src/three.min.js"></script>
+		<script type="text/javascript" src="src/OrbitControls.js"></script>
+		<script type="text/javascript" src="src/Detector.js"></script>
+		<script type="text/javascript" src="src/OBJLoader.js"></script>
+		<script type="text/javascript" src="src/TGALoader.js"></script>
+		<script type="text/javascript" src="src/OBJExporter.js"></script>
+		<script type="text/javascript" src="assets/terrain-meta.js"></script>
+
+		<script type="text/javascript" src="js/EngineRenderer.js"></script>
+	</head>
+	<body>
+
+		<div id="container"></div>
+
+		<script>
+$(document).ready(function(){
+	init();
+});
+
+var holo;
+
+function init() {
+	container = document.getElementById('container');
+	
+	holo = new EngineRenderer(container, true, false, false);
+	holo.init();
+	holo.render();
+	holo.objLoader.load( "assets/holograms/hologram_fence_corner.obj", function(object){
+		object.traverse( function( child ) {
+			if ( child instanceof THREE.Mesh ) {
+				var myMesh = child;
+				//myMesh.material.map = THREE.ImageUtils.loadTexture( 'assets/north.png' );
+				myMesh.material.color = 0xFFFF00;
+				myMesh.material.needsUpdate = true;
+			}
+		});
+		object.scale.set(0.01, 0.01, 0.01);
+		holo.scene.add(object);
+	});
+}
+
+		</script>
+		
+	</body>
+</html>
+
