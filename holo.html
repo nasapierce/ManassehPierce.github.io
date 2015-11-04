@@ -41,7 +41,8 @@ function init() {
 			if ( child instanceof THREE.Mesh ) {
 				var myMesh = child;
 				//myMesh.material.map = THREE.ImageUtils.loadTexture( 'assets/north.png' );
-				myMesh.material.color = 0xFFFF00;
+				//myMesh.material.color = 0xFFFF00;
+				myMesh.material = new THREE.MeshNormalMaterial();
 				myMesh.material.needsUpdate = true;
 			}
 		});
