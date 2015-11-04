@@ -36,12 +36,10 @@ function init() {
 	holo = new EngineRenderer(container, true, false, false);
 	holo.init();
 	holo.render();
-	holo.objLoader.load( "assets/holograms/hologram_fence_corner.obj", function(object){
+	holo.objLoader.load( "assets/holograms/hologram_fence_fullMesh.obj", function(object){
 		object.traverse( function( child ) {
 			if ( child instanceof THREE.Mesh ) {
 				var myMesh = child;
-				//myMesh.material.map = THREE.ImageUtils.loadTexture( 'assets/north.png' );
-				//myMesh.material.color = 0xFFFF00;
 				myMesh.material = new THREE.MeshNormalMaterial();
 				myMesh.material.needsUpdate = true;
 			}
