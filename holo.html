@@ -36,7 +36,7 @@ function init() {
 	holo = new EngineRenderer(container, true, false, false);
 	holo.init();
 	holo.render();
-	holo.objLoader.load( "assets/holograms/hologram_fence_fullMesh.obj", function(object){
+	holo.objLoader.load( "assets/holograms/hologram_frame_small_tv.obj", function(object){
 		object.traverse( function( child ) {
 			if ( child instanceof THREE.Mesh ) {
 				var myMesh = child;
