@@ -29,6 +29,7 @@ $(document).ready(function(){
 });
 
 var holo;
+var cursor;
 
 function init() {
 	container = document.getElementById('container');
@@ -36,7 +37,7 @@ function init() {
 	holo = new EngineRenderer(container, true, false, false);
 	holo.init();
 	holo.render();
-	holo.objLoader.load( "assets/holograms/hologram_frame_small_tv.obj", function(object){
+	holo.objLoader.load( "assets/holograms/hologram_icon_tv_white.obj", function(object){
 		object.traverse( function( child ) {
 			if ( child instanceof THREE.Mesh ) {
 				var myMesh = child;
@@ -44,11 +45,79 @@ function init() {
 				myMesh.material.needsUpdate = true;
 			}
 		});
-		object.scale.set(0.01, 0.01, 0.01);
+		object.scale.set(0.001, 0.001, 0.001);
+		object.position.y = 2.5;
+		holo.scene.add(object);
+	});
+	
+	holo.objLoader.load( "assets/holograms/hologram_icon_crosshair_white.obj", function(object){
+		object.traverse( function( child ) {
+			if ( child instanceof THREE.Mesh ) {
+				var myMesh = child;
+				myMesh.material = new THREE.MeshNormalMaterial();
+				myMesh.material.needsUpdate = true;
+			}
+		});
+		object.scale.set(0.0001, 0.0001, 0.0001);
+		object.position.y = 2.5;
+		holo.scene.add(object);
+	});
+	
+	holo.objLoader.load( "assets/holograms/hologram_icon_world.obj", function(object){
+		object.traverse( function( child ) {
+			if ( child instanceof THREE.Mesh ) {
+				var myMesh = child;
+				myMesh.material = new THREE.MeshNormalMaterial();
+				myMesh.material.needsUpdate = true;
+			}
+		});
+		object.scale.set(0.002, 0.002, 0.002);
+		object.position.y = -7;
+		object.position.z = -1.75;
+		holo.scene.add(object);
+	});
+	
+	holo.objLoader.load( "assets/holograms/hologram_icon_cursor_white.obj", function(object){
+		cursor = object;
+		cursor.traverse( function( child ) {
+			if ( child instanceof THREE.Mesh ) {
+				var myMesh = child;
+				myMesh.material = new THREE.MeshNormalMaterial();
+				myMesh.material.needsUpdate = true;
+			}
+		});
+		cursor.scale.set(0.0002, 0.0002, 0.0002);
+		cursor.position.x = 0.94;
+		cursor.position.y = 2.5;
+		cursor.position.z = -0.95;
 		holo.scene.add(object);
 	});
 	
 	holo.light.position.set(-2, 20, -2);
+	
+	animate();
+}
+
+var up = 0;
+var upSwitch = true;
+
+function animate() {
+	requestAnimationFrame(animate);
+	cursor.rotation.y = cursor.rotation.y + 0.05;
+	if(up <= 0){
+		upSwitch = true;
+	}
+	if(up >= 60){
+		upSwitch = false;
+	}
+	if(upSwitch){
+		up++;
+		cursor.position.y = cursor.position.y + 0.001;
+	}
+	if(!upSwitch){
+		up--;
+		cursor.position.y = cursor.position.y - 0.001;
+	}
 }
 
 		</script>
