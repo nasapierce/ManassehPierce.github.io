@@ -13,10 +13,13 @@ function init(){
 		success: function(result){
 		var lines = result.split("\n");
 		for(var i in lines){
-			$("#outputFunctions").append("<li>" + lines[i] + "</li>");
+                	//append the lines to our list
+			if(lines[i].search( ' ' + searchClass + '::' )!=-1){
+                	$("#outputFunctions").append("<li>" + lines[i] + "</li>");
 		}
-		$("li:not(:contains('" + searchClass + "::" + "'))").hide();
-		innerHighlight( document.getElementById('outputFunctions'), searchClass );
+	}
+        //highlight the class names
+        innerHighlight( document.getElementById('outputFunctions'), searchClass );
 	}});
 }
 
