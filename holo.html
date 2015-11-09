@@ -37,11 +37,24 @@ function init() {
 	holo = new EngineRenderer(container, true, false, false);
 	holo.init();
 	holo.render();
+	
+	var fenceTex = THREE.ImageUtils.loadTexture( 'assets/holograms/hologram_fence_RGB.png' );
+	fenceTex.magFilter = THREE.NearestFilter;
+	fenceTex.minFilter = THREE.LinearMipMapLinearFilter;
+	
+	var iconTex = THREE.ImageUtils.loadTexture( 'assets/holograms/hologram_icon_white.png' );
+	iconTex.magFilter = THREE.NearestFilter;
+	iconTex.minFilter = THREE.LinearMipMapLinearFilter;
+	
+	var wallTex = THREE.ImageUtils.loadTexture( 'assets/holograms/hologram_wall_RGBA.png' );
+	wallTex.magFilter = THREE.NearestFilter;
+	wallTex.minFilter = THREE.LinearMipMapLinearFilter;
+	/*
 	holo.objLoader.load( "assets/holograms/hologram_icon_tv_white.obj", function(object){
 		object.traverse( function( child ) {
 			if ( child instanceof THREE.Mesh ) {
 				var myMesh = child;
-				myMesh.material = new THREE.MeshNormalMaterial();
+				myMesh.material.map = iconTex;
 				myMesh.material.needsUpdate = true;
 			}
 		});
@@ -49,12 +62,12 @@ function init() {
 		object.position.y = 2.5;
 		holo.scene.add(object);
 	});
-	
+	*/
 	holo.objLoader.load( "assets/holograms/hologram_icon_crosshair_white.obj", function(object){
 		object.traverse( function( child ) {
 			if ( child instanceof THREE.Mesh ) {
 				var myMesh = child;
-				myMesh.material = new THREE.MeshNormalMaterial();
+				myMesh.material.map = iconTex;
 				myMesh.material.needsUpdate = true;
 			}
 		});
@@ -63,36 +76,37 @@ function init() {
 		holo.scene.add(object);
 	});
 	
-	holo.objLoader.load( "assets/holograms/hologram_icon_world.obj", function(object){
+	holo.objLoader.load( "assets/holograms/hologram_frame_small_tv.obj", function(object){
 		object.traverse( function( child ) {
 			if ( child instanceof THREE.Mesh ) {
 				var myMesh = child;
-				myMesh.material = new THREE.MeshNormalMaterial();
+				myMesh.material.map = wallTex;
+				myMesh.material.transparent = true;
 				myMesh.material.needsUpdate = true;
 			}
 		});
-		object.scale.set(0.002, 0.002, 0.002);
-		object.position.y = -7;
-		object.position.z = -1.75;
+		object.scale.set(0.1, 0.1, 0.1);
+		object.position.y = 2.5;
+		object.position.z = 0;
 		holo.scene.add(object);
 	});
-	
+	/*
 	holo.objLoader.load( "assets/holograms/hologram_icon_cursor_white.obj", function(object){
 		cursor = object;
 		cursor.traverse( function( child ) {
 			if ( child instanceof THREE.Mesh ) {
 				var myMesh = child;
-				myMesh.material = new THREE.MeshNormalMaterial();
+				myMesh.material.map = iconTex;
 				myMesh.material.needsUpdate = true;
 			}
 		});
 		cursor.scale.set(0.0002, 0.0002, 0.0002);
-		cursor.position.x = 0.94;
-		cursor.position.y = 2.5;
-		cursor.position.z = -0.95;
+		cursor.position.x = 2;
+		cursor.position.y = 5.25;
+		cursor.position.z = 0;
 		holo.scene.add(object);
 	});
-	
+	*/
 	holo.light.position.set(-2, 20, -2);
 	
 	animate();
