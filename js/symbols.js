@@ -7,19 +7,23 @@ $(document).ready(function(){
 
 function init(){
 	var searchClass = $("#searchClass").val();
-	var searchClass2 = searchClass.length + searchClass;
-	//alert(searchClass2);
 	$.ajax({
-		url: "Symbols.txt",
+		url: "Functions.txt",
 		dataType: "text",
 		success: function(result){
-		//split the result by line
-		//result.replace(/\n/g, "<br/><br/>");
-		var lines = result.split("_Z");
+		var lines = result.split("\n");
 		for(var i in lines){
 			$("#outputFunctions").append("<li>" + lines[i] + "</li>");
 		}
-		$("li:not(:contains('" + searchClass2 + "'))").hide();
-		//$("#outputFunctions").html(result);
+		$("li:not(:contains('" + searchClass + "::" + "'))").hide();
+		innerHighlight( document.getElementById('outputFunctions'), searchClass );
 	}});
 }
+
+function innerHighlight(node, pat) {
+	var html = node.innerHTML;
+	var rexp = new RegExp( '\\b('+pat+')\\b', 'igm' );
+	html = html.replace( rexp, '<span class="hl">$1</span>' );
+	node.innerHTML = html;
+}
+
