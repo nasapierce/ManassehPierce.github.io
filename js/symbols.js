@@ -1,4 +1,5 @@
 
+$(document).ready(function(){
 $('#searchButton').click(function(){
     $('#outputFunctions').html('');
 	init();
@@ -20,6 +21,7 @@ function init(){
 		}
     });
 }
+});
 
 function hasClassBeforeParameters(classStr, str){
 	var searchTo = str.search( ' ' + classStr + '::' );
