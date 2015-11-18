@@ -1,27 +1,38 @@
 
+var lines;
+
 $(document).ready(function(){
-$('#searchButton').click(function(){
-    $('#outputFunctions').html('');
-	init();
+	$('#searchButton').click(function(){
+		$('#outputFunctions').html('');
+		init();
+	});
 });
 
 function init(){
 	var searchClass = $("#searchClass").val();
-	$.ajax({
-		url: "Functions.txt",
-		dataType: "text",
-		success: function(result){
-            var lines = result.split("\n");
-			for(var i in lines){
-				if(lines[i].search(' ' + searchClass + '::') != -1 && hasClassBeforeParameters(searchClass, lines[i])){
-                    $("#outputFunctions").append("<li>" + lines[i].slice( lines[i].search( ' ' + searchClass + '::')) + "</li>");
-                }
-            }
-            innerHighlight( document.getElementById('outputFunctions'), searchClass );
+	if(!lines){ 
+		$.ajax({
+			url: "Functions.txt",
+			dataType: "text",
+			success: function(result){
+     	       lines = result.split("\n");
+				for(var i in lines){
+					if(lines[i].search(' ' + searchClass + '::') != -1 && hasClassBeforeParameters(searchClass, lines[i])){
+                	    $("#outputFunctions").append("<li>" + lines[i].slice( lines[i].search( ' ' + searchClass + '::')) + ";" + "</li>");
+        	        }
+     	       }
+    	        innerHighlight( document.getElementById('outputFunctions'), searchClass );
+			}
+  	  });
+	} else {
+		for(var i in lines){
+			if(lines[i].search(' ' + searchClass + '::') != -1 && hasClassBeforeParameters(searchClass, lines[i])){
+				$("#outputFunctions").append("<li>" + lines[i].slice( lines[i].search( ' ' + searchClass + '::')) + ";" + "</li>");
+			}
 		}
-    });
+		innerHighlight( document.getElementById('outputFunctions'), searchClass );
+	}
 }
-});
 
 function hasClassBeforeParameters(classStr, str){
 	var searchTo = str.search( ' ' + classStr + '::' );

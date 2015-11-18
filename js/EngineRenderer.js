@@ -5,7 +5,6 @@ var EngineRenderer = function (container, showGrid, showAxes, showBase) {
 	this.showBase = showBase || false;
 	this.voxelBounds = [];
 	this.container = container || document;
-	this.objLoader = new THREE.OBJLoader();
 	this.tgaLoader = new THREE.TGALoader();
 	this.imgLoader = new THREE.ImageLoader();
 	
