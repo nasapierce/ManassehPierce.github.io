@@ -1,54 +1,43 @@
 
 var lines;
 
-$(document).ready(function(){
-	$('#searchButton').click(function(){
+$(document).ready(function() {
+	$('#searchButton').click(function() {
 		$('#outputFunctions').html('');
 		init();
 	});
 });
 
-function init(){
+function init() {
 	var searchClass = $("#searchClass").val();
-	if(!lines){ 
+	if(!lines) { 
 		$.ajax({
 			url: "Functions.txt",
 			dataType: "text",
-			success: function(result){
-     	       lines = result.split("\n");
-				for(var i in lines){
-					if(lines[i].search(' ' + searchClass + '::') != -1 && hasClassBeforeParameters(searchClass, lines[i])){
+			success: function(result) {
+				lines = result.split("\n");
+				for(var i in lines) {
+					if(lines[i].search(' ' + searchClass + '::') != -1) {
                 	    $("#outputFunctions").append("<li>" + lines[i].slice( lines[i].search( ' ' + searchClass + '::')) + ";" + "</li>");
         	        }
-     	       }
-    	        innerHighlight( document.getElementById('outputFunctions'), searchClass );
+				}
+				//innerHighlight(document.getElementById('outputFunctions'), searchClass+'::');
 			}
-  	  });
+		});
 	} else {
-		for(var i in lines){
-			if(lines[i].search(' ' + searchClass + '::') != -1 && hasClassBeforeParameters(searchClass, lines[i])){
-				$("#outputFunctions").append("<li>" + lines[i].slice( lines[i].search( ' ' + searchClass + '::')) + ";" + "</li>");
+		for(var i in lines) {
+			if(lines[i].search(searchClass+'::') != -1) {
+				$("#outputFunctions").append("<li>"+lines[i].slice(lines[i].search(searchClass+'::'))+";"+"</li>");
 			}
 		}
-		innerHighlight( document.getElementById('outputFunctions'), searchClass );
+		//innerHighlight(document.getElementById('outputFunctions'), searchClass+"::");
 	}
-}
-
-function hasClassBeforeParameters(classStr, str){
-	var searchTo = str.search( ' ' + classStr + '::' );
-    for(var i=0;i<=searchTo;i++){
-        if( str[i] == '(' ){
-        	return false;
-            break;
-        }
-    }
-    return true;
 }
 
 function innerHighlight(node, pat) {
 	var html = node.innerHTML;
-	var rexp = new RegExp( '\\b('+pat+')\\b', 'igm' );
-	html = html.replace( rexp, '<span class="hl">$1</span>' );
+	var rexp = new RegExp( '\\b('+pat+')\\b','igm');
+	html = html.replace( rexp, '<span style="background-color:yellow;">$1</span>' );
 	node.innerHTML = html;
 }
 

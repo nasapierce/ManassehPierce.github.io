@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="ModPE" ng-controller="Page">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
 		<title>ManassehPierce</title>
+
 		<link rel="apple-touch-icon" sizes="57x57" href="icons/apple-touch-icon-57x57.png">
 		<link rel="apple-touch-icon" sizes="60x60" href="icons/apple-touch-icon-60x60.png">
 		<link rel="apple-touch-icon" sizes="72x72" href="icons/apple-touch-icon-72x72.png">
@@ -22,48 +23,63 @@
 		<meta name="msapplication-TileColor" content="#da532c">
 		<meta name="msapplication-TileImage" content="/mstile-144x144.png">
 		<meta name="theme-color" content="#ffffff">
+
 		<!-- CSS  -->
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 	</head>
 	<body>
-		<nav id="top" class="orange" role="navigation">
+
+		<nav id="top" class="green" role="navigation">
 			<div class="nav-wrapper container">
 				<a id="logo-container" href="index.html" class="brand-logo center">
-					<img width="48px" height="48px" src="images/icon.png" alt="icon.png"/>
+					<img width="48px" height="48px" src="images/icon.png"/>
 				</a>
 			</div>
 		</nav>
-		
-		<div class="container" ng-show="loaded">
+
+		<div ng-show="page==1" class="container" ng-controller="Posts">
 			
 			<div class="row center section">
 				<div class="col s12 m12 l12">
-					<h3>Search</h3>
+					<h3>Introduction</h3>
 				</div>
 			</div>
 			
-			<div class="row center">
-				<div class="col s7 m8 l6">
-					<input id="searchClass" type="text" placeholder="Class"/>
-				</div>
-				<div class="col s5 m4 l6">
-					<div id="searchButton" class="btn orange lighten-2">Search</div>
+			<div class="row center" ng-repeat="p in [posts[0],posts[1]]">
+				<div class="col s12 m12 l12">
+					<div class="card">
+						<div class="card-content">
+							<span class="card-title">{{p.title}}</span>
+							<div class="divider"></div><br/>
+							<p ng-bind-html="p.content | unsafe"></p>
+						</div>
+						<div class="card-action row" ng-show="p.actions.length > 0">
+							<span ng-repeat="a in p.actions" ng-bind-html="a | unsafe"></span>
+						</div>
+					</div>
 				</div>
 			</div>
 			
-			<ul id="outputFunctions"></ul>
-			
-		</div><!-- container -->
+		</div>
 		
-		<footer class="page-footer orange">
+		<div class="row center">
+			<div class="col s6 m6 l6">
+				<a ng-click="last();" class="btn green lighten-2">Last</a>
+			</div>
+			<div class="col s6 m6 l6">
+				<a ng-click="next();" class="btn green lighten-2">Next</a>
+			</div>
+		</div>
+		
+		<footer class="page-footer green">
 			<div class="container">
 				<div class="row center">
 					<div class="col s6 m6 l6">
-						<a class="orange lighten-2 btn" href="https://twitter.com/pierce_manasseh/" target="blank">Twitter</a>
+						<a class="btn green lighten-2" href="https://twitter.com/pierce_manasseh/" target="blank">Twitter</a>
 					</div>
 					<div class="col s6 m6 l6">
-						<a class="orange lighten-2 btn" href="https://github.com/manassehpierce/" target="blank">Github</a>
+						<a class="btn green lighten-2" href="https://github.com/manassehpierce/" target="blank">Github</a>
 					</div>
 				</div>
 			</div>
@@ -73,11 +89,12 @@
 				</div>
 			</div>
         </footer>
-		
+
 		<!--  Scripts-->
 		<script src="js/shared.js"></script>
 		<script src="js/jquery-1.12.0.min.js"></script>
 		<script src="js/materialize.min.js"></script>
-		<script src="js/symbols.js"></script>
+		<script src="js/angular.min.js"></script>
+		<script src="js/modpe.js"></script>
 	</body>
 </html>

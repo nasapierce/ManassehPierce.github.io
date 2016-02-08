@@ -1,321 +1,129 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" ng-app="myApp" ng-controller="myCtrl">
 	<head>
-		<title>ManassehPierce.github.io</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-
-		<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css"/>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+		<title>ManassehPierce</title>
+		
+		<link rel="apple-touch-icon" sizes="57x57" href="icons/apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="icons/apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="icons/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="icons/apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="icons/apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="icons/apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="icons/apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="icons/apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon-180x180.png">
+		<link rel="icon" type="image/png" href="icons/favicon-32x32.png" sizes="32x32">
+		<link rel="icon" type="image/png" href="icons/android-chrome-192x192.png" sizes="192x192">
+		<link rel="icon" type="image/png" href="icons/favicon-96x96.png" sizes="96x96">
+		<link rel="icon" type="image/png" href="icons/favicon-16x16.png" sizes="16x16">
+		<link rel="manifest" href="icons/manifest.json">
+		<link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#5bbad5">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+		<meta name="theme-color" content="#ffffff">
+		
+		<!-- CSS  -->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 	</head>
 	<body>
+		<nav id="top" class="blue" role="navigation">
+			<div class="nav-wrapper container">
+				<a id="logo-container" href="index.html" class="brand-logo center">
+					<img width="48px" height="48px" src="images/icon.png" alt="icon.png"/>
+				</a>
+			</div>
+		</nav>
 		
-		<div id="home" data-role="page">
+		<div class="container">
 			
-			<div data-role="header" class="ui-header-fixed" style="overflow:hidden;">
-				
-				<h1>Home Page</h1>
-				
-			</div><!-- /header -->
-			
-			<br/>
-			
-			<div data-role="main" class="ui-content">
-				
-				<h3 class="ui-bar ui-bar-a ui-corner-all">Welcome To My Github Page</h3>
-				<div class="ui-body ui-body-a ui-corner-all">
-					<p>Welcome to my Github Page, here you can find a range of things, my mods, three.js projects, and web development things.</p>
+			<div class="row center section">
+				<div class="col s12 m12 l12">
+					<h3>Home</h3>
 				</div>
-				
-				<h3 class="ui-bar ui-bar-a ui-corner-all">Tessellation</h3>
-				<div class="ui-body ui-body-a ui-corner-all">
-					<p>Tessellation is a Native Mod which adds 3D models and some new blocks into your MCPE worlds!</p>
-					
-					<div data-role="collapsible">
-						<h4>Screenshots</h4>
-						
-						<a href="#popupScreenshot0" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="images/tessellation-screenshots/0.png" alt="Screenshot 0" style="width:30%"></a>
-						<a href="#popupScreenshot1" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="images/tessellation-screenshots/1.png" alt="Screenshot 1" style="width:30%"></a>
-						<a href="#popupScreenshot2" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="images/tessellation-screenshots/2.png" alt="Screenshot 2" style="width:30%"></a>
-						<a href="#popupScreenshot3" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="images/tessellation-screenshots/3.png" alt="Screenshot 3" style="width:30%"></a>
-						<a href="#popupScreenshot4" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="images/tessellation-screenshots/4.png" alt="Screenshot 4" style="width:30%"></a>
-						<a href="#popupScreenshot5" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="images/tessellation-screenshots/5.png" alt="Screenshot 5" style="width:30%"></a>
-						<a href="#popupScreenshot6" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="images/tessellation-screenshots/6.png" alt="Screenshot 6" style="width:30%"></a>
-						<a href="#popupScreenshot7" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="images/tessellation-screenshots/7.png" alt="Screenshot 7" style="width:30%"></a>
-						<a href="#popupScreenshot8" data-rel="popup" data-position-to="window" data-transition="fade"><img class="popphoto" src="images/tessellation-screenshots/8.png" alt="Screenshot 8" style="width:30%"></a>
-						
-						
-						<div data-role="popup" id="popupScreenshot0" data-overlay-theme="b" data-theme="b" data-corners="false">
-							<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="images/tessellation-screenshots/0.png" style="max-height:512px;" alt="Screenshot 0">
+			</div>
+			
+			<div ng-hide="loaded" class="progress">
+				<div class="indeterminate"></div>
+			</div>
+			
+			<div ng-show="loaded && !p.hidden" class="row center" ng-repeat="p in posts" on-finish-render="loaded">
+				<div class="col s12 m12 l12">
+					<div class="card">
+						<div class="card-content">
+							<span class="card-title">{{p.title}}</span>
+							<div class="divider"></div><br/>
+							<p ng-bind-html="p.content | unsafe"></p>
 						</div>
-						<div data-role="popup" id="popupScreenshot1" data-overlay-theme="b" data-theme="b" data-corners="false">
-							<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="images/tessellation-screenshots/1.png" style="max-height:512px;" alt="Screenshot 1">
+						<div class="card-action" ng-show="p.actions.length > 0">
+							<span ng-repeat="a in p.actions" ng-bind-html="a | unsafe"></span>
 						</div>
-						<div data-role="popup" id="popupScreenshot2" data-overlay-theme="b" data-theme="b" data-corners="false">
-							<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="images/tessellation-screenshots/2.png" style="max-height:512px;" alt="Screenshot 2">
-						</div>
-						
-						<div data-role="popup" id="popupScreenshot3" data-overlay-theme="b" data-theme="b" data-corners="false">
-							<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="images/tessellation-screenshots/3.png" style="max-height:512px;" alt="Screenshot 3">
-						</div>
-						<div data-role="popup" id="popupScreenshot4" data-overlay-theme="b" data-theme="b" data-corners="false">
-							<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="images/tessellation-screenshots/4.png" style="max-height:512px;" alt="Screenshot 4">
-						</div>
-						<div data-role="popup" id="popupScreenshot5" data-overlay-theme="b" data-theme="b" data-corners="false">
-							<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="images/tessellation-screenshots/5.png" style="max-height:512px;" alt="Screenshot 5">
-						</div>
-						
-						<div data-role="popup" id="popupScreenshot6" data-overlay-theme="b" data-theme="b" data-corners="false">
-							<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="images/tessellation-screenshots/6.png" style="max-height:512px;" alt="Screenshot 6">
-						</div>
-						<div data-role="popup" id="popupScreenshot7" data-overlay-theme="b" data-theme="b" data-corners="false">
-							<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="images/tessellation-screenshots/7.png" style="max-height:512px;" alt="Screenshot 7">
-						</div>
-						<div data-role="popup" id="popupScreenshot8" data-overlay-theme="b" data-theme="b" data-corners="false">
-							<a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a><img class="popphoto" src="images/tessellation-screenshots/8.png" style="max-height:512px;" alt="Screenshot 8">
-						</div>
-						
 					</div>
-					
-					<a href="#downloads">Download Page</a>
 				</div>
-				
-				<h3 class="ui-bar ui-bar-a ui-corner-all">Tessellation - Web Renderer</h3>
-				<div class="ui-body ui-body-a ui-corner-all">
-					<p>Render some TileTessellator things here, and download the c++ file</p>
-					<a data-ajax="false" href="tiletessellator.html">TileTessellator</a>
-				</div>
-				
-				<h3 class="ui-bar ui-bar-a ui-corner-all">Data-Based Mods: Items</h3>
-				<div class="ui-body ui-body-a ui-corner-all">
-					<p>Create Items in 0.13 with texture packs</p>
-					<a href="#items">Learn Here</a>
-				</div>
-				
-				<h3 class="ui-bar ui-bar-a ui-corner-all">MCPE Class Search</h3>
-				<div class="ui-body ui-body-a ui-corner-all">
-					<p>Search some MCPE Classes and stuff, it helps modding... I hope...</p>
-					<a data-ajax="false" href="search.html">Click Here</a>
-				</div>
-				
-				<h3 class="ui-bar ui-bar-a ui-corner-all">IPv4 Claculator</h3>
-				<div class="ui-body ui-body-a ui-corner-all">
-					<p>Just a simple Javascript thing I wrote to help tell you about an IPv4 address</p>
-					<a data-ajax="false" href="ipcalc.html">Click Here</a>
-				</div>
-				
-			</div> <!-- main -->
+			</div>
 			
-			<div data-role="footer" class="ui-footer-fullscreen">
-				
-				<h1>Darkserver - ManassehPierce.github.io</h1>
-				
-			</div> <!-- footer -->
+			<div ng-show="loaded" class="row center" ng-controller="IPCalc">
+				<div class="col s12 m12 l12">
+					<div class="card">
+						<div class="card-content">
+							<span class="card-title">IP Subnet Calculator</span>
+							<div class="divider"></div><br/>
+							<input ng-model="oct0" type="number" min="0" max="255" style="width:50px"/>.
+							<input ng-model="oct1" type="number" min="0" max="255" style="width:50px"/>.
+							<input ng-model="oct2" type="number" min="0" max="255" style="width:50px"/>.
+							<input ng-model="oct3" type="number" min="0" max="255" style="width:50px"/>/
+							<input ng-model="prefix" type="number" min="0" max="32" style="width:50px"/>
+							
+							<br/>
+							
+							Class: {{class()}}<br/>
+							Network Address: {{networkAddress()}}<br/>
+							Subnet Mask: {{subnetMask()}}<br/>
+							IP Binary: {{IPBinary()}}<br/>
+							Network Binary: {{networkBinary}}<br/>
+							Subnet Binary: {{subnetBinary()}}<br/>
+							Network Bits: {{prefix}}<br/>
+							Host Bits: {{32-prefix}}<br/>
+							Subnet Bits: {{subnetBits()}}<br/>
+							Total Subnets: {{totalSubnets()}}<br/>
+							Hosts Per Subnet: {{hostsPerSubnet()}}<br/>
+							Total Hosts on Network: {{hostCount}}<br/>
+							Hosts lost to Subnets: {{hostsLostToSubnets()}}
+						</div>
+					</div>
+				</div>
+			</div>
 			
-		</div> <!-- home -->
+		</div><!-- container -->
 		
-		<div id="downloads" data-role="page">
-			
-			<div data-role="header" class="ui-header-fixed" style="overflow:hidden;">
-
-				<h1>Downloads Page</h1>
-				<a href="#home" data-icon="home" class="ui-btn-icon ui-btn-icon-left">Home</a>
-
-			</div><!-- /header -->
-			
-			<br/>
-			
-			<div data-role="main" class="ui-content">
-				
-				<h3 class="ui-bar ui-bar-a ui-corner-all">Tessellation Downloads</h3>
-				<div id="tessellationDownloads" class="ui-body ui-body-a ui-corner-all">
-					<a target="blank" class="ui-btn ui-corner-all ui-btn-inline" href="http://adf.ly/6427710/tessellationhappyhalloween">Filecred (adf.ly)</a>
-					<a target="blank" class="ui-btn ui-corner-all ui-btn-inline" href="http://filecred.com/A2E6G563" class="card-link">Filecred (Direct)</a>
-					<p>Tweet me <a target="blank" data-ajax="false" href="twitter.com/pierce_manasseh">here</a> to tell me if you cant access the links</p>
+		<footer class="page-footer blue">
+			<div class="container">
+				<div class="row center">
+					<div class="col s6 m6 l6">
+						<a class="btn blue lighten-2" href="https://twitter.com/pierce_manasseh/" target="blank">Twitter</a>
+					</div>
+					<div class="col s6 m6 l6">
+						<a class="btn blue lighten-2" href="https://github.com/manassehpierce/" target="blank">Github</a>
+					</div>
 				</div>
-				
-				<h3 class="ui-bar ui-bar-a ui-corner-all">Blocklauncher Texture Fix</h3>
-				<div class="ui-body ui-body-a ui-corner-all">
-					<p>When BL came out in 0.11, it had a new Texture API which let modders easily add Textures to the game, here is a terrain-atlas.tga and .meta which fixes some bugs with that API</p>
-					<a target="blank" class="ui-btn ui-corner-all ui-btn-inline" href="https://www.dropbox.com/s/jreu7sly7rv244y/BL%20Texture%20-%20Fix.zip?dl=0" class="card-link">Dropbox</a>
+			</div>
+			<div class="footer-copyright">
+				<div class="container">
+					© 2016 Copyright Manasseh Pierce
 				</div>
-				
-				<h3 class="ui-bar ui-bar-a ui-corner-all">Crafting Return</h3>
-				<div class="ui-body ui-body-a ui-corner-all">
-					<p>Here is a small script which allows you to have an item return back to your inventory after crafting, it is still buggy</p>
-					<a target="blank" class="ui-btn ui-corner-all ui-btn-inline" href="https://www.dropbox.com/s/jwwo9tt50jfrqwn/craftingReturn.js?dl=0" class="card-link">Dropbox</a>
-				</div>
-				
-				<h3 class="ui-bar ui-bar-a ui-corner-all">Dyed Glowstone</h3>
-				<div class="ui-body ui-body-a ui-corner-all">
-					<p>Here is a small script which makes Glowstone Dyable, it fits all under 1 ID (89) - the origanal Glowstone ID, so if you dont have the mod on you wont get update game blocks everywhere.</p>
-					<a target="blank" class="ui-btn ui-corner-all ui-btn-inline" href="https://www.dropbox.com/s/9z3omm7wovgm5sl/Dyed%20Glowstone.js?dl=0" class="card-link">Dropbox</a>
-				</div>
-				
-				<h3 class="ui-bar ui-bar-a ui-corner-all">Enderman Support Class</h3>
-				<div class="ui-body ui-body-a ui-corner-all">
-					<p>This script makes it so when a certain mob is 10 blocks away from an Enderman, they get a special effect. Enderman are now a priority to kill.</p>
-					<a target="blank" class="ui-btn ui-corner-all ui-btn-inline" href="https://www.dropbox.com/s/x0x3mczs30qblsz/Enderman%20Support%20Class%20module.js?dl=0" class="card-link">Dropbox</a>
-				</div>
-				
-				<h3 class="ui-bar ui-bar-a ui-corner-all">Undead Player</h3>
-				<div class="ui-body ui-body-a ui-corner-all">
-					<p>When the Player dies a zombie named "Undead Player" will spawn where you died. Makes the game a slight more challange</p>
-					<a target="blank" class="ui-btn ui-corner-all ui-btn-inline" href="https://www.dropbox.com/s/q0jsnllk2b0rpnh/gm4.Undead.Player.js?dl=0" class="card-link">Dropbox</a>
-				</div>
-				
-			</div> <!-- main -->
-			
-			<div data-role="footer" class="ui-footer-fullscreen">
-
-				<h1>Darkserver - ManassehPierce.github.io</h1>
-
-			</div> <!-- footer -->
-			
-		</div> <!-- downloads -->
+			</div>
+        </footer>
 		
-		<div id="items" data-role="page">
-
-			<div data-role="header" class="ui-header-fixed" style="overflow:hidden;">
-
-				<h1>Data-Based Items</h1>
-				<a href="#home" data-icon="home" class="ui-btn-icon ui-btn-icon-left">Home</a>
-
-			</div><!-- /header -->
-
-			<br/>
-
-			<div data-role="main" class="ui-content">
-
-				<h3 class="ui-bar ui-bar-a ui-corner-all">Introduction</h3>
-				<div class="ui-body ui-body-a ui-corner-all">
-					<p>
-						In 0.13.0, Tommaso introduced Data-Based Modding. 
-						This type of modding happens in the textures and will be compatiple
-						between Android and iOS
-					</p>
-					<p>
-						To install this without blocklauncher, you have to patch the texture yourself, which can be tedious.<br/>
-						Note: Do NOT hand out anything you get from the com.mojang.minecraft.apk except the assets folder.
-						Do NOT hand out the modified .apk.
-					</p><br/>
-					<span>A video tutorial can be found </span><a href="https://youtu.be/E1V6x9dIY1Y" data-ajax="false">Here</a>
-				</div>
-
-
-				<h3 class="ui-bar ui-bar-a ui-corner-all">Normal Item</h3>
-				<div class="ui-body ui-body-a ui-corner-all" style="overflow: scroll;">
-					<p>This is a basic item</p>	
-					<pre><code>
-	{
-		"name": "customItem",
-		"id": 254, // 256 + 254 = 510
-		"icon": "stick", // image of item
-		"category": "Miscellaneous", // creative tab thingy
-		"foil": true, // show enchant glint
-		"stacked_by_data": true, // 
-		"hand_equipped": false, // does it look like a tool in hand
-		"hover_text_color": "aqua", // if not defined, will be white
-		"max_stack_size": 1 // 
-	},
-						</code></pre>
-				</div>
-
-				<h3 class="ui-bar ui-bar-a ui-corner-all">Food Item</h3>
-				<div class="ui-body ui-body-a ui-corner-all" style="overflow: scroll;">
-					<p>This is a basic food item</p>	
-					<pre><code>
-	{
-		"name": "customItem",
-		"id": 254, // 256 + 254 = 510
-		"icon": "stick", // image of item
-		"category": "Miscellaneous", // creative tab thingy
-		"use_animation": "eat"
-		"use_duration": 32,
-		
-		"food": {
-			"nutrition": 6,
-			"saturation_modifier": "normal",
-			"using_converts_to": "bowl",
-			"is_meat": false,
-			"eat_sound": "random.burp",
-			"effects": [
-				{
-					"name": "poison",
-					"chance": 1.0,
-					"duration": 5,
-					"amplifier": 0
-				},
-				{
-					"name": "nausea",
-					"chance": 1.0,
-					"duration": 5,
-					"amplifier": 0
-				}
-			]
-		}
-	},
-						</code></pre>
-					<p>
-						The "saturation_modifier" tag can be one of:<br/>
-						<ul>
-							<li>poor</li>
-							<li>low</li>
-							<li>normal</li>
-							<li>good</li>
-							<li>supernatrual</li>
-						</ul><br/>
-						The "using_converts_to" tag converts the item to the said item after eating it<br/>
-						The "is_meat" tag is used for stuff like wolf and such, I believe.<br/>
-						The "eat_sound" tag defines which sound to play, find them in the assets<br/>
-						The "effects" tag is an array which defines which effects are used when you eat it.<br/>
-						The "use_animation" tag defines which animation to use, can be one of:
-						<ul>
-							<li>none</li>
-							<li>eat</li>
-							<li>drink</li>
-							<li>block</li>
-							<li>bow</li>
-						</ul>
-					</p>
-				</div>
-
-				<h3 class="ui-bar ui-bar-a ui-corner-all">Seed Item</h3>
-				<div class="ui-body ui-body-a ui-corner-all" style="overflow: scroll;">
-					<p>This is a basic seed item</p>	
-					<pre><code>
-	{
-		"name": "customItem",
-		"id": 254, // 256 + 254 = 510
-		"icon": "stick", // image of item
-		"category": "Miscellaneous", // creative tab thingy
-		
-		"seed": {
-			"crop_result" : "carrots",
-			"plant_at": "farmland"
-		}
-	},
-						</code></pre>
-					<p>The "seed" tag can be used a setTile alternative, which can look like this<br/>
-						<pre><code>
-		"seed": {
-			"crop_result" : "stone",
-			"plant_at": "grass"
-		}
-							</code></pre>
-					</p>
-				</div>
-
-			</div> <!-- main -->
-
-			<div data-role="footer" class="ui-footer-fullscreen">
-
-				<h1>Darkserver - ManassehPierce.github.io</h1>
-
-			</div> <!-- footer -->
-
-		</div> <!-- items -->
-		
-		<script type="text/javascript" src="src/jquery-1.11.3.min.js"></script>
-		<script type="text/javascript" src="src/jquery.mobile-1.4.5.min.js"></script>
+		<!--  Scripts-->
+		<script src="js/shared.js"></script>
+		<script src="js/jquery-1.12.0.min.js"></script>
+		<script src="js/materialize.min.js"></script>
+		<script src="js/angular.min.js"></script>
+		<script src="js/main.js"></script>
+		<script src="js/three.min.js"></script>
+		<script src="js/vox.js"></script>
+		<script src="js/avatar.js"></script>
 	</body>
 </html>
