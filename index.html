@@ -45,10 +45,6 @@
 				</div>
 			</div>
 			
-			<div ng-hide="loaded" class="progress">
-				<div class="indeterminate"></div>
-			</div>
-			
 			<div ng-show="loaded && !p.hidden" class="row center" ng-repeat="p in posts" on-finish-render="loaded">
 				<div class="col s12 m12 l12">
 					<div class="card">
