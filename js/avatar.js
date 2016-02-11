@@ -3,6 +3,11 @@ try {
 	function init() {
 		scene = new THREE.Scene();
 		
+		$(document).mousemove(function(e){
+			avatar.rotation.y = ((e.clientX/2)-(window.innerWidth/2))/window.innerWidth;
+			//avatar.rotation.x = ((e.clientY/2)-(window.innerHeight/2))/window.innerHeight;
+		});
+		
 		camera = new THREE.PerspectiveCamera(60, 64/96, 1, 1000);
 		camera.position.set(0, 0, 3);
 		camera.lookAt(scene.position);
@@ -27,7 +32,7 @@ try {
 		});
 		
 		light = new THREE.PointLight(0xFFFFFF, 1, 100);
-		light.position.set(3, 3, 3);
+		light.position.set(0, 5, 5);
 		scene.add(light);
 		
 		renderer = new THREE.WebGLRenderer({alpha: true});

@@ -1,14 +1,4 @@
 
-function intToBinary(int){
-    var binStr = parseInt(int, 10).toString(2);
-	binStr = "0".repeat(8 - binStr.length) + binStr;
-	return binStr;
-}
-
-function binaryToInt(bin) {
-	return parseInt(bin, 2);
-}
-
 var posts = [
 	{
 		title: 'Welcome',

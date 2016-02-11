@@ -42,3 +42,24 @@ if(typeof String.includes === "undefined") {
 		else return false;
 	};
 }
+
+Number.prototype.intToBinary = function() {
+	var binary = parseInt(this, 10).toString(2);
+	return "0".repeat(8 - binary.length) + binary;
+};
+
+String.prototype.binaryToInt = function() {
+	return parseInt(this.toString(), 2);
+};
+
+function intToBinary(int){
+    var binStr = parseInt(int, 10).toString(2);
+	binStr = "0".repeat(8 - binStr.length) + binStr;
+	return binStr;
+}
+
+function binaryToInt(bin) {
+	return parseInt(bin, 2);
+}
+
+
