@@ -29,28 +29,7 @@ function init() {
 	p2s.updateMatrix();
 	//scene.add(p2s);
 	
-	var icon = THREE.ImageUtils.loadTexture("images/icon.png");
-	icon.magFilter = THREE.NearestFilter;
-	icon.minFilter = THREE.LinearMipMapLinearFilter;
-	
-	test = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({map:icon, transparent:true, side:THREE.DoubleSide}));
-	test.position.set(0, 1, 0);
-	test.updateMatrix();
-	scene.add(test);
-	
-	var coord = {x:0, y:1, z:0};
-	var tween = new TWEEN.Tween(coord);
-	tween.to({x:0, y:1.5, z:0}, 2000);
-	tween.onUpdate(function(){
-		test.position.set(this.x, this.y, this.z);
-	});
-	tween.start();
-	
-	var intersects = r.intersectObjects(scene.children);
-	for (var i=0;i<intersects.length;i++) {
-		//intersects[i].object.material = new THREE.MeshNormalMaterial();
-	}
-	//alert(intersects.length);
+	extrudeImage('images/tizona.png');
 	
 	light = new THREE.DirectionalLight(0xdddddd, 1);
 	light.position.set(5, 5, 5).normalize();
@@ -63,7 +42,7 @@ function init() {
 	grid.setColors(0xffffff, 0xffffff);
 	scene.add(grid);
 	
-	renderer = new THREE.WebGLRenderer();
+	renderer = new THREE.WebGLRenderer({antialias:true});
 	renderer.setClearColor(scene.fog.color);
 	renderer.setPixelRatio(window.devicePixelRatio);
 	renderer.setSize(window.innerWidth, window.innerHeight);
@@ -72,16 +51,162 @@ function init() {
 	update();
 }
 
-var rot = 0;
-
 function update() {
 	requestAnimationFrame(update);
-	rot += 0.01;
-	test.rotation.y = rot;
-	TWEEN.update();
 	render();
 }
 
 function render() {
 	renderer.render(scene, camera);
 }
+
+
+var scale = 1, thr = 3;
+
+function extrudeImage(src) {
+	var canvas = document.createElement("CANVAS");
+	var ctx = canvas.getContext("2d");
+	var img = document.createElement("IMG");
+	img.src = src;
+	img.onload = function(e) {
+		var iw = img.width;
+		var ih = img.height;
+		
+		canvas.width = parseInt(iw*scale);
+		canvas.height = parseInt(ih*scale);
+		ctx.save();
+		
+		ctx.drawImage(this, 0, 0, iw, ih, 0, 0, canvas.width, canvas.height);
+		ctx.restore();
+		
+		var texture = new THREE.Texture(canvas);
+		texture.magFilter = THREE.NearestFilter;
+		texture.minFilter = THREE.LinearMipMapLinearFilter;
+		var cm = new THREE.MeshPhongMaterial({map:texture});
+    	
+		var g = new THREE.CanvasGeometry(canvas, {"height": 0.1, "solid": true, "offset": thr, "steps": 1});
+    	
+		canvas.width = iw;
+    	canvas.height = ih;
+    	ctx.save();
+    	
+		ctx.drawImage(this, 0, 0, iw, ih);
+    	ctx.restore();
+        
+		var mesh = new THREE.Mesh(g,cm);
+        ctx.fillStyle = "rgb(128,128,128)";
+		ctx.fillRect(0, canvas.height-1, 1, 1);
+        texture.needsUpdate = true;
+     	
+		mesh.position.x=-0.5;
+		mesh.position.y=-0.5*(canvas.height/canvas.width);
+		
+		scene.add(mesh);
+		//return mesh;
+	};
+}
+
+/*
+
+function setImage(src){
+	img.src = src;
+}
+
+var ctx = canvas.getContext("2d");
+var cross, scale=1, rotate=0, thr=3;
+var renderNext=true,wavy=0,steps=1,last=null,amp=0.01;
+$("#image").hide();
+
+img.onload = function(e) {
+	var mg = $(img);
+	mg.show();
+	var iw = mg.width();
+	var ih=mg.height();
+	mg.hide();
+	
+	canvas.width = parseInt(iw*window.scale);
+	canvas.height = parseInt(ih*window.scale);
+	ctx.save();
+	
+	if(window.rotate){
+		ctx.translate(canvas.width/2,canvas.height/2);
+		ctx.rotate(window.rotate);
+		ctx.translate(-canvas.width/2,-canvas.height/2);
+	}
+	ctx.drawImage(this, 0, 0, iw, ih, 0, 0, canvas.width, canvas.height);
+	ctx.restore();
+	if(mesh) scene.remove(mesh);
+        var texture = new THREE.Texture(canvas);
+		texture.magFilter = THREE.NearestFilter;
+		texture.minFilter = THREE.LinearMipMapLinearFilter;
+		cm= new THREE.MeshPhongMaterial( { map:texture,shading: THREE.SmoothShading} );
+    	var start=Date.now();
+    	
+    	var g = new THREE.CanvasGeometry(canvas,{"height":0.1,"solid":true,"offset":window.thr,"steps":1});
+    	var diff = Date.now()-start;
+    	canvas.width=iw;
+    	canvas.height=ih;
+    	ctx.save();
+    	if(window.rotate){
+			 ctx.translate(canvas.width/2,canvas.height/2);
+			 ctx.rotate(window.rotate);
+			ctx.translate(-canvas.width/2,-canvas.height/2);
+		}
+		
+    	ctx.drawImage(this,0,0,iw,ih);
+    	ctx.restore();
+        
+    	if(wavy){
+			
+			for(var i in g.vertices){
+				g.vertices[i].z -= amp*Math.cos((g.vertices[i].y*ih)/wavy); 
+			}
+			g.computeFaceNormals();
+			
+		}
+    	
+        mesh=new THREE.Mesh(g,cm);
+        ctx.fillStyle = "rgb(128,128,128)"; //Hack in case the (0,0) UV is transparent
+		ctx.fillRect(0,canvas.height-1,1,1);
+        texture.needsUpdate = true;
+        mesh.position.x=-0.5;
+		mesh.position.y=-0.5*(canvas.height/canvas.width);
+		scene.add(mesh);
+    	if(this.revokeMe){
+			window.URL.revokeObjectURL(img.src);
+			this.revokeMe=false;
+		}
+		last=img.src;
+		img.src="";
+    	renderNext=true;
+    };
+    
+    function obj(){
+		if(!mesh) return;
+		var g=mesh.geometry;
+		var vs=g.vertices,fs=g.faces,uvs=g.faceVertexUvs[0],sv="",sn="\n",st="\n",sf="\n",i=0,ni=0;
+		g.computeVertexNormals();
+		for(i=0;i!=vs.length;i++){
+			sv += "v "+vs[i].x+" "+vs[i].y+" "+vs[i].z+"\n";
+		}
+		for(i=0;i!=fs.length;i++,ni+=3){
+			sn += "vn "+fs[i].vertexNormals[0].x+" "+fs[i].vertexNormals[0].y+" "+fs[i].vertexNormals[0].z+"\n";
+			sn += "vn "+fs[i].vertexNormals[1].x+" "+fs[i].vertexNormals[1].y+" "+fs[i].vertexNormals[1].z+"\n";
+			sn += "vn "+fs[i].vertexNormals[2].x+" "+fs[i].vertexNormals[2].y+" "+fs[i].vertexNormals[2].z+"\n";
+			st += "vt "+uvs[i][0].x+" "+uvs[i][0].y+"\n";
+			st += "vt "+uvs[i][1].x+" "+uvs[i][1].y+"\n";
+			st += "vt "+uvs[i][2].x+" "+uvs[i][2].y+"\n";
+			sf += "f "+(fs[i].a+1)+"/"+(ni+1)+"/"+(ni+1)+" "+(fs[i].b+1)+"/"+(ni+2)+"/"+(ni+2)+" "+(fs[i].c+1)+"/"+(ni+3)+"/"+(ni+3)+"\n";
+			//sf += "f "+(fs[i].a+1)+" "+(fs[i].b+1)+" "+(fs[i].c+1)+"\n";
+		
+		}
+		return [sv,sn,st,sf];
+	}
+	var bob=null;
+	function gen(){
+		var b = new Blob(obj());
+		if(bob) window.URL.revokeObjectURL(bob);
+		bob = window.URL.createObjectURL(b);
+		return bob;
+	}
+*/
