@@ -3,9 +3,14 @@ try {
 	function init() {
 		scene = new THREE.Scene();
 		
-		$(document).mousemove(function(e){
+		//desktop
+		window.addEventListener("mousemove", function(e){
 			avatar.rotation.y = ((e.clientX/2)-(window.innerWidth/2))/window.innerWidth;
-			//avatar.rotation.x = ((e.clientY/2)-(window.innerHeight/2))/window.innerHeight;
+		});
+		
+		//touchscreen
+		window.addEventListener("touchmove", function(e){
+			avatar.rotation.y = ((e.touches[0].clientX/2)-(window.innerWidth/2))/window.innerWidth;
 		});
 		
 		camera = new THREE.PerspectiveCamera(60, 64/96, 1, 1000);
@@ -39,11 +44,15 @@ try {
 		renderer.setPixelRatio(window.devicePixelRatio);
 		renderer.setClearColor(0x000000, 0);
 		renderer.setSize(64, 96);
-		renderer.domElement.style.zIndex = 100;
+		renderer.domElement.style.zIndex = 10001; //put it above the toast
 		renderer.domElement.style.position = "fixed";
 		renderer.domElement.style.bottom = "0px";
 		renderer.domElement.style.right = "0px";
 		document.body.appendChild(renderer.domElement);
+		
+		renderer.domElement.addEventListener("click", function(e) {
+			var t = Materialize.toast("Thanks for visiting my page!", 5000, "", function(){});
+		});
 		
 		render();
 	}

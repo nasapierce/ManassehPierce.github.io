@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html>
-	
+<html lang="en">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
@@ -24,23 +23,45 @@
 		<meta name="msapplication-TileColor" content="#da532c">
 		<meta name="msapplication-TileImage" content="/mstile-144x144.png">
 		<meta name="theme-color" content="#ffffff">
-		
-		<link rel="stylesheet" href="css/threejs.css"/>
 	</head>
-	<body>
+	<body style="margin:0;">
 		
-		<div id="container"></div>
-		<canvas id="canvas"></canvas>
+		<canvas id="canv"></canvas>
+		<img style="display:none;" width="48" height="48" id="image"/>
 		
-		<script src="js/jquery-1.12.0.min.js"></script>
-		<script src="js/vox.min.js"></script>
-		<script src="js/three.min.js"></script>
-		<script src="js/Projector.js"></script>
-		<script src="js/CanvasRenderer.js"></script>
-		<script src="js/GeometryUtils.js"></script>
-		<script src="js/OrbitControls.js"></script>
-		<script src="js/Tween.js"></script>
-		<script src="js/CanvasGeometry.js"></script>
-		<script src="js/threejs.js"></script>
+		<script src="js/shared.js"></script>
+		<script>
+var canvas = document.getElementById("canv");
+var ctx = canvas.getContext("2d");
+var img = document.getElementById("image");
+img.src = "images/item_tizona.png";
+var iw = img.width, ih = img.height;
+var scale = 5;
+canvas.width = iw*scale;
+canvas.height = ih*scale;
+img.onload = function() {
+	ctx.drawImage(img, 0, 0, iw, ih, 0, 0, iw, ih);
+	var colors = [];
+	for(var x=0;x<iw;x++) {
+		colors[x] = [];
+		for(var y=0;y<ih;y++) {
+			var data = ctx.getImageData(x, y, x+1, y+1).data;
+			var color = "rgba("+data[0]+","+data[1]+","+data[2]+","+data[3]+")";
+			//if(color == "rgba(0,0,0,0)") colors[x][y] = "rgba(255, 255, 255, 0)";
+			//else colors[x][y] = color;
+			colors[x][y] = color;
+		}
+	}
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	for(var x=0;x<iw;x++) {
+		for(var y=0;y<ih;y++) {
+			ctx.fillStyle = colors[x][y];
+			ctx.fillRect(x*scale,y*scale,scale,scale);
+			ctx.save();
+		}
+	}
+};
+		</script>
 	</body>
 </html>
+

@@ -62,4 +62,6 @@ function binaryToInt(bin) {
 	return parseInt(bin, 2);
 }
 
-
+var decToHex = function(dec) {
+	return "0".repeat(2-(dec).toString(16).length) + (dec).toString(16);
+};
