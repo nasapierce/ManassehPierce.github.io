@@ -25,7 +25,7 @@ function init() {
 	grid.setColors(0xffffff, 0xffffff);
 	scene.add(grid);
 	
-	renderer = new THREE.CanvasRenderer();
+	renderer = new THREE.WebGLRenderer({antialias:true});
 	renderer.setClearColor(scene.fog.color);
 	renderer.setPixelRatio(window.devicePixelRatio);
 	renderer.setSize(window.innerWidth, window.innerHeight);
