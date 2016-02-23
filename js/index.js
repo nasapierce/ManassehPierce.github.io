@@ -37,8 +37,7 @@ var app = angular.module("myApp",[]);
 app.controller("myCtrl",function($scope){
 	$scope.posts = posts;
 	$scope.$on('loaded', function(ngRepeatFinishedEvent) {
-		$scope.loaded = true;
-		init();
+		$(".hiddendiv").removeClass("hiddendiv");
 	});
 });
 

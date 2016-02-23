@@ -27,12 +27,13 @@
 		<!-- CSS  -->
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link href="css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+		<link href="css/index.css" type="text/css" rel="stylesheet"/>
 	</head>
 	<body>
 		<nav id="top" class="blue" role="navigation">
 			<div class="nav-wrapper container">
 				<a id="logo-container" href="index.html" class="brand-logo center">
-					<img width="48px" height="48px" src="images/icon.png" alt="icon.png"/>
+					<img width="48px" height="48px" src="./images/icon.png" alt="icon.png"/>
 				</a>
 			</div>
 		</nav>
@@ -45,7 +46,7 @@
 				</div>
 			</div>
 			
-			<div ng-show="loaded && !p.hidden" class="row center" ng-repeat="p in posts" on-finish-render="loaded">
+			<div class="row center hiddendiv" ng-hide="p.hidden" ng-repeat="p in posts" on-finish-render="loaded">
 				<div class="col s12 m12 l12">
 					<div class="card">
 						<div class="card-content">
@@ -60,7 +61,7 @@
 				</div>
 			</div>
 			
-			<div ng-show="loaded" class="row center" ng-controller="IPCalc">
+			<div class="row center hiddendiv" ng-controller="IPCalc">
 				<div class="col s12 m12 l12">
 					<div class="card">
 						<div class="card-content">
@@ -118,7 +119,10 @@
 		<script src="js/materialize.min.js"></script>
 		<script src="js/angular.min.js"></script>
 		<script src="js/index.js"></script>
+		<script src="js/Detector.js"></script>
 		<script src="js/three.min.js"></script>
+		<script src="js/Projector.js"></script>
+		<script src="js/CanvasRenderer.js"></script>
 		<script src="js/vox.min.js"></script>
 		<script src="js/avatar.js"></script>
 	</body>

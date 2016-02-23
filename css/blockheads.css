@@ -4,10 +4,11 @@
 	-webkit-tap-highlight-color:rgba(0,0,0,0);
 	tap-highlight-color:rgba(0,0,0,0);
 }
+
 @font-face {
 	font-family: 'blockheads_font';
-	src: url('https://dl.dropbox.com/s/1bydr7d6ll4jj57/blockheads_font-webfont.woff?dl=1') format('woff');
-	src: url('https://dl.dropbox.com/s/2m9xx54vzmjjf3j/blockheads_font-webfont.ttf?dl=1') format('truetype');
+	/*src: url('https://dl.dropbox.com/s/1bydr7d6ll4jj57/blockheads_font-webfont.woff?dl=1') format('woff');*/
+	src: url('../font/blockheads.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
 }
