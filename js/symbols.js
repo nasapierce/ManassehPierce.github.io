@@ -4,11 +4,11 @@ var lines;
 $(document).ready(function() {
 	$('#searchButton').click(function() {
 		$('#outputFunctions').html('');
-		init();
+		search();
 	});
 });
 
-function init() {
+function search() {
 	var searchClass = $("#searchClass").val();
 	if(!lines) { 
 		$.ajax({
