@@ -5,7 +5,6 @@ var grid, light, ambeintLight;
 $(document).ready(init);
 
 function init() {
-	var stage = new createjs.Stage(canvas);
 	scene = new THREE.Scene();
 	
 	camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.001, 1000);
