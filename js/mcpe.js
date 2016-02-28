@@ -17,11 +17,11 @@ function init() {
 	ambientLight = new THREE.AmbientLight(0xDDDDDD);
 	scene.add(ambientLight);
 	
-	grid = new THREE.GridHelper(10000, 1);
+	grid = new THREE.GridHelper(7.5, 1);
 	grid.setColors(0x000000, 0x000000);
 	scene.add(grid);
 	
-	renderer = new THREE.WebGLRenderer({antialias:true,alpha:true});
+	renderer = new THREE.WebGLRenderer({alpha:true});
 	renderer.setClearColor(0x000000, 0);
 	renderer.setPixelRatio(window.devicePixelRatio);
 	renderer.setSize(window.innerWidth, window.innerHeight);
