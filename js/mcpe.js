@@ -17,8 +17,8 @@ function init() {
 	ambientLight = new THREE.AmbientLight(0xDDDDDD);
 	scene.add(ambientLight);
 	
-	grid = new THREE.GridHelper(7.5, 1);
-	grid.setColors(0xffffff, 0xffffff);
+	grid = new THREE.GridHelper(10000, 1);
+	grid.setColors(0x000000, 0x000000);
 	scene.add(grid);
 	
 	renderer = new THREE.WebGLRenderer({antialias:true,alpha:true});
