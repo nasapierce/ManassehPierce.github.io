@@ -21,7 +21,6 @@ function search() {
                 	    $("#outputFunctions").append("<li>" + lines[i].slice( lines[i].search( ' ' + searchClass + '::')) + ";" + "</li>");
         	        }
 				}
-				//innerHighlight(document.getElementById('outputFunctions'), searchClass+'::');
 			}
 		});
 	} else {
@@ -30,14 +29,5 @@ function search() {
 				$("#outputFunctions").append("<li>"+lines[i].slice(lines[i].search(searchClass+'::'))+";"+"</li>");
 			}
 		}
-		//innerHighlight(document.getElementById('outputFunctions'), searchClass+"::");
 	}
 }
-
-function innerHighlight(node, pat) {
-	var html = node.innerHTML;
-	var rexp = new RegExp( '\\b('+pat+')\\b','igm');
-	html = html.replace( rexp, '<span style="background-color:yellow;">$1</span>' );
-	node.innerHTML = html;
-}
-
