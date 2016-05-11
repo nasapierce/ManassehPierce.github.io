@@ -1,65 +1,4 @@
-
-var posts = [
-	{
-		title: 'Welcome',
-		hidden: false,
-		content: 'Welcome to <a href="http://manassehpierce.github.io/" class="blue-text">ManassehPierce.github.io</a>! \
-			Here I have a collection of my Web Development and MCPE Development. I have things from THREEJS to MCPE Scripts. \
-			Please explore, and if you like my page and/or have a suggestion, please tell me <a href="https://twitter.com/pierce_manasseh/" class="blue-text" target="blank">here</a>.',
-		actions: []
-	},
-	{
-		title: "0.14.x functions",
-		hidden: false,
-		content: "Search for every function in MCPE based on Class",
-		actions: ["<a class='btn blue lighten-2' href='search.html'>Search Page</a>"]
-	},
-	{
-		title: "ExNihilo PE",
-		hidden: false,
-		content: "Ex Nihilo is a Minecraft Skyblock Companion mod. It allows the Player to do so much more in Skyblock. \
-					I am currently bringing the mod to PE, after about a year of not making the mod I have started from scratch.",
-		actions: [
-			'<a class="btn blue lighten-2" href="https:\/\/github.com/ManassehPierce/ExNihilo-PE">Github</a>'
-		]
-	},
-	{
-		title: "ModPE",
-		hidden: true,
-		content: "Learn ModPE, some ModPE Tips, and some other things trivial!",
-		actions: [
-			'<a class="btn blue lighten-2" href="modpe.html">ModPE</a>'
-		]
-	},
-];
-
 var app = angular.module("myApp",[]);
-app.controller("myCtrl",function($scope){
-	$scope.posts = posts;
-	$scope.$on('loaded', function(ngRepeatFinishedEvent) {
-		$(".hiddendiv").removeClass("hiddendiv");
-	});
-});
-
-app.directive('onFinishRender', function ($timeout) {
-	return {
-		restrict: 'A',
-		link: function (scope, element, attr) {
-			if (scope.$last === true) {
-				$timeout(function () {
-					scope.$emit(attr.onFinishRender);
-				});
-			}
-		}
-	};
-});
-
-app.filter('unsafe', function($sce) {
-	return function(val) {
-		return $sce.trustAsHtml(val);
-	};
-});
-
 app.controller("IPCalc",function($scope){
 	$scope.oct0 = 0;
 	$scope.oct1 = 0;
@@ -72,6 +11,18 @@ app.controller("IPCalc",function($scope){
 		else if($scope.prefix >= 16 && $scope.prefix <= 23) return "B";
 		else if($scope.prefix >= 24 && $scope.prefix <= 30) return "C";
 		else return "";
+	};
+	
+	$scope.ranges = function() {
+		var rangesArray = [];
+		var tempNetBin = $scope.networkBinary.split(".");
+		var bitsToEdit = $scope.subnetBits();
+		
+		for(var i=0;i<$scope.totalSubnets();i++) {
+			rangesArray.push();
+		}
+		
+		return rangesArray;
 	};
 	
 	$scope.IPBinary = function() {

@@ -1,15 +1,27 @@
-
 var model = new THREE.Group();
-var gui;
+var gui, textureNames = [];
+
+var TGALoader = new THREE.TGALoader();
+var terrain_atlas = TGALoader.load("images/terrain-atlas.tga", function(tex) {
+	tex.magFilter = THREE.NearestFilter;
+	tex.minFilter = THREE.LinearMipMapLinearFilter;
+});
+
+/* setup texture names from terrain.js */
+for(var i in terrain_meta) {
+	for(var uvs = 0;uvs<terrain_meta[i].uvs.length;uvs++) {
+		textureNames.push(terrain_meta[i].name + "_" + uvs);
+	}
+}
 
 var settings = {
 	grid: true,
 	addBound: function() {
 		new Bound(0, 0, 0, 1, 1, 1);
-		initGUI();
+		initGUI(); /* I wish dat.gui would dynamically update folders and such */
 	},
-	exportToCPP: function() {exportToCPP();},
-	exportToDemo: function() {exportToDemo();},
+	exportToCPP: exportToCPP,
+	exportToDemo: exportToDemo,
 	controlsOpacity: 0.6
 };
 
@@ -24,10 +36,9 @@ var demo = {
 $(document).ready(init);
 
 var container = document.getElementById("container");
-var scene, camera, renderer, light, light2, grid;
-//var raycaster, mouse;
+var scene, camera, renderer, light, ambeintLight, grid;
+
 function init() {
-	try {
 	scene = new THREE.Scene();
 	scene.fog = new THREE.Fog(0xDDDDDD, 0.08);
 	
@@ -37,13 +48,12 @@ function init() {
 	
 	controls = new THREE.OrbitControls(camera, container);
 	
-	light = new THREE.PointLight(0xFFFFFF, 2, 100);
-	light.position.set(2, 2.5, 3);
+	light = new THREE.DirectionalLight(0xFFFFFF, 2, 100);
+	light.position.set(1, 3, 2);
 	scene.add(light);
 	
-	light2 = new THREE.PointLight(0xFFFFFF, 2, 100);
-	light2.position.set(-2, -2.5, -3);
-	scene.add(light2);
+	ambientLight = new THREE.AmbientLight(0xCCCCCC);
+	scene.add(ambeintLight);
 	
 	grid = new THREE.GridHelper(10/16, 1/16);
 	grid.setColors(0xFFFFFF, 0xFFFFFF);
@@ -57,17 +67,11 @@ function init() {
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	container.appendChild(renderer.domElement);
 	
-	//raycaster = new THREE.Raycaster();
-	//mouse = new THREE.Vector2();
-	//document.addEventListener('mousedown', onDocumentMouseDown, false);
-	//document.addEventListener('touchstart', onDocumentTouchStart, false);
-	
 	initGUI();
 	
 	scene.add(model);
 	
 	update();
-	}catch(e){alert(e);}
 }
 
 function update() {
@@ -75,14 +79,30 @@ function update() {
 	renderer.render(scene, camera);
 }
 
+/* object Folder Open ect. */
+var oFO, bFO, eFO, dFO;
+oFO = bFO = eFO = dFO = false;
+
 function initGUI() {
 	if(gui != null) $(gui.domElement).remove();
 	gui = new dat.GUI({autoPlace:false});
 	
 	var objectsFolder = gui.addFolder("Objects");
+	$(objectsFolder.domElement).click(function(){oFO=!oFO;});
+	
 	var boundsFolder = objectsFolder.addFolder("Bounds");
+	$(boundsFolder.domElement).click(function(){bFO=!bFO;});
+	
 	var exportFolder = gui.addFolder("Export");
+	$(exportFolder.domElement).click(function(){eFO=!eFO;});
+	
 	var demoFolder = gui.addFolder("Demos");
+	$(demoFolder.domElement).click(function(){dFO=!dFO;});
+	
+	if(oFO) objectsFolder.open();
+	if(bFO) objectsFolder.open(); boundsFolder.open();
+	if(eFO) exportFolder.open();
+	if(dFO) demoFolder.open();
 	
 	var boundCount = 0;
 	Bounds.forEach(function(bound) {
@@ -101,12 +121,8 @@ function initGUI() {
 		boundFolder.add(bound, "opacity").min(0).max(1).step(0.1).onChange(function() {
 			bound.updateOpacity();
 		});
-		boundFolder.add(bound, "color").onChange(function() {
-			bound.updateColor();
-		});
-		boundFolder.add(bound, "scaleBy16").onChange(function(value) {
-			bound.setScaleBy16(value);
-			
+		boundFolder.add(bound, "texture", textureNames).onChange(function() {
+			bound.updateTexture();
 		});
 		boundFolder.add(bound, "remove");
 		
@@ -133,52 +149,13 @@ function initGUI() {
 	gui.domElement.style.position = "absolute";
 	gui.domElement.style.top = 0;
 	gui.domElement.style.right = 0;
-	document.body.appendChild(gui.domElement);	
+	document.body.appendChild(gui.domElement);
 }
 
-/* Faces
-	- edit vectors
-	- edit opacity
-	- edit visibility
-	- terrain-atlas
-	- exporting */
-
-var Faces = [];
-
-var Face = function(vec1, vec2, vec3, vec4) {
-	this.vec1 = vec1;
-	this.vec2 = vec2;
-	this.vec3 = vec3;
-	this.vec4 = vec4;
-	this.opacity = 1.0;
-	this.visible = true;
-	this.geometry = new THREE.Geometry();
-	this.geometry.vertices.push(vec1,vec2,vec3,vec4);
-	this.face1 = new THREE.Face3(0, 1, 2);
-	this.face2 = new THREE.Face3(2, 3, 0);
-	this.geometry.faces.push(this.face1,this.face2);
-	this.material = new THREE.MeshLambertMaterial({transparent: true});
-	this.mesh = new THREE.Mesh(this.geometry, this.material);
-	this.mesh.position.set(-0.5,-0.5,-0.5);
-	Faces.push(this);
-	model.add(this.mesh);
-};
-
-Face.prototype.updateVectors = function() {
-	this.geometry = new THREE.Geometry();
-	this.geometry.vertices.push(vec1,vec2,vec3,vec4);
-	this.face1 = new THREE.Face3(0, 1, 2);
-	this.face2 = new THREE.Face3(2, 3, 0);
-	this.geometry.faces.push(this.face1,this.face2);
-	this.material = new THREE.MeshLambertMaterial({transparent: true});
-	this.mesh = new THREE.Mesh(this.geometry, this.material);
-	this.mesh.position.set(-0.5,-0.5,-0.5);
-};
 
 /* Bounds 
 	- terrain-atlas
 	- exporting */
-
 var Bounds = [];
 
 var Bound = function(x1, y1, z1, x2, y2, z2) {
@@ -193,33 +170,14 @@ var Bound = function(x1, y1, z1, x2, y2, z2) {
 	this.depth = z2 - z1;
 	this.opacity = 1.0;
 	this.visible = true;
-	this.color = "#ffffff";
-	this.scaleBy16 = false;
+	this.texture = "planks_0";
 	this.geometry = new THREE.CubeGeometry(this.width, this.height, this.depth, 1, 1, 1);
-	this.material = new THREE.MeshLambertMaterial({transparent: true});
-	this.material.color = new THREE.Color().setStyle(this.color);
+	this.material = new THREE.MeshLambertMaterial({map: terrain_atlas, transparent: true, color: 0xffffff, side: THREE.FrontSide});
 	this.mesh = new THREE.Mesh(this.geometry, this.material);
 	this.mesh.position.set((this.width/2) + this.x1 - 0.5, (this.height/2) + this.y1 - 0.5, (this.depth/2) + this.z1 - 0.5);
 	model.add(this.mesh);
 	Bounds.push(this);
-};
-
-Bound.prototype.setScaleBy16 = function(bool) {
-	if(bool) {
-		this.x1 = this.x1 * 16;
-		this.y1 = this.y1 * 16;
-		this.z1 = this.z1 * 16;
-		this.x2 = this.x2 * 16;
-		this.y2 = this.y2 * 16;
-		this.z2 = this.z2 * 16;
-	} else {
-		this.x1 = this.x1 / 16;
-		this.y1 = this.y1 / 16;
-		this.z1 = this.z1 / 16;
-		this.x2 = this.x2 / 16;
-		this.y2 = this.y2 / 16;
-		this.z2 = this.z2 / 16;
-	}
+	this.updateTexture();
 };
 
 Bound.prototype.updateSize = function() {
@@ -252,14 +210,40 @@ Bound.prototype.updateOpacity = function() {
 	this.mesh.material.opacity = this.opacity;
 };
 
-Bound.prototype.updateColor = function() {
-	this.mesh.material.color = new THREE.Color().setStyle(this.color);
-};
-
 Bound.prototype.remove = function() {
 	model.remove(this.mesh);
 	Bounds.splice(Bounds.indexOf(this), 1);
 	initGUI();
+};
+
+Bound.prototype.updateTexture = function() {
+	//get texture obj by name
+	var textureUVS;
+	for(var i in terrain_meta) {
+		if(terrain_meta[i].name == this.texture.substring(0, this.texture.lastIndexOf("_") ) ) {
+			textureUVS = terrain_meta[i].uvs[parseInt(this.texture.substring(this.texture.lastIndexOf("_") + 1, this.texture.length))];
+		}
+	}
+	var UVS = [
+		new THREE.Vector2(textureUVS[0] / textureUVS[4], (256-textureUVS[3]) / textureUVS[5]),
+		new THREE.Vector2(textureUVS[0] / textureUVS[4], (256-textureUVS[1]) / textureUVS[5]),
+		new THREE.Vector2(textureUVS[2] / textureUVS[4], (256-textureUVS[1]) / textureUVS[5]),
+		new THREE.Vector2(textureUVS[2] / textureUVS[4], (256-textureUVS[3]) / textureUVS[5])
+	];
+	//set faces
+	this.geometry.faceVertexUvs[0] = [];
+	this.geometry.faceVertexUvs[0][8] = [UVS[0], UVS[1], UVS[3]];
+	this.geometry.faceVertexUvs[0][9] = [UVS[1], UVS[2], UVS[3]];
+	this.geometry.faceVertexUvs[0][4] = [UVS[0], UVS[1], UVS[3]];
+	this.geometry.faceVertexUvs[0][5] = [UVS[1], UVS[2], UVS[3]];
+	this.geometry.faceVertexUvs[0][2] = [UVS[0], UVS[1], UVS[3]];
+	this.geometry.faceVertexUvs[0][3] = [UVS[1], UVS[2], UVS[3]];
+	this.geometry.faceVertexUvs[0][0] = [UVS[0], UVS[1], UVS[3]];
+	this.geometry.faceVertexUvs[0][1] = [UVS[1], UVS[2], UVS[3]];
+	this.geometry.faceVertexUvs[0][10] = [UVS[0], UVS[1], UVS[3]];
+	this.geometry.faceVertexUvs[0][11] = [UVS[1], UVS[2], UVS[3]];
+	this.geometry.faceVertexUvs[0][6] = [UVS[0], UVS[1], UVS[3]];
+	this.geometry.faceVertexUvs[0][7] = [UVS[1], UVS[2], UVS[3]];
 };
 
 function exportToDemo() {
@@ -288,9 +272,9 @@ function exportToCPP() {
 	var name =  prompt("What do you want to name this Model?");
 	if(!name) return;
 	
-	var file = ["#include \"BlockTessellator.h\"","","//Put in BlockTessellator.h","//bool tessellate"+name+"InWorld(Block* block, BlockPos const& pos);","","BlockTessellator::tessellate"+name+"InWorld(Block* block, BlockPos const& pos) {"];
+	var file = ["#include \"BlockTessellator.h\"","","//Put in BlockTessellator.h, make sure its uncommented.","//bool tessellate"+name+"InWorld(Block* block, BlockPos const& pos);","","//the set method is for the AABB Instance in BlockTessellator. If yours is named different retype all 'aabb.set'(s) to be correct.","","BlockTessellator::tessellate"+name+"InWorld(Block* block, BlockPos const& pos) {"];
 	Bounds.forEach(function(bound) {
-		file.push("setRenderBounds("+bound.x1.toFixed(1)+","+bound.y1.toFixed(1)+","+bound.z1.toFixed(1)+","+bound.x2.toFixed(1)+","+bound.y2.toFixed(1)+","+bound.z2.toFixed(1)+");","tessellateBlockInWorld(*block, pos);","");
+		file.push("aabb.set("+bound.x1.toFixed(1)+","+bound.y1.toFixed(1)+","+bound.z1.toFixed(1)+","+bound.x2.toFixed(1)+","+bound.y2.toFixed(1)+","+bound.z2.toFixed(1)+");","tessellateBlockInWorld(*block, pos);","");
 	});
 	
 	file.push("}");

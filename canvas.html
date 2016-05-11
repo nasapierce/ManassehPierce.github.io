@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		
+	</head>
+	<body>
+		<canvas width="256px" height="256px" id="myCanvas"></canvas>
+		
+<script>
+	
+	function intToBinary(int) {
+		var binStr = parseInt(int, 10).toString(2);
+		binStr = "0".repeat(8 - binStr.length) + binStr;
+		return binStr;
+	}
+	
+	function binaryToInt(bin) {
+		return parseInt(bin, 2);
+	}
+	
+	var canvas = document.getElementById("myCanvas");
+	var ctx = canvas.getContext("2d");
+	
+	var Chunk = function() {
+		this.bin = [
+			"00000000", 
+			"00000000", 
+			"00000000", 
+			"00000000", 
+			"00000000", 
+			"00000000", 
+			"00000000", 
+			"00000000" ];
+		this.hex = [];
+		this.toHex();
+	};
+	
+	Chunk.prototype.toHex = function() {
+		for(var i = 0; i < 8; i++) {
+			this.hex[i] = parseInt(this.bin[i],2).toString(16);
+		}
+	};
+	
+	Chunk.prototype.set = function(x, y, v) {
+		var temp = "";
+		for(var i = 0; i < 8; i++) {
+			if(i != x) temp = temp + this.bin[y][x];
+			else temp = temp + v;
+		}
+		this.bin[y] = temp;
+		this.toHex();
+	};
+	
+	Chunk.prototype.get = function(x, y) {
+		return parseInt(this.bin[y][x]);
+	};
+	
+	var chunks = [ new Chunk(), new Chunk() ];
+	
+	/** Compression, my levelsize must be divisible by 8
+	  * width: 64 ( Note: must be divisable by 8 )
+	  * height: 64 ( Doesn't matter )
+	  * if there is a tile, put 1
+	  * else, put 0
+	  * this will make 64, 64-bit strings
+	  * compress that into decimal
+	  * compress into ASCII charachters, seperate by semi-colon
+	  * save as cookie or something
+	  */
+</script>
+	</body>
+</html>
