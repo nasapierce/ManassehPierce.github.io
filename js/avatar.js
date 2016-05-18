@@ -13,7 +13,7 @@ function init() {
 	
 	Darkserver = new THREE.Group();
 	
-	var DarkserverTexture = THREE.ImageUtils.loadTexture("../images/Darkserver.png");
+	var DarkserverTexture = THREE.ImageUtils.loadTexture("images/Darkserver.png");
 	DarkserverTexture.magFilter = THREE.NearestFilter;
 	DarkserverTexture.minFilter = THREE.LinearMipMapLinearFilter;
 	

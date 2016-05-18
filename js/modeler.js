@@ -1,11 +1,9 @@
 var model = new THREE.Group();
 var gui, textureNames = [];
 
-var TGALoader = new THREE.TGALoader();
-var terrain_atlas = TGALoader.load("images/terrain-atlas.tga", function(tex) {
-	tex.magFilter = THREE.NearestFilter;
-	tex.minFilter = THREE.LinearMipMapLinearFilter;
-});
+var terrain_atlas = THREE.ImageUtils.loadTexture("images/terrain-atlas.png");
+terrain_atlas.magFilter = THREE.NearestFilter;
+terrain_atlas.minFilter = THREE.LinearMipMapLinearFilter;
 
 /* setup texture names from terrain.js */
 for(var i in terrain_meta) {
@@ -36,7 +34,7 @@ var demo = {
 $(document).ready(init);
 
 var container = document.getElementById("container");
-var scene, camera, renderer, light, ambeintLight, grid;
+var scene, camera, renderer, light, light2, grid;
 
 function init() {
 	scene = new THREE.Scene();
@@ -52,8 +50,9 @@ function init() {
 	light.position.set(1, 3, 2);
 	scene.add(light);
 	
-	ambientLight = new THREE.AmbientLight(0xCCCCCC);
-	scene.add(ambeintLight);
+	light2 = new THREE.DirectionalLight(0xFFFFFF, 2, 100);
+	light2.position.set(-1, -3, -2);
+	scene.add(light2);
 	
 	grid = new THREE.GridHelper(10/16, 1/16);
 	grid.setColors(0xFFFFFF, 0xFFFFFF);
@@ -121,8 +120,8 @@ function initGUI() {
 		boundFolder.add(bound, "opacity").min(0).max(1).step(0.1).onChange(function() {
 			bound.updateOpacity();
 		});
-		boundFolder.add(bound, "texture", textureNames).onChange(function() {
-			bound.updateTexture();
+		boundFolder.add(bound, "texture", textureNames).onChange(function(tex) {
+			try {bound.updateTexture(tex);}catch(e){alert(e);}
 		});
 		boundFolder.add(bound, "remove");
 		
@@ -172,12 +171,12 @@ var Bound = function(x1, y1, z1, x2, y2, z2) {
 	this.visible = true;
 	this.texture = "planks_0";
 	this.geometry = new THREE.CubeGeometry(this.width, this.height, this.depth, 1, 1, 1);
-	this.material = new THREE.MeshLambertMaterial({map: terrain_atlas, transparent: true, color: 0xffffff, side: THREE.FrontSide});
+	this.material = new THREE.MeshLambertMaterial({map: terrain_atlas, transparent: true, side: THREE.FrontSide});
 	this.mesh = new THREE.Mesh(this.geometry, this.material);
 	this.mesh.position.set((this.width/2) + this.x1 - 0.5, (this.height/2) + this.y1 - 0.5, (this.depth/2) + this.z1 - 0.5);
 	model.add(this.mesh);
 	Bounds.push(this);
-	this.updateTexture();
+	this.updateTexture(this.texture);
 };
 
 Bound.prototype.updateSize = function() {
@@ -216,34 +215,38 @@ Bound.prototype.remove = function() {
 	initGUI();
 };
 
-Bound.prototype.updateTexture = function() {
+Bound.prototype.updateTexture = function(tex) {
+	try {
+	this.texture = tex;
 	//get texture obj by name
 	var textureUVS;
 	for(var i in terrain_meta) {
-		if(terrain_meta[i].name == this.texture.substring(0, this.texture.lastIndexOf("_") ) ) {
-			textureUVS = terrain_meta[i].uvs[parseInt(this.texture.substring(this.texture.lastIndexOf("_") + 1, this.texture.length))];
+		if(terrain_meta[i].name == tex.substring(0, tex.lastIndexOf("_") ) ) {
+			textureUVS = terrain_meta[i].uvs[parseInt(tex.substring(tex.lastIndexOf("_") + 1, tex.length))];
 		}
 	}
 	var UVS = [
-		new THREE.Vector2(textureUVS[0] / textureUVS[4], (256-textureUVS[3]) / textureUVS[5]),
-		new THREE.Vector2(textureUVS[0] / textureUVS[4], (256-textureUVS[1]) / textureUVS[5]),
-		new THREE.Vector2(textureUVS[2] / textureUVS[4], (256-textureUVS[1]) / textureUVS[5]),
-		new THREE.Vector2(textureUVS[2] / textureUVS[4], (256-textureUVS[3]) / textureUVS[5])
+		new THREE.Vector2( textureUVS[0] / textureUVS[4], (256-textureUVS[1]) / textureUVS[5]),
+		new THREE.Vector2( textureUVS[0] / textureUVS[4], (256-textureUVS[3]) / textureUVS[5]),
+		new THREE.Vector2( textureUVS[2] / textureUVS[4], (256-textureUVS[3]) / textureUVS[5]),
+		new THREE.Vector2( textureUVS[2] / textureUVS[4], (256-textureUVS[1]) / textureUVS[5])
 	];
 	//set faces
 	this.geometry.faceVertexUvs[0] = [];
-	this.geometry.faceVertexUvs[0][8] = [UVS[0], UVS[1], UVS[3]];
-	this.geometry.faceVertexUvs[0][9] = [UVS[1], UVS[2], UVS[3]];
-	this.geometry.faceVertexUvs[0][4] = [UVS[0], UVS[1], UVS[3]];
-	this.geometry.faceVertexUvs[0][5] = [UVS[1], UVS[2], UVS[3]];
-	this.geometry.faceVertexUvs[0][2] = [UVS[0], UVS[1], UVS[3]];
-	this.geometry.faceVertexUvs[0][3] = [UVS[1], UVS[2], UVS[3]];
 	this.geometry.faceVertexUvs[0][0] = [UVS[0], UVS[1], UVS[3]];
 	this.geometry.faceVertexUvs[0][1] = [UVS[1], UVS[2], UVS[3]];
-	this.geometry.faceVertexUvs[0][10] = [UVS[0], UVS[1], UVS[3]];
-	this.geometry.faceVertexUvs[0][11] = [UVS[1], UVS[2], UVS[3]];
+	this.geometry.faceVertexUvs[0][2] = [UVS[0], UVS[1], UVS[3]];
+	this.geometry.faceVertexUvs[0][3] = [UVS[1], UVS[2], UVS[3]];
+	this.geometry.faceVertexUvs[0][4] = [UVS[0], UVS[1], UVS[3]];
+	this.geometry.faceVertexUvs[0][5] = [UVS[1], UVS[2], UVS[3]];
 	this.geometry.faceVertexUvs[0][6] = [UVS[0], UVS[1], UVS[3]];
 	this.geometry.faceVertexUvs[0][7] = [UVS[1], UVS[2], UVS[3]];
+	this.geometry.faceVertexUvs[0][8] = [UVS[0], UVS[1], UVS[3]];
+	this.geometry.faceVertexUvs[0][9] = [UVS[1], UVS[2], UVS[3]];
+	this.geometry.faceVertexUvs[0][10] = [UVS[0], UVS[1], UVS[3]];
+	this.geometry.faceVertexUvs[0][11] = [UVS[1], UVS[2], UVS[3]];
+	this.geometry.uvsNeedUpdate = true;
+	}catch(e){alert(e);}
 };
 
 function exportToDemo() {
