@@ -12,7 +12,7 @@ function search() {
 	var searchClass = $("#searchClass").val();
 	if(!lines) { 
 		$.ajax({
-			url: "Functions.txt",
+			url: "https://dl.dropbox.com/s/bp4rcdgaqoorttz/Functions.txt?dl=0",
 			dataType: "text",
 			success: function(result) {
 				lines = result.split("\n");
