@@ -85,6 +85,7 @@ function init() {
 		Head.rotation.y = ((e.clientX/2)-(window.innerWidth/2))/window.innerWidth;
 		Head.rotation.x = ((e.clientY/2)-(window.innerHeight/2))/window.innerHeight;
 		touchmoveEnabled = true;
+		render();
 	}, false);
 	
 	//touchscreen
@@ -92,6 +93,7 @@ function init() {
 		if(touchmoveEnabled) {
 			Head.rotation.y = ((e.touches[0].clientX/2)-(window.innerWidth/2))/window.innerWidth;
 			Head.rotation.x = ((e.touches[0].clientY/2)-(window.innerHeight/2))/window.innerHeight;
+			render();
 		}
 	}, false);
 	
@@ -99,7 +101,7 @@ function init() {
 }
 
 function render() {
-	requestAnimationFrame(render);
+	//requestAnimationFrame(render);
 	renderer.render(scene, camera);
 }
 
