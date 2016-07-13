@@ -1,7 +1,7 @@
+var Darkserver, scene, camera, renderer, light;
 
 $(document).ready(init);
 
-var Darkserver, scene, camera, renderer, light;
 function init() {
 	scene = new THREE.Scene();
 	

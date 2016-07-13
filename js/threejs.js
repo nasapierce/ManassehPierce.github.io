@@ -1,19 +1,12 @@
 var container = document.getElementById("container");
+var canvas = document.getElementById("canv");
+var ctx = canvas.getContext("2d");
 var scene, camera, controls, renderer, projector;
 var grid, light, ambeintLight;
-var stage, queue;
 var info = document.getElementById("info");
 var widthToHeight = 256/192, newWidth, newHeight, newWidthToHeight;
 
-$(document).ready(load);
-
-function load() {
-	queue = new createjs.LoadQueue();
-	queue.on("complete", queueComplete, this);
-	queue.loadManifest([
-		{id: "fox", src: "images/low_poly_fox.png"}
-	]);
-}
+$(document).ready(init);
 
 function resizeGame() {
 	newWidth = window.innerWidth;
@@ -33,23 +26,18 @@ function resizeGame() {
 	canvas.height = newHeight;
 }
 
-function queueComplete() {
+function init() {
 	window.addEventListener("resize", resizeGame, false);
 	resizeGame();
-	init();
-}
-
-function init() {
-	var stage = new createjs.Stage(document.getElementById("canv"));
 	
 	scene = new THREE.Scene();
 	scene.fog = new THREE.Fog(0xDDDDDD, 0.008);
 	
 	camera = new THREE.PerspectiveCamera(60, newWidth / newHeight, 0.001, 1000);
-	camera.position.set(0.58, 0.86, -0.95);
+	camera.position.set(5, 5, 5);
 	camera.lookAt(new THREE.Vector3(0.05, 0.37, 0));
 	
-	//controls = new THREE.OrbitControls(camera, container);
+	controls = new THREE.OrbitControls(camera, container);
 	
 	light = new THREE.DirectionalLight(0xDDDDDD, 1);
 	light.position.set(5, 5, 5).normalize();
@@ -59,37 +47,41 @@ function init() {
 	scene.add(ambientLight);
 	
 	grid = new THREE.GridHelper(7.5, 1);
-	grid.setColors(0xffffff, 0xffffff);
+	grid.setColors(0x484848, 0x484848);
 	scene.add(grid);
+	
+	var textureLoader = new THREE.TextureLoader();
+	var img = new textureLoader.load("images/icon.png");
+	var mtl = new THREE.SpriteMaterial({map:img,color:0xffffff,fog:true});
+	var sprite = new THREE.Sprite( mtl );
+	sprite.position.set(0, 0, 0);
+	scene.add(sprite);
 	
 	if(Detector.webgl) renderer = new THREE.WebGLRenderer({antialias:true, alpha: true});
 	if(!Detector.webgl) renderer = new THREE.CanvasRenderer();
-	renderer.setClearColor(0x000000, 0);
+	renderer.setClearColor(0xffffff);
 	renderer.setPixelRatio(window.devicePixelRatio);
 	renderer.setSize(newWidth, newHeight);
 	renderer.domElement.id = "renderer";
 	container.appendChild(renderer.domElement);
 	
-	//var img = new createjs.Bitmap(queue.getResult("fox"));
-	//img.scaleX = newWidth / 256;
-	//img.scaleY = newHeight / 192;
-	
-	//stage.addChild(img);
-	//stage.update();
-	
-	var b = new Base();
-	var mtl = new THREE.MeshBasicMaterial({color: 0x00ff00, transparent: true, opacity: 1});
-	var m = new THREE.Mesh(b, mtl);
-	m.scale.set(1/10, 1/10, 1/10);
-	m.position.set(-0.5, 0, -0.5);
-	m.updateMatrix();
-	scene.add(m);
-	
-	var edg = new THREE.EdgesHelper(m, 1, 0x000000);
-	scene.add(edg);
-	
 	update();
 }
+
+/*
+function get2dPoint(point3D, viewMatrix, projectionMatrix, width, height) {
+      Matrix4 viewProjectionMatrix = projectionMatrix * viewMatrix;
+      //transform world to clipping coordinates
+      point3D = viewProjectionMatrix.multiply(point3D);
+      int winX = (int) Math.round((( point3D.getX() + 1 ) / 2.0) *
+                                   width );
+      //we calculate -point3D.getY() because the screen Y axis is
+      //oriented top->down 
+      int winY = (int) Math.round((( 1 - point3D.getY() ) / 2.0) *
+                                   height );
+      return new Point2D(winX, winY);
+}
+*/
 
 function update() {
 	requestAnimationFrame(update);
@@ -98,7 +90,6 @@ function update() {
 		camera.ratio = newWidth / newHeight;
 		camera.updateProjectionMatrix();
 	}
-	info.innerHTML = ["x: " + camera.position.x, "y: " + camera.position.y, "z: " + camera.position.z].join("<br/>");
 	renderer.render(scene, camera);
 }
 

@@ -151,7 +151,6 @@ function initGUI() {
 	document.body.appendChild(gui.domElement);
 }
 
-
 /* Bounds 
 	- terrain-atlas
 	- exporting */
@@ -216,7 +215,6 @@ Bound.prototype.remove = function() {
 };
 
 Bound.prototype.updateTexture = function(tex) {
-	try {
 	this.texture = tex;
 	//get texture obj by name
 	var textureUVS;
@@ -246,8 +244,34 @@ Bound.prototype.updateTexture = function(tex) {
 	this.geometry.faceVertexUvs[0][10] = [UVS[0], UVS[1], UVS[3]];
 	this.geometry.faceVertexUvs[0][11] = [UVS[1], UVS[2], UVS[3]];
 	this.geometry.uvsNeedUpdate = true;
-	}catch(e){alert(e);}
 };
+
+function exportToModPEModel() {
+	var isOkayToNotExportHidden = confirm("All non-visible bounds will not get exported. Continue?");
+	if(!isOkayToNotExportHidden) return;
+	
+	var name =  prompt("What do you want to name this Render Type?");
+	if(!name) return;
+	
+	var JSLines = [
+		"function "+name+"RenderType(renderer) {",
+			"var var2 = 0;","var model = renderer.getModel();",
+			"var head = model.getPart('head').clear();",
+			"var body = model.getPart('body').clear();",
+			"var rArm = model.getPart('rightArm').clear();",
+			"var lArm = model.getPart('leftArm').clear();",
+			"var rLeg = model.getPart('rightLeg').clear();",
+			"var lLeg = model.getPart('leftLeg').clear();"
+	];
+	var boundLength = 0;
+	Bounds.forEach(function(bound) {
+		JSLines.push("body.addBox("+bound.x1+","+bound.y1+","+bound.z1+","+bound.x2+","+bound.y2+","+bound.z2+", 0);");
+		boundLength++;
+	});
+	JSLines.push("}");
+	
+	download("demo_"+name+".js", JSLines.join("\n"));
+}
 
 function exportToDemo() {
 	var isOkayToNotExportHidden = confirm("All non-visible bounds will not get exported. Continue?");

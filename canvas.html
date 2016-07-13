@@ -7,66 +7,37 @@
 		<canvas width="256px" height="256px" id="myCanvas"></canvas>
 		
 <script>
-	
-	function intToBinary(int) {
-		var binStr = parseInt(int, 10).toString(2);
-		binStr = "0".repeat(8 - binStr.length) + binStr;
-		return binStr;
-	}
-	
-	function binaryToInt(bin) {
-		return parseInt(bin, 2);
-	}
-	
 	var canvas = document.getElementById("myCanvas");
 	var ctx = canvas.getContext("2d");
 	
-	var Chunk = function() {
-		this.bin = [
-			"00000000", 
-			"00000000", 
-			"00000000", 
-			"00000000", 
-			"00000000", 
-			"00000000", 
-			"00000000", 
-			"00000000" ];
-		this.hex = [];
-		this.toHex();
-	};
+	var c1 = 0x000000;
+	var c2 = 0xFFFFFF;
 	
-	Chunk.prototype.toHex = function() {
-		for(var i = 0; i < 8; i++) {
-			this.hex[i] = parseInt(this.bin[i],2).toString(16);
-		}
-	};
+	var myc = 0xCDCDCD;
 	
-	Chunk.prototype.set = function(x, y, v) {
-		var temp = "";
-		for(var i = 0; i < 8; i++) {
-			if(i != x) temp = temp + this.bin[y][x];
-			else temp = temp + v;
-		}
-		this.bin[y] = temp;
-		this.toHex();
-	};
+	if(myc != c1 || myc != c2) {
+	  if(c1 < myc) {
+	    
+	  } else {
+	    myc = c2 - myc;
+	  }
+	}
 	
-	Chunk.prototype.get = function(x, y) {
-		return parseInt(this.bin[y][x]);
-	};
+	/* to hide
+	- select image 1
+	- select image 2
+	- make image 1 use 8-bit colors
+	- change ff in image 1 to 01
+	- put image 1 over image 2
+	- do difference
 	
-	var chunks = [ new Chunk(), new Chunk() ];
+	to show
+	- select container with hidden image
+	- select container without
+	- do difference
+	- turn brightness and contrast all the way up
+	*/
 	
-	/** Compression, my levelsize must be divisible by 8
-	  * width: 64 ( Note: must be divisable by 8 )
-	  * height: 64 ( Doesn't matter )
-	  * if there is a tile, put 1
-	  * else, put 0
-	  * this will make 64, 64-bit strings
-	  * compress that into decimal
-	  * compress into ASCII charachters, seperate by semi-colon
-	  * save as cookie or something
-	  */
 </script>
 	</body>
 </html>
