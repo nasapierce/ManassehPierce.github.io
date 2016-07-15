@@ -7,37 +7,81 @@
 		<canvas width="256px" height="256px" id="myCanvas"></canvas>
 		
 <script>
-	var canvas = document.getElementById("myCanvas");
-	var ctx = canvas.getContext("2d");
-	
-	var c1 = 0x000000;
-	var c2 = 0xFFFFFF;
-	
-	var myc = 0xCDCDCD;
-	
-	if(myc != c1 || myc != c2) {
-	  if(c1 < myc) {
-	    
-	  } else {
-	    myc = c2 - myc;
-	  }
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
+ctx.fillStyle = "#484848";
+ctx.fillRect(0, 0, 256, 256);
+
+var Colors = [
+	"#000000", "#0000ff", "#00ff00", "#ff0000",
+	"#00ffff", "#ff00ff", "#ffff00", "#ffffff"
+];
+
+var BIOMES = [];
+
+for(var i in Colors) {
+	BIOMES.push(new WorldJS.Biome(Colors[i]));
+}
+
+/**/
+
+var WorldJS = {};
+
+WorldJS.World = function(width, height, biomes) {
+	this.width = width;
+	this.height = height;
+	this.biomes = biomes;
+	this.tiles = [];
+	for(var i in this.biomes) {
+		this.biomes[i].setPos(Math.floor(Math.random()*this.width), Math.floor(Math.random()*this.height));
 	}
-	
-	/* to hide
-	- select image 1
-	- select image 2
-	- make image 1 use 8-bit colors
-	- change ff in image 1 to 01
-	- put image 1 over image 2
-	- do difference
-	
-	to show
-	- select container with hidden image
-	- select container without
-	- do difference
-	- turn brightness and contrast all the way up
-	*/
-	
+	//while(this.tiles.length < (this.width*this.height)) {}
+};
+
+WorldJS.Biome = function(color) {
+	this.color = color;
+};
+
+WorldJS.setPos = function(x, y) {
+	this.x = x;
+	this.y = y;
+};
+
+WorldJS.Biome.prototype.generateTile = function(x, y) {
+	var x = x;
+	var y = y;
+	var randomSide = Math.floor(Math.random()*3);
+	switch (randomSide) {
+		case 0: {
+			x++;
+		} break;
+		case 1: {
+			x--;
+		} break;
+		case 2: {
+			y++;
+		} break;
+		case 3: {
+			y--;
+		} break;
+	}
+	var tile = WorldJS.Tile(x, y, this.color);
+	tile.set();
+	return tile;
+};
+
+WorldJS.Tile = function(x, y, color) {
+	this.x = x;
+	this.y = y;
+	this.color = color;
+};
+
+WorldJS.Tile.prototype.set = function() {
+	ctx.fillStyle = this.color;
+	ctx.fillRect(this.x, this.y, 1, 1);
+};
+
 </script>
 	</body>
 </html>

@@ -1,4 +1,5 @@
-var Darkserver, scene, camera, renderer, light;
+var MinecraftCharacter, scene, camera, renderer, light;
+var skinDir = "images/Darkserver.png";
 
 $(document).ready(init);
 
@@ -11,49 +12,82 @@ function init() {
 	
 	loader = new THREE.TextureLoader();
 	
-	Darkserver = new THREE.Group();
+	MinecraftCharacter = new THREE.Group();
 	
-	var DarkserverTexture = THREE.ImageUtils.loadTexture("images/Darkserver.png");
-	DarkserverTexture.magFilter = THREE.NearestFilter;
-	DarkserverTexture.minFilter = THREE.LinearMipMapLinearFilter;
+	var Skin = THREE.ImageUtils.loadTexture(skinDir);
+	Skin.magFilter = THREE.NearestFilter;
+	//Skin.minFilter = THREE.LinearMipMapLinearFilter;
+	Skin.minFilter = THREE.NearestFilter;
 	
-	var Material = new THREE.MeshPhongMaterial({map: DarkserverTexture, side: THREE.FrontSide, transparent: true});
+	var Material = new THREE.MeshPhongMaterial({map: Skin, side: THREE.FrontSide, transparent: true, alphaTest: 0.5});
+	var scale = 1.05;
 	
 	var HeadGeometry = addBox(0, 0, 64, 64, 8, 8, 8);
 	var Head = new THREE.Mesh(HeadGeometry, Material);
+	MinecraftCharacter.add(Head);
 	
-	var BodyGeometry = addBox(24, 16, 64, 64, 8, 12, 4);
+	var HeadOverlayGeometry = addBox(32, 0, 64, 64, 8, 8, 8);
+	var HeadOverlay = new THREE.Mesh(HeadOverlayGeometry, Material);
+	HeadOverlay.scale.multiplyScalar(scale);
+	MinecraftCharacter.add(HeadOverlay);
+	
+	var BodyGeometry = addBox(16, 16, 64, 64, 8, 12, 4);
 	var Body = new THREE.Mesh(BodyGeometry, Material);
 	Body.position.set(0, -10/16, 0);
+	MinecraftCharacter.add(Body);
+	
+	var BodyOverlayGeometry = addBox(16, 32, 64, 64, 8, 12, 4);
+	var BodyOverlay = new THREE.Mesh(BodyOverlayGeometry, Material);
+	BodyOverlay.position.set(0, -10/16, 0);
+	BodyOverlay.scale.multiplyScalar(scale);
+	MinecraftCharacter.add(BodyOverlay);
 	
 	var RightArmGeometry = addBox(40, 16, 64, 64, 4, 12, 4);
 	var RightArm = new THREE.Mesh(RightArmGeometry, Material);
 	RightArm.position.set(-6/16,-10/16,0);
+	MinecraftCharacter.add(RightArm);
 	
-	var RightArmOverlayGeometry = addBox(40, 32, 64, 64, 4.5, 12.5, 4.5);
+	var RightArmOverlayGeometry = addBox(40, 32, 64, 64, 4, 12, 4);
 	var RightArmOverlay = new THREE.Mesh(RightArmOverlayGeometry, Material);
 	RightArmOverlay.position.set(-6/16,-10/16,0);
+	RightArmOverlay.scale.multiplyScalar(scale);
+	MinecraftCharacter.add(RightArmOverlay);
 	
 	var LeftArmGeometry = addBox(32, 48, 64, 64, 4, 12, 4);
 	var LeftArm = new THREE.Mesh(LeftArmGeometry, Material);
 	LeftArm.position.set(6/16,-10/16,0);
+	MinecraftCharacter.add(LeftArm);
 	
-	var LeftArmOverlayGeometry = addBox(48, 48, 64, 64, 4.5, 12., 4.5);
+	var LeftArmOverlayGeometry = addBox(48, 48, 64, 64, 4, 12, 4);
 	var LeftArmOverlay = new THREE.Mesh(LeftArmOverlayGeometry, Material);
 	LeftArmOverlay.position.set(6/16,-10/16,0);
+	LeftArmOverlay.scale.multiplyScalar(scale);
+	MinecraftCharacter.add(LeftArmOverlay);
 	
 	var RightLegGeometry = addBox(0, 16, 64, 64, 4, 12, 4);
 	var RightLeg = new THREE.Mesh(RightLegGeometry, Material);
 	RightLeg.position.set(-2/16,-22/16,0);
+	MinecraftCharacter.add(RightLeg);
+	
+	var RightLegOverlayGeometry = addBox(0, 48, 64, 64, 4, 12, 4);
+	var RightLegOverlay = new THREE.Mesh(RightLegOverlayGeometry, Material);
+	RightLegOverlay.position.set(-2/16,-22/16,0);
+	RightLegOverlay.scale.multiplyScalar(scale);
+	MinecraftCharacter.add(RightLegOverlay);
 	
 	var LeftLegGeometry = addBox(16, 48, 64, 64, 4, 12, 4);
 	var LeftLeg = new THREE.Mesh(LeftLegGeometry, Material);
 	LeftLeg.position.set(2/16,-22/16,0);
+	MinecraftCharacter.add(LeftLeg);
 	
-	Darkserver.add(Head,Body,RightArm,RightArmOverlay,LeftArm,LeftArmOverlay,LeftLeg,RightLeg);
+	var LeftLegOverlayGeometry = addBox(0, 32, 64, 64, 4, 12, 4);
+	var LeftLegOverlay = new THREE.Mesh(LeftLegOverlayGeometry, Material);
+	LeftLegOverlay.position.set(2/16,-22/16,0);
+	LeftLegOverlay.scale.multiplyScalar(scale);
+	MinecraftCharacter.add(LeftLegOverlay);
 	
-	Darkserver.position.set(0, 2/16, 0);
-	scene.add(Darkserver);
+	MinecraftCharacter.position.set(0, 8/16, 0);
+	scene.add(MinecraftCharacter);
 	
 	light = new THREE.DirectionalLight(0xFFFFFF, 1);
 	light.position.set(2, 3, 1);
@@ -67,14 +101,10 @@ function init() {
 	renderer.setPixelRatio(window.devicePixelRatio);
 	renderer.setClearColor(0xFFFFFF, 0);
 	renderer.setSize(64, 96);
-	renderer.domElement.style.zIndex = 10001; //put it above the toast
 	renderer.domElement.style.position = "fixed";
 	renderer.domElement.style.bottom = "0px";
 	renderer.domElement.style.right = "0px";
 	document.body.appendChild(renderer.domElement);
-	renderer.domElement.addEventListener("click", function(e) {
-		var t = Materialize.toast("Thanks for visiting my page!", 5000, "", function(){});
-	});
 	
 	var evt = window.navigator.msPointerEnabled ? "MSPointerMove" : "touchmove";
 	var touchmoveEnabled = true;
@@ -82,18 +112,24 @@ function init() {
 	//desktop
 	window.addEventListener("mousemove", function(e) {
 		touchmoveEnabled = false;
-		Head.rotation.y = ((e.clientX/2)-(window.innerWidth/2))/window.innerWidth;
-		Head.rotation.x = ((e.clientY/2)-(window.innerHeight/2))/window.innerHeight;
+		var y = ((e.clientX/2)-(window.innerWidth/2))/window.innerWidth;
+		var x = ((e.clientY/2)-(window.innerHeight/2))/window.innerHeight;
+		Head.rotation.x = x;
+		HeadOverlay.rotation.x = x;
+		Head.rotation.y = y;
+		HeadOverlay.rotation.y = y;
 		touchmoveEnabled = true;
-		//render();
 	}, false);
 	
 	//touchscreen
 	window.addEventListener(evt, function(e) {
 		if(touchmoveEnabled) {
-			Head.rotation.y = ((e.touches[0].clientX/2)-(window.innerWidth/2))/window.innerWidth;
-			Head.rotation.x = ((e.touches[0].clientY/2)-(window.innerHeight/2))/window.innerHeight;
-			//render();
+			var y = ((e.touches[0].clientX/2)-(window.innerWidth/2))/window.innerWidth;
+			var x = ((e.touches[0].clientY/2)-(window.innerHeight/2))/window.innerHeight;
+			Head.rotation.x = x;
+			HeadOverlay.rotation.x = x;
+			Head.rotation.y = y;
+			HeadOverlay.rotation.y = y;
 		}
 	}, false);
 	
@@ -109,8 +145,8 @@ var addBox = function(u, v, texWidth, texHeight, width, height, depth) {
 	var x0 = u;
 	var x1 = u + depth;
 	var x2 = u + depth + width;
-	var x3 = u + depth + (width*2);
-	var x4 = u + (depth*2) + (width*2);
+	var x3 = u + depth + width + depth;
+	var x4 = u + depth + width + depth + width;
 	var y0 = texHeight - v;
 	var y1 = texHeight - v - depth;
 	var y2 = texHeight - v - depth - height;
@@ -118,9 +154,9 @@ var addBox = function(u, v, texWidth, texHeight, width, height, depth) {
 	var BoxFront = UVCoordinateSet(x1, x2, y2, y1, texWidth, texHeight);
 	var BoxTop = UVCoordinateSet(x1, x2, y1, y0, texWidth, texHeight);
 	var BoxBottom = UVCoordinateSet(x2, x3, y1, y0, texWidth, texHeight);
-	var BoxLeft = UVCoordinateSet(x3, x4, y2, y1, texWidth, texHeight);
+	var BoxBack = UVCoordinateSet(x3, x4, y2, y1, texWidth, texHeight);
 	var BoxRight = UVCoordinateSet(x0, x1, y2, y1, texWidth, texHeight);
-	var BoxBack = UVCoordinateSet(x2, x3, y2, y1, texWidth, texHeight);
+	var BoxLeft = UVCoordinateSet(x2, x3, y2, y1, texWidth, texHeight);
 	var BoxGeometry = new THREE.CubeGeometry(width/16, height/16, depth/16);
 	BoxGeometry.faceVertexUvs[0] = [];
 	BoxGeometry.faceVertexUvs[0][8] = [BoxFront[0], BoxFront[1], BoxFront[3]];
