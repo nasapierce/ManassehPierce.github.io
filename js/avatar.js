@@ -1,3 +1,9 @@
+/* Copyright (C)  Manasseh Pierce - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by Manasseh Pierce <manassehpierce@gmail.com>, July 2016
+ */
+
 var MinecraftCharacter, scene, camera, renderer, light;
 var skinDir = "images/Darkserver.png";
 
