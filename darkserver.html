@@ -110,23 +110,23 @@ function init() {
 	LeftArmOverlay.scale.multiplyScalar(scale);
 	MinecraftCharacter.add(LeftArmOverlay);
 	
-	var RightLegGeometry = addBox(0, 16, 64, 64, 4, 12, 4);
+	var RightLegGeometry = addBox(16, 48, 64, 64, 4, 12, 4);
 	var RightLeg = new THREE.Mesh(RightLegGeometry, Material);
 	RightLeg.position.set(-2/16,-22/16,0);
 	MinecraftCharacter.add(RightLeg);
 	
-	var RightLegOverlayGeometry = addBox(0, 48, 64, 64, 4, 12, 4);
+	var RightLegOverlayGeometry = addBox(0, 32, 64, 64, 4, 12, 4);
 	var RightLegOverlay = new THREE.Mesh(RightLegOverlayGeometry, Material);
 	RightLegOverlay.position.set(-2/16,-22/16,0);
 	RightLegOverlay.scale.multiplyScalar(scale);
 	MinecraftCharacter.add(RightLegOverlay);
 	
-	var LeftLegGeometry = addBox(16, 48, 64, 64, 4, 12, 4);
+	var LeftLegGeometry = addBox(0, 16, 64, 64, 4, 12, 4);
 	var LeftLeg = new THREE.Mesh(LeftLegGeometry, Material);
 	LeftLeg.position.set(2/16,-22/16,0);
 	MinecraftCharacter.add(LeftLeg);
 	
-	var LeftLegOverlayGeometry = addBox(0, 32, 64, 64, 4, 12, 4);
+	var LeftLegOverlayGeometry = addBox(0, 48, 64, 64, 4, 12, 4);
 	var LeftLegOverlay = new THREE.Mesh(LeftLegOverlayGeometry, Material);
 	LeftLegOverlay.position.set(2/16,-22/16,0);
 	LeftLegOverlay.scale.multiplyScalar(scale);
@@ -204,12 +204,12 @@ var addBox = function(u, v, texWidth, texHeight, width, height, depth) {
 	var y1 = texHeight - v - depth;
 	var y2 = texHeight - v - depth - height;
 	
-	var BoxFront = UVCoordinateSet(x1, x2, y2, y1, texWidth, texHeight);
-	var BoxTop = UVCoordinateSet(x1, x2, y1, y0, texWidth, texHeight);
-	var BoxBottom = UVCoordinateSet(x2, x3, y1, y0, texWidth, texHeight);
-	var BoxBack = UVCoordinateSet(x3, x4, y2, y1, texWidth, texHeight);
-	var BoxRight = UVCoordinateSet(x0, x1, y2, y1, texWidth, texHeight);
-	var BoxLeft = UVCoordinateSet(x2, x3, y2, y1, texWidth, texHeight);
+	var BoxFront = UVCoordinateSet(x2, x1, y2, y1, texWidth, texHeight);
+	var BoxTop = UVCoordinateSet(x2, x1, y1, y0, texWidth, texHeight);
+	var BoxBottom = UVCoordinateSet(x3, x2, y1, y0, texWidth, texHeight);
+	var BoxBack = UVCoordinateSet(x4, x3, y2, y1, texWidth, texHeight);
+	var BoxLeft = UVCoordinateSet(x1, x0, y2, y1, texWidth, texHeight);
+	var BoxRight = UVCoordinateSet(x3, x2, y2, y1, texWidth, texHeight);
 	var BoxGeometry = new THREE.CubeGeometry(width/16, height/16, depth/16);
 	BoxGeometry.faceVertexUvs[0] = [];
 	BoxGeometry.faceVertexUvs[0][8] = [BoxFront[0], BoxFront[1], BoxFront[3]];
