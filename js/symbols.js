@@ -1,6 +1,4 @@
-
 var lines;
-
 $(document).ready(function() {
 	$('#searchButton').click(function() {
 		$('#outputFunctions').html('');

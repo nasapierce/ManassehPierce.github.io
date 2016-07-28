@@ -1,0 +1,13 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="30" height="40" version="1.1"
+	xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">
+	<path d="M20,0 Q40,20 20,32" fill="white" />
+	<path d="M20,40 Q0,20 20,8" fill="white" />
+	<path d="M20,0 Q0,20 20,32" fill="black" />
+	<path d="M20,40 Q40,20 20,8" fill="black" />
+	<g transform="scale(0.2),translate(48,40)">
+		<path d="M44,89 Q2,72 34,43 Q50,30 47,15 Q70,25 65,45 L70,40 Q100,75 58,89 Q68,77 57,68 Q50,61 51,52 Q26,63 44,89 Z" fill="white"/>
+	</g>
+</svg>

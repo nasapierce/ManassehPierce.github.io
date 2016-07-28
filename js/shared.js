@@ -43,25 +43,15 @@ if(typeof String.includes === "undefined") {
 	};
 }
 
-Number.prototype.intToBinary = function() {
+Number.prototype.toBinary = function() {
 	var binary = parseInt(this, 10).toString(2);
 	return "0".repeat(8 - binary.length) + binary;
 };
 
-String.prototype.binaryToInt = function() {
+String.prototype.toInt = function() {
 	return parseInt(this.toString(), 2);
 };
 
-function intToBinary(int){
-    var binStr = parseInt(int, 10).toString(2);
-	binStr = "0".repeat(8 - binStr.length) + binStr;
-	return binStr;
-}
-
-function binaryToInt(bin) {
-	return parseInt(bin, 2);
-}
-
-var decToHex = function(dec) {
-	return "0".repeat(2-(dec).toString(16).length) + (dec).toString(16);
+Number.prototype.toHex = function() {
+	return "0".repeat(2-(this).toString(16).length) + (this).toString(16);
 };

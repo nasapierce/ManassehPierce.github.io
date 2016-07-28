@@ -23,10 +23,10 @@ app.controller("IPCalc",function($scope) {
 	};
 	$scope.IPBinary = function() {
 		var ipBin = [
-			intToBinary($scope.oct0 ? $scope.oct0 : 0),
-			intToBinary($scope.oct1 ? $scope.oct1 : 0),
-			intToBinary($scope.oct2 ? $scope.oct2 : 0),
-			intToBinary($scope.oct3 ? $scope.oct3 : 0)
+			($scope.oct0 ? $scope.oct0 : 0).toBinary(),
+			($scope.oct1 ? $scope.oct1 : 0).toBinary(),
+			($scope.oct2 ? $scope.oct2 : 0).toBinary(),
+			($scope.oct3 ? $scope.oct3 : 0).toBinary()
 		];
 		return ipBin.join(".");
 	};
@@ -62,10 +62,10 @@ app.controller("IPCalc",function($scope) {
 		}
 		$scope.networkBinary = netBin;
 		var net = netBin.split(".");
-		net[0] = binaryToInt(net[0]);
-		net[1] = binaryToInt(net[1]);
-		net[2] = binaryToInt(net[2]);
-		net[3] = binaryToInt(net[3]);
+		net[0] = net[0].toInt();
+		net[1] = net[1].toInt();
+		net[2] = net[2].toInt();
+		net[3] = net[3].toInt();
 		return net.join(".");
 	};
 	$scope.hostsPerSubnet = function() {

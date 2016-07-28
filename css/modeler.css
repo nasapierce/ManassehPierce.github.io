@@ -1,0 +1,57 @@
+body {
+	margin: 0;
+	overflow: hidden;
+}
+#container {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+#renderer {
+	position: relative;
+	left: 50%;
+	top: 50%;
+}
+
+.folder, .lg-btn {
+	display: block;
+	margin-top: 2px;
+	background-color: #444;
+	color: #fff;
+	width: 100%;
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+}
+
+.folder:active, .btn:active, .lg-btn:active {
+	background-color: #0099CC;
+}
+
+.content {
+	display: none;
+}
+
+.btn, .txt {
+	margin-top: 1px;
+	margin-left: 5%;
+	background-color: #555;
+	color: #fff;
+	width: 90%;
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+}
+
+.txt input {
+	width: 40px;
+	text-align: right;
+}
+
+.show {
+	display: block !important;
+}
+
+foo {
+	overflow-y: scroll;
+}

@@ -4,27 +4,18 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
 		<title>Darkserver</title>
-
-		<link rel="apple-touch-icon" sizes="57x57" href="icons/apple-touch-icon-57x57.png">
-		<link rel="apple-touch-icon" sizes="60x60" href="icons/apple-touch-icon-60x60.png">
-		<link rel="apple-touch-icon" sizes="72x72" href="icons/apple-touch-icon-72x72.png">
-		<link rel="apple-touch-icon" sizes="76x76" href="icons/apple-touch-icon-76x76.png">
-		<link rel="apple-touch-icon" sizes="114x114" href="icons/apple-touch-icon-114x114.png">
-		<link rel="apple-touch-icon" sizes="120x120" href="icons/apple-touch-icon-120x120.png">
-		<link rel="apple-touch-icon" sizes="144x144" href="icons/apple-touch-icon-144x144.png">
-		<link rel="apple-touch-icon" sizes="152x152" href="icons/apple-touch-icon-152x152.png">
-		<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon-180x180.png">
-		<link rel="icon" type="image/png" href="icons/favicon-32x32.png" sizes="32x32">
-		<link rel="icon" type="image/png" href="icons/android-chrome-192x192.png" sizes="192x192">
-		<link rel="icon" type="image/png" href="icons/favicon-96x96.png" sizes="96x96">
-		<link rel="icon" type="image/png" href="icons/favicon-16x16.png" sizes="16x16">
-		<link rel="manifest" href="icons/manifest.json">
-		<link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#5bbad5">
-		<meta name="msapplication-TileColor" content="#da532c">
-		<meta name="msapplication-TileImage" content="/mstile-144x144.png">
-		<meta name="theme-color" content="#ffffff">
-
 		<link rel="stylesheet" href="css/threejs.css"/>
+<style>
+body {
+	background-color: #484848;
+}
+#renderer {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: block;
+}
+</style>
 	</head>
 	<body>
 
@@ -37,17 +28,19 @@
 			DM me on Twitter: <span style="color:#000ABE;"><a target="blank" href="https://twitter.com/pierce_manasseh">@pierce_manasseh</a></span>
 		</div>
 		
-		<script src="js/jquery-1.12.0.min.js"></script>
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 		<script src="js/Detector.js"></script>
-		<script src="js/three.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.min.js"></script>
 		<script src="js/Projector.js"></script>
 		<script src="js/CanvasRenderer.js"></script>
 		<script src="js/GeometryUtils.js"></script>
 <script type="text/javascript">
 var MinecraftCharacter, scene, camera, renderer, light;
-var skinDir = "images/Darkserver.png";
+var skinDir = "images/minecraft_skin.png";
 
-$(document).ready(init);
+$(document).ready(function(){
+	init();
+});
 
 function init() {
 	scene = new THREE.Scene();
@@ -147,10 +140,8 @@ function init() {
 	renderer.setPixelRatio(window.devicePixelRatio);
 	renderer.setClearColor(0x484848);
 	renderer.setSize(window.innerWidth, window.innerHeight);
-	//renderer.domElement.style.zIndex = 10001; //put it above the toast
-	//renderer.domElement.style.position = "fixed";
-	//renderer.domElement.style.bottom = "0px";
-	//renderer.domElement.style.right = "0px";
+	renderer.domElement.id = "renderer";
+	renderer.domElement.style.zIndex = 0;
 	document.body.appendChild(renderer.domElement);
 	
 	var evt = window.navigator.msPointerEnabled ? "MSPointerMove" : "touchmove";
@@ -181,6 +172,9 @@ function init() {
 			HeadOverlay.rotation.y = y;
 		}
 	}, false);
+	
+	window.addEventListener("resize", resizeGame, false);
+	resizeGame();
 	
 	render();
 }
@@ -232,6 +226,24 @@ function UVCoordinateSet(minU, maxU, minV, maxV, width, height) {
 		new THREE.Vector2(maxU/width, minV/height),
 		new THREE.Vector2(minU/width, minV/height),
 		new THREE.Vector2(minU/width, maxV/height) ];
+}
+
+var widthToHeight = 64/96, newWidth, newHeight, newWidthToHeight;
+
+function resizeGame() {
+	newWidth = window.innerWidth;
+	newHeight = window.innerHeight;
+	newWidthToHeight = newWidth / newHeight;
+	if(newWidthToHeight > widthToHeight) {
+		newWidth = newHeight * widthToHeight;
+	} else {
+		newHeight = newWidth / widthToHeight;
+	}
+	renderer.setSize(newWidth, newHeight);
+	camera.ratio = newWidth / newHeight;
+	camera.updateProjectionMatrix();
+	renderer.domElement.style.marginTop = (-newHeight / 2) + 'px';
+	renderer.domElement.style.marginLeft = (-newWidth / 2) + 'px';
 }
 
 </script>
