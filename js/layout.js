@@ -66,6 +66,7 @@ myLayout.on( 'stackCreated', function( stack ) {
 myLayout.on( 'initialised', function() {
 	$('#addbound').click(function() {
 		var b = new Bound( 0, 0, 0, 16, 16, 16 );
+		selectedBound = b;
 		myLayout.emit( 'selectBound', b.uuid );
 		myLayout.emit( 'updateBound', b.uuid );
 	});
