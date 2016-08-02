@@ -1,10 +1,9 @@
 var mouse = new THREE.Vector2();
-var raycaster;
-var selectedMesh;
+var scene, camera, renderer, light, light2, grid, selectedMesh, raycaster;
+var selectedBound;
 
 var rendererComponent = function( container, componentState ) {
 	var c = container.getElement();
-	$(c).css('overflow-y', 'scroll');
 	
 	scene = new THREE.Scene();
 	
@@ -35,12 +34,7 @@ var rendererComponent = function( container, componentState ) {
 	
 	controls = new THREE.OrbitControls(camera, renderer.domElement.parentElement);
 	
-	container.on( 'open', function() {
-		var s = resizeGame(container.width, container.height);
-		renderer.setSize(s.w, s.h);
-		renderer.domElement.style.marginTop = (-s.h / 2) + 'px';
-		renderer.domElement.style.marginLeft = (-s.w / 2) + 'px';
-	});
+	container.on( 'open', function() {container.emit( 'resize' );});
 	
 	container.on( 'resize', function() {
 		var s = resizeGame(container.width, container.height);
@@ -51,13 +45,14 @@ var rendererComponent = function( container, componentState ) {
 	
 	scene.add(model);
 	
-	new Bound(0, 0, 0, 1, 1, 1);
-	
-	update();
+	new Bound(0, 0, 0, 16, 16, 16);
 	
 	raycaster = new THREE.Raycaster();
 	
+	// add sprite at Z -1
+	
 	$(c).click(function( event ) {
+		if( selectedMesh ) scene.remove(selectedMesh);
 		event.preventDefault();
 		mouse.x = ( event.offsetX / renderer.getSize().width ) * 2 - 1;
 		mouse.y = - ( event.offsetY / renderer.getSize().height ) * 2 + 1;
@@ -67,15 +62,18 @@ var rendererComponent = function( container, componentState ) {
 		var intersection = ( intersections.length ) > 0 ? intersections[ 0 ] : null;
 		
 		if( intersection ) {
-			if( selectedMesh ) scene.remove(selectedMesh);
 			var obj = intersection.object;
 			selectedMesh = new THREE.EdgesHelper( obj, 0xff0000 );
 			scene.add( selectedMesh );
+			selectedBound = Bounds[UUIDS.indexOf(obj.uuid)];
 			myLayout.emit( 'selectBound', obj.uuid );
 		} else {
-			if( selectedMesh ) scene.remove(selectedMesh);
+			selectedBound = null;
+			myLayout.emit( 'deselectBound' );
 		}
 	});
+	
+	update();
 };
 
 function update() {

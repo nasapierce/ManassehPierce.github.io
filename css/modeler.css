@@ -12,46 +12,43 @@ body {
 	left: 50%;
 	top: 50%;
 }
+.stack-btn {
+	display: inline-block;
+	background-color: #484848;
+	border-radius: 5px;
+	height: 20px;
+	width: 26px;
+	font-size: 12px;
+	margin-right: 1px;
+}
 
-.folder, .lg-btn {
-	display: block;
-	margin-top: 2px;
-	background-color: #444;
-	color: #fff;
-	width: 100%;
-	height: 25px;
-	line-height: 25px;
+.stack-btn img {
+	margin-top: 3px;
+	margin-left: 5px;
+}
+
+.num-btn {
+	display: inline-block;
+	background-color: #484848;
+	border-radius: 5px;
+	height: 16px;
+	width: 32px;
+	font-size: 12pt;
+	line-height: 16px;
 	text-align: center;
 }
 
-.folder:active, .btn:active, .lg-btn:active {
-	background-color: #0099CC;
-}
-
-.content {
-	display: none;
-}
-
-.btn, .txt {
-	margin-top: 1px;
-	margin-left: 5%;
-	background-color: #555;
+.mv-btn {
+	display: inline-block;
+	background-color: #484848;
 	color: #fff;
-	width: 90%;
-	height: 25px;
-	line-height: 25px;
+	border-radius: 5px;
+	height: 20px;
+	min-width: 20px;
+	font-size: 12px;
+	margin-right: 1px;
+	line-height: 20px;
 	text-align: center;
-}
-
-.txt input {
-	width: 40px;
-	text-align: right;
-}
-
-.show {
-	display: block !important;
-}
-
-foo {
-	overflow-y: scroll;
+	padding-left: 2px;
+	padding-right: 2px;
 }

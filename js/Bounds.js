@@ -1,5 +1,6 @@
 var Bounds = [];
 var UUIDS = [];
+var model = new THREE.Group();
 
 var randUUID = function() {
 	var uuid = "";
@@ -28,9 +29,9 @@ var Bound = function(x1, y1, z1, x2, y2, z2) {
 	this.x2 = x2;
 	this.y2 = y2;
 	this.z2 = z2;
-	this.width = x2 - x1;
-	this.height = y2 - y1;
-	this.depth = z2 - z1;
+	this.width = (x2 - x1) / 16;
+	this.height = (y2 - y1) / 16;
+	this.depth = (z2 - z1) / 16;
 	this.opacity = 1.0;
 	this.visible = true;
 	this.geometry = new THREE.CubeGeometry(this.width, this.height, this.depth, 1, 1, 1);
@@ -44,29 +45,12 @@ var Bound = function(x1, y1, z1, x2, y2, z2) {
 };
 
 Bound.prototype.updateSize = function() {
-	if(!this.scaleBy16) {
-		this.width = this.x2 - this.x1;
-		this.height = this.y2 - this.y1;
-		this.depth = this.z2 - this.z1;
-		this.geometry = new THREE.CubeGeometry(this.width, this.height, this.depth, 1, 1, 1);
-		this.mesh.geometry = this.geometry;
-		this.mesh.position.set((this.width/2) + this.x1 - 0.5, (this.height/2) + this.y1 - 0.5, (this.depth/2) + this.z1 - 0.5);
-	} else {
-		this.width = (this.x2 - this.x1)/16;
-		this.height = (this.y2 - this.y1)/16;
-		this.depth = (this.z2 - this.z1)/16;
-		this.geometry = new THREE.CubeGeometry(this.width, this.height, this.depth, 1, 1, 1);
-		this.mesh.geometry = this.geometry;
-		this.mesh.position.set((this.width/2) + this.x1 - 0.5, (this.height/2) + this.y1 - 0.5, (this.depth/2) + this.z1 - 0.5);
-	}
-};
-
-Bound.prototype.hide = function() {
-	model.remove(this.mesh);
-};
-
-Bound.prototype.show = function() {
-	model.add(this.mesh);
+	this.width = (this.x2 - this.x1) / 16;
+	this.height = (this.y2 - this.y1) / 16;
+	this.depth = (this.z2 - this.z1) / 16;
+	this.geometry = new THREE.CubeGeometry(this.width, this.height, this.depth, 1, 1, 1);
+	this.mesh.geometry = this.geometry;
+	this.mesh.position.set((this.width/2) + (this.x1/16) - 0.5, (this.height/2) + (this.y1/16) - 0.5, (this.depth/2) + (this.z1/16) - 0.5);
 };
 
 Bound.prototype.updateOpacity = function() {
@@ -77,4 +61,6 @@ Bound.prototype.remove = function() {
 	model.remove(this.mesh);
 	Bounds.splice(Bounds.indexOf(this), 1);
 	UUIDS = Bounds.map(function(b){return b.uuid;});
+	myLayout.emit('deselectBound');
+	if( selectedMesh ) scene.remove(selectedMesh);
 };
