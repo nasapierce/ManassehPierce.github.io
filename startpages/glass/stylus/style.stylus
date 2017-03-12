@@ -1,0 +1,123 @@
+$background = #1d2021
+$foreground = #ebdbb2
+$darkblack = #282828
+$black = #928374
+$darkred = #cc241d
+$red = #fb4934
+$darkgreen = #98971a
+$green = #b8bb26
+$darkyellow = #d79921
+$yellow = #fabd2f
+$darkblue = #458588
+$blue = #83a598
+$darkmagenta = #b16286
+$magenta = #d3869b
+$darkcyan = #689d6a
+$cyan = #8ec07c
+$grey  #a89984
+$white #ebdbb2
+
+*
+  outline none
+
+body
+  font-family "Roboto", sans-serif
+  font-size 9pt
+  margin 0
+  padding 0
+  background $darkblack url(https://tacoanon.github.io/media/city.jpg) no-repeat center fixed
+  overflow hidden
+  
+.valign
+  position absolute
+  display block
+  top 50%
+  left 50%
+  transform translate(-50%,-50%)
+  width 80%
+
+.boxContainer
+  display flex
+  width 100%
+  margin-left -10px
+  margin-bottom 20px
+
+.box
+  flex 1
+  margin-left 20px
+  background rgba(0,0,0,0.45)
+  -webkit-box-shadow 7px 7px 5px 1px rgba(0,0,0,0.25)
+  -moz-box-shadow 7px 7px 5px 1px rgba(0,0,0,0.25)
+  box-shadow 7px 7px 5px 1px rgba(0,0,0,0.25)
+
+.title
+  background $grey
+  color $foreground
+  margin 5px
+  text-align center
+  &.blue
+    background $blue
+  &.green
+    background $green
+  &.red
+    background $red
+  &.yellow
+    background $yellow
+  &.magenta
+    background $magenta
+  &.cyan
+    background $cyan
+  
+
+ul
+  padding 0
+  list-style none
+  border 5px solid rgba(0,0,0,0)
+
+a:link
+a:visited
+  color $foreground
+  text-decoration none
+  text-align center
+
+.searchForm
+  padding-left 26px
+  padding-right 26px
+
+.searchInput
+  width 100%
+  max-width 24em
+  border none
+  margin auto
+  display block
+  padding 5px 5px
+  background-color rgba(0,0,0,0.45)
+  -webkit-box-shadow 7px 7px 5px 1px rgba(0,0,0,0.25)
+  -moz-box-shadow 7px 7px 5px 1px rgba(0,0,0,0.25)
+  box-shadow 7px 7px 5px 1px rgba(0,0,0,0.25)
+  font-size 14pt
+  color $foreground
+
+.date
+.time
+  color $foreground
+  top 20px
+  right 20px
+  position fixed
+  font-family 'Roboto'
+  font-weight 300
+  text-shadow 0  0    8px rgba(0,0,0,.18),
+              0  8px 16px rgba(0,0,0,.36)
+  //opacity 0
+  //transition opacity 0.2s cubic-bezier(0.4, 0.0, 0.2, 1) 0.05s
+
+.time
+  left 20px
+  right 0
+
+.font-3em
+  font-size 3em
+
+.container
+  opacity 0
+  transition opacity 1s
